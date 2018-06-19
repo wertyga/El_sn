@@ -1,0 +1,25 @@
+@import '../../styles/vars'
+
+.Settings
+  h2
+    margin-bottom: 13%
+  .positive, .negative
+    font-weight: bold
+    font-size: 20px
+  .positive
+    color: $successColorLight
+  .negative
+    color: $dangerColorLight
+  .username, .email, .extention
+    margin-bottom: 20px
+    span:first-child
+      font-weight: bold
+      font-size: 18px
+      margin-right: 20px
+      transition: color .5s
+    &.edit
+      span
+        color: $secondaryColor
+
+  .Input
+    width: initial
