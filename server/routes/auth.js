@@ -2,7 +2,7 @@ import hash from 'password-hash';
 
 import validateInputs from '../middlewares/validateRequireFields';
 
-import { getTradePairs } from './common/functions';
+import { getTradePairs } from '../common/functions/main';
 
 import User, { userFields, encryptPassword } from '../models/user';
 import Session from '../models/session';

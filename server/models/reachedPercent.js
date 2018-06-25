@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 
-import { remindUser } from '../routes/common/functions';
-import getNeedFields from '../common/compileNeedFields';
+import { remindUser } from '../common/functions/main';
+import getNeedFields from '../common/functions/compileNeedFields';
 
 import User from './user';
 

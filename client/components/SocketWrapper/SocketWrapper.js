@@ -48,7 +48,7 @@ import PowerPercents from '../PowerPercents/PowerPercents';
         };
 
         componentWillUnmount() {
-            this.socket.close();
+            if(this.socket) this.socket.close();
             // ipcRenderer.send('quit_app', this.props.user._id || localStorage.getItem('token'));
         };
 

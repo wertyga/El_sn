@@ -1,10 +1,12 @@
 import mongoose from 'mongoose';
 
-import { lowPercent, interval, growPercent } from "../routes/common/functions";
+import { lowPercent, interval, growPercent } from "../common/functions/main";
 
 import TradePair from './tradePairs';
-import getNeedFields from "../common/compileNeedFields";
+import getNeedFields from "../common/functions/compileNeedFields";
 import Percent from "./reachedPercent";
+
+const log = require('../common/log')(module);
 
 const SymbolDataSchema = new mongoose.Schema({
     symbol: {
@@ -76,7 +78,10 @@ function savePercents(doc) {
                 return false;
             };
         })
-        .catch(err => console.error('Error in "savePercents" function \n' + err))
+        .catch(err => {
+            console.error('Error in "savePercents" function \n' + err);
+            log(err, 'savePercents');
+        })
 
 };
 function analyzeData(doc) { // Analyze kline data

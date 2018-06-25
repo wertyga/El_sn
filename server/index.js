@@ -3,10 +3,11 @@ import bodyParser from 'body-parser';
 
 import './common/mongoose';
 import config from './common/config';
-const log = require('./common/log')(module);
 
 import './rabbitMQ/send';
 import './rabbitMQ/receive';
+
+const log = require('./common/log')(module);
 
 // ****************** Import routes *************
 import auth from './routes/auth';
@@ -14,8 +15,7 @@ import api from './routes/api';
 import user from './routes/user';
 //***********************************************
 import Pair  from './models/pair';
-import Session  from './models/session';
-import { getPowerPercentsFromUser } from "./common/commonFunctions";
+import { getPowerPercentsFromUser } from "./common/functions/commonFunctions";
 
 const dev = process.env.NODE_ENV === 'development';
 const test = process.env.NODE_ENV === 'test';
@@ -76,7 +76,6 @@ process.on('uncaughtException', function (err) {
 const io = require('socket.io')(server);
 
 io.on('connection', socket => {
-    console.log(`New user connected!`);
     let roomID;
     let socketInterval;
     socket.on('room', room => {
@@ -85,12 +84,11 @@ io.on('connection', socket => {
         console.log('Join to ' + roomID + ' room');
 
         socketInterval = setInterval(() => {
-            Promise.all([
+           return Promise.all([
                 getPowerPercentsFromUser(roomID)
                     .then(data => {
-                        io.to(roomID).emit('launch_reached_percents', { data });
-                    })
-                    .catch(err => console.log(err)),
+                        if(data) io.to(roomID).emit('launch_reached_percents', { data });
+                    }),
                 Pair.find({ owner: roomID }).then(pairs => Pair.populateByTitle(pairs.map(pair => pair._id)))
                     .then(pairs => {
                         io.to(roomID).emit('update-price', { pairs })
@@ -108,11 +106,12 @@ io.on('connection', socket => {
     });
 
     socket.on('disconnect', () => {
-        console.log(`leave ${roomID} room`);
-        clearInterval(socketInterval);
-        socketInterval = null;
-        socket.leave(roomID);
-        // Session.findByUserAndRemove(roomID)
+        if(roomID) {
+            console.log(`leave ${roomID} room`);
+            clearInterval(socketInterval);
+            socketInterval = null;
+            socket.leave(roomID);
+        };
     })
 });
 

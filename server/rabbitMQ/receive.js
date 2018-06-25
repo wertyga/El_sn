@@ -1,6 +1,7 @@
 import amqp from 'amqplib/callback_api';
-import { emailSending } from "../common/commonFunctions";
+import { emailSending } from "../common/functions/commonFunctions";
 
+const log = require('../common/log')(module);
 
 amqp.connect('amqp://localhost', function(err, conn) {
     conn.createChannel((err, ch) => {
@@ -16,7 +17,10 @@ amqp.connect('amqp://localhost', function(err, conn) {
                     .then(body => {
                         console.log(`Email sent!`)
                     })
-                    .catch(err => console.error(`Error in email-sending: ` + err))
+                    .catch(err => {
+                        console.error(`Error in email-sending(RMQ): ` + err);
+                        log(error, 'email-sending(RMQ)');
+                    })
             }, { noAck: true });
         });
     });

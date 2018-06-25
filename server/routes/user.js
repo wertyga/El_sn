@@ -1,4 +1,4 @@
-import { getTradePairs } from './common/functions';
+import { getTradePairs } from '../common/functions/main';
 
 import { userFields } from '../models/user';
 
