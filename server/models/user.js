@@ -4,7 +4,7 @@ import crypto from 'crypto';
 
 import config from '../common/config';
 
-import fetchFields from '../common/compileNeedFields';
+import fetchFields from '../common/functions/compileNeedFields';
 
 import Pair from './pair';
 

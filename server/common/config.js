@@ -33,5 +33,6 @@ export default {
     uploads: {
         directory: 'temp',
         destination: path.join(__dirname, '../', 'temp')
-    }
+    },
+    logFile: path.join(__dirname, '..', 'node.log')
 }

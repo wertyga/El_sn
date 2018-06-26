@@ -2,7 +2,7 @@ import hash from 'password-hash';
 
 import validateInputs from '../middlewares/validateRequireFields';
 
-import { getTradePairs } from './common/functions';
+import { getTradePairs } from '../common/functions/main';
 
 import User, { userFields, encryptPassword } from '../models/user';
 import Session from '../models/session';
@@ -45,8 +45,8 @@ route.post('/login', validateInputs, (req, res) => {
         getTradePairs()
     ])
         .then(data => {
-            const [userData, pairs] = data;
-            if(userData && userData.hashPassword === encryptPassword(req.body.password)) {
+            const [user, pairs] = data;
+            if(user && user.hashPassword === encryptPassword(req.body.password)) {
                 return User.populateAllFields({ username: req.body.username})
                     .then(user => {
                         return Session.saveToken(user._id.toString())

@@ -1,4 +1,5 @@
 import EventEmitter from 'events';
+const log = require('../log')(module);
 
 import ActualPairs  from '../../models/tradePairs';
 import Pair from '../../models/pair';
@@ -7,11 +8,11 @@ import SymbolData from '../../models/symbolData';
 
 import collectPairs from '../../../client/common/functions/collectPairs';
 
-import Api, { BinanceSocketApi } from '../../common/binanceAPI';
+import Api, { BinanceSocketApi } from '../api/binanceAPI';
 
 export const api = new Api();
 
-export const lowPercent = 20;
+export const lowPercent = 8;
 export const growPercent = 2;
 export const interval = '2h';
 
@@ -40,7 +41,10 @@ export function checkPairsForSignPrice() { // Check all pairs for compare to sig
                 };
             }))
         })
-        .catch(err => console.error('Error in "checkPairsForSignPrice" function \n' + err))
+        .catch(err => {
+            console.error('Error in "checkPairsForSignPrice" function \n' + err);
+            log.error(err, 'checkPairsForSignPrice');
+        })
 };
 
 export function remindUser(email, pair, sign, up) { // Remind user that sign price is reached
@@ -153,7 +157,10 @@ function getWhalesOrders() { // Get whales orders
                 return new Whale(item).save();
             }))
         })
-        .catch(err => console.error('Error in "getWhaleOrders" function \n' + err))
+        .catch(err => {
+            console.error('Error in "getWhaleOrders" function \n' + err);
+            log.error(err, 'getWhaleOrders');
+        })
 };
 
 
@@ -179,7 +186,10 @@ function getExchangeInfo() { // Get full exchage info
             }))
         })
         .then(data => console.log('Exchange info saved! '))
-        .catch(err => console.error(`Error in "getExchangeInfo": ${err}`))
+        .catch(err => {
+            console.error(`Error in "getExchangeInfo": ${err}`);
+            log.error(err)
+        })
 };
 
 let time = new Date();
@@ -219,6 +229,7 @@ function getKlineDataIO(interval) {
                 };
                 symbolWs.onerror = err => {
                     console.error(`Error in SocketAPI: ${err}`);
+                    log.error(err, 'SocketAPI')
                 };
             }))
         })

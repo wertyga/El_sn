@@ -172,7 +172,6 @@ let outputConfig = [browserConfig, electronConfig];
 
 if(isProd) {
     browserConfig.plugins.push(new UglifyJsPlugin());
-    outputConfig.push(serverConfig);
 };
 
 module.exports = outputConfig;

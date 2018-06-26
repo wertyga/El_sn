@@ -1,7 +1,6 @@
 import amqp from 'amqplib/callback_api';
 
-import { sendMailEE } from '../routes/common/functions';
-import {emailSending} from "../common/commonFunctions";
+import { sendMailEE } from '../common/functions/main';
 
 amqp.connect('amqp://localhost', function(err, conn) {
     if(!err) {

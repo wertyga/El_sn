@@ -1,4 +1,4 @@
-import { getTradePairs } from './common/functions';
+import { getTradePairs } from '../common/functions/main';
 
 import { userFields } from '../models/user';
 
@@ -10,7 +10,7 @@ import { loginUser } from './auth';
 const routes = require('express').Router();
 
 routes.post('/:id', validateCredentials, (req, res) => {
-    return Promise.all([
+    Promise.all([
         loginUser({ _id: req.params.id}),
         getTradePairs()
     ])

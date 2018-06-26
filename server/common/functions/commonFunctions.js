@@ -1,8 +1,8 @@
-import User from '../models/user';
-import { percentFields } from "../models/reachedPercent";
+import User from '../../models/user';
+import { percentFields } from "../../models/reachedPercent";
 
 // E-mail
-import emailConfig from './emailConfig';
+import emailConfig from '../emailConfig';
 import nodemailer from 'nodemailer';
 
 export const getPowerPercentsFromUser = (userId) => { // Power percents with 2% grow in 10s and 10% down while 2h
@@ -21,6 +21,7 @@ export const getPowerPercentsFromUser = (userId) => { // Power percents with 2% 
         })
 };
 
+// Send E-mail
 export const emailSending = (data) => {
     return User.findOne({ email: data.to })
         .then(user => {
@@ -30,7 +31,8 @@ export const emailSending = (data) => {
                 const transport = nodemailer.createTransport(emailConfig);
                 transport.sendMail(data,(err, body) => {
                     if(err) {
-                        console.error(`Sending email error: ${err}`)
+                        console.error(`Sending email error: ${err}`);
+                        log(err)
                         setTimeout(() => emailSending(data), 10000);
                     } else {
                         resolve(body);

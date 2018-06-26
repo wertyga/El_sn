@@ -1,4 +1,5 @@
 // Create package.json file with dependencies
+// Copy icons
 const fs = require('fs');
 const path = require('path');
 const shelljs = require('shelljs');

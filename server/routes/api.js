@@ -1,7 +1,7 @@
 import validateCredentials from '../middlewares/session';
 import ValidationCorrectPair from '../middlewares/ValidationCorrectPair';
 import { validateEmail } from '../middlewares/inputsValidation';
-import { getPowerPercentsFromUser } from '../common/commonFunctions';
+import { getPowerPercentsFromUser } from '../common/functions/commonFunctions';
 
 import Pair, { pairFields } from '../models/pair';
 import ActualPairs  from '../models/tradePairs';

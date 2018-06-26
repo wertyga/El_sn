@@ -30,10 +30,7 @@ import PowerPercents from '../PowerPercents/PowerPercents';
 
         componentDidMount() {
             ipcRenderer.send('login_user', 'User login');
-            if(this.props.match.params.id === 'undefined') {
-                this.props.history.replace('/');
-                return;
-            }
+
             if (isEmpty(this.props.user)) {
                 this.setState({ loading: true });
                 this.props.getUserData(this.props.match.params.id)
@@ -79,7 +76,7 @@ import PowerPercents from '../PowerPercents/PowerPercents';
 
             ipcRenderer.on('set_seen_power', (e, msg) => {
                 const powerSymbol = this.props.powerPercents.find(item => item._id === msg);
-                if(powerSymbol && !powerSymbol.isSeen) {
+                if(!powerSymbol.isSeen) {
                     this.props.setSeenPower(this.props.user._id, msg)
                         .catch(err => {
                             ipcRenderer.send('Error_in_set_seen_power', err.response ? err.response.data : err.message)

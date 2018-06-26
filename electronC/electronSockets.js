@@ -71,3 +71,29 @@ ipcMain.on('Error_in_set_seen_power', (e, msg) => {
 function setSeenWithCloseNotification(e, item) {
     e.sender.send('set_seen_power', item._id);
 };
+
+// function showNotification(messages) {
+//     const [ notifyWidth, notifyHeight] = [400, 200]
+//     const notifyWindow = new BrowserWindow({
+//         show: false,
+//         parent: 'top',
+//         modal: true,
+//         // frame: false,
+//         width: notifyWidth,
+//         height: notifyHeight,
+//         hasShadow: false,
+//         // resizable: false
+//     });
+//     const { width, height } = screen.getPrimaryDisplay().workAreaSize;
+//     notifyWindow.setPosition(width - notifyWidth, height - notifyHeight);
+//
+//
+//     isChildOpen = true;
+//     notifyWindow.loadURL(formatUrl({
+//         pathname: __dirname + '/notification.html',
+//         protocol: 'file',
+//         slashes: true
+//     }));
+//     notifyWindow.show();
+//     setTimeout(() => notifyWindow.close(), 1000)
+// };

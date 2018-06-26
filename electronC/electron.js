@@ -1,6 +1,7 @@
 import path from 'path';
 import { format as formatUrl } from 'url';
 import axios from 'axios';
+
 import './electronSockets';
 
 import {app, BrowserWindow, Menu, ipcMain, nativeImage} from 'electron';
@@ -70,7 +71,7 @@ const createWindow = () => {
         protocol: 'file',
         slashes: true
     }));
-    //Open the DevTools.
+    // Open the DevTools.
     if (true) {
         installExtension(REACT_DEVELOPER_TOOLS);
         installExtension(REDUX_DEVTOOLS);

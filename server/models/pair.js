@@ -2,9 +2,11 @@ import mongoose from 'mongoose';
 
 import User from './user';
 
-import fetchFields from '../common/compileNeedFields';
+import fetchFields from '../common/functions/compileNeedFields';
 import { tradePairFields } from './tradePairs';
-import {remindUser} from "../routes/common/functions";
+import {remindUser} from "../common/functions/main";
+
+const log = require('../common/log')(module);
 
 const pairSchema = new mongoose.Schema({
     title: {
@@ -39,7 +41,10 @@ pairSchema.post('save', function(doc) {
                 return user.save();
             };
         })
-        .catch(err => console.error(`Error in pair 'post' trigger: ${err.message}`))
+        .catch(err => {
+            console.error(`Error in pair 'post' trigger: ${err.message}`);
+            log.error(err, 'pair \'post\' trigger');
+        })
 });
 pairSchema.post('remove', function(doc) {
     return User.findById(doc.owner)

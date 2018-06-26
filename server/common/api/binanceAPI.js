@@ -1,6 +1,5 @@
 import axios from 'axios';
-// import WebSocket from 'ws';
-import WebSocket from './WebSocket';
+import WebSocket from '../WebSocket';
 
 export default class BinanceApi {
     constructor() {
