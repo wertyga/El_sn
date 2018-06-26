@@ -76,7 +76,7 @@ import PowerPercents from '../PowerPercents/PowerPercents';
 
             ipcRenderer.on('set_seen_power', (e, msg) => {
                 const powerSymbol = this.props.powerPercents.find(item => item._id === msg);
-                if(!powerSymbol.isSeen) {
+                if(powerSymbol && !powerSymbol.isSeen) {
                     this.props.setSeenPower(this.props.user._id, msg)
                         .catch(err => {
                             ipcRenderer.send('Error_in_set_seen_power', err.response ? err.response.data : err.message)
