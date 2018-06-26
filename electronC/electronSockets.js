@@ -45,6 +45,12 @@ ipcMain.on('get_new_powers', (e, data) => { // Emit if get a percent high Or low
 
             notification.show();
 
+            ipcMain.on('delete_power', id => {
+                if(item._id === id) {
+                    notification.close();
+                };
+            })
+
             notification.on('close', () => {
                 setSeenWithCloseNotification(e, item);
                 notification.close();

@@ -1,8 +1,6 @@
 // Create package.json file with dependencies
-// Copy icons
 const fs = require('fs');
 const path = require('path');
-const shelljs = require('shelljs');
 
 const nw = false;
 
@@ -47,7 +45,7 @@ const JSONContent = `{
     "permissions": ["chrome-extension://*"]
 }`;
 
-function createFile() {
+module.exports = function createJSON() {
     fs.stat(file, (err, stat) => {
         if(err && err.code === 'ENOENT') {
             fs.writeFile(file, JSONContent, (err) => {
@@ -66,18 +64,3 @@ function createFile() {
         }
     })
 };
-
-function copyIcons() {
-    const iconFiles = fs.readdir(path.join(__dirname, '..', 'icons'), (err, files) => {
-        if(err) {
-            console.log(`Error in icons copy: ${err}`)
-        } else {
-            shelljs.cp('-R', path.join(__dirname, '..', 'icons'), path.join(__dirname, '..', 'public'))
-        }
-    });
-};
-
-Promise.all([
-    createFile(),
-    copyIcons()
-])

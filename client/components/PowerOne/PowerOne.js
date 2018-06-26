@@ -1,4 +1,5 @@
 import { connect } from 'react-redux';
+import { ipcRenderer } from 'electron';
 
 import clearSession from "../../common/functions/clearSession";
 
@@ -40,6 +41,9 @@ class PowerOne extends React.Component {
 
     deletePower = () => {
         return this.props.deletePower(this.props.item._id, this.props.user._id)
+            .then(() => {
+                ipcRenderer.send('delete_power', this.props.item._id);
+            })
             .catch(err => {
                 const errors = clearSession(this, err);
                 if(errors) this.setState({ errors });

@@ -72,8 +72,6 @@ class PowerPercents extends React.Component {
                             key={item._id}
                             item={item}
                             history={this.props.history}
-                            // setSeen={this.setSeen}
-                            // deletePower={this.deletePower}
                         />
                     )}
                     {this.props.powers.length < 1 && <div className="empty">This stash is empty now</div>}

@@ -6,7 +6,7 @@ import Pair from '../../models/pair';
 import Whale  from '../../models/whale';
 import SymbolData from '../../models/symbolData';
 
-import collectPairs from '../../../client/common/functions/collectPairs';
+import collectPairs from './collectPairs';
 
 import Api, { BinanceSocketApi } from '../api/binanceAPI';
 
