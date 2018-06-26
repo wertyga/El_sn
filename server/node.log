@@ -13,3 +13,12 @@ Tue Jun 26 2018 10:51:05 GMT+0300 (Восточная Европа (лето))
 Tue Jun 26 2018 11:09:32 GMT+0300 (Восточная Европа (лето)) 
    ERROR:  D:\React\El_sn\server\common\functions\main.js': Error: connect ETIMEDOUT 52.84.195.147:443
 
+Tue Jun 26 2018 11:17:24 GMT+0300 (Восточная Европа (лето)) 
+   ERROR:  D:\React\El_sn\server\common\functions\main.js': Error
+
+Tue Jun 26 2018 11:18:24 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: getWhaleOrders D:\React\El_sn\server\common\functions\main.js': Error: Request failed with status code 502
+
+Tue Jun 26 2018 11:19:23 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: getWhaleOrders D:\React\El_sn\server\common\functions\main.js': Error: Request failed with status code 502
+

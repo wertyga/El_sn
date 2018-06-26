@@ -11,16 +11,14 @@
     margin-right: 10px
     margin-bottom: 10px
   .data
-    transition: height .5s, transform .3s
     height: 100%
     transform-origin: 50% 0
-    transform: scaleY(1)
     display: flex
     flex-wrap: wrap
     flex-direction: column
     &.close
       height: 0
-      transform: scaleY(0)
+      overflow: hidden
   .symbol
     font-weight: bold
     width: 100px
