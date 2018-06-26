@@ -30,16 +30,17 @@ export default class ButterMenu extends React.Component {
     };
 
     componentDidMount() {
-        setTimeout(() => {
-            this.f.classList.add('appear');
-        }, 300);
-        setTimeout(() => {
-            this.s.classList.add('appear');
-        }, 400);
-        setTimeout(() => {
-            this.t.classList.add('appear');
-        }, 500)
-
+        if(this.f && this.s && this.t) {
+            setTimeout(() => {
+                this.f.classList.add('appear');
+            }, 300);
+            setTimeout(() => {
+                this.s.classList.add('appear');
+            }, 400);
+            setTimeout(() => {
+                this.t.classList.add('appear');
+            }, 500)
+        }
     };
 
     componentDidUpdate(prevProps) {

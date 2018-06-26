@@ -82,7 +82,7 @@ function savePercents(doc) {
 function analyzeData(doc) { // Analyze kline data
     const onePercent = Number((doc.high / 100).toFixed(8));
     const different = Math.round((doc.high - doc.close) / onePercent);
-    if(different >= lowPercent && doc.open > doc.close) {
+    if(different >= lowPercent && doc.open > doc.close && different !== Infinity) {
         return {
             ...getSymbolDataFields(doc),
             interval: interval || '2h',

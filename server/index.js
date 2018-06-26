@@ -88,7 +88,7 @@ io.on('connection', socket => {
             Promise.all([
                 getPowerPercentsFromUser(roomID)
                     .then(data => {
-                        io.to(roomID).emit('launch_reached_percents', { data });
+                        if(data) io.to(roomID).emit('launch_reached_percents', { data });
                     })
                     .catch(err => console.log(err)),
                 Pair.find({ owner: roomID }).then(pairs => Pair.populateByTitle(pairs.map(pair => pair._id)))
@@ -108,11 +108,13 @@ io.on('connection', socket => {
     });
 
     socket.on('disconnect', () => {
-        console.log(`leave ${roomID} room`);
-        clearInterval(socketInterval);
-        socketInterval = null;
-        socket.leave(roomID);
-        // Session.findByUserAndRemove(roomID)
+        if(roomID) {
+            console.log(`leave ${roomID} room`);
+            clearInterval(socketInterval);
+            socketInterval = null;
+            socket.leave(roomID);
+            // Session.findByUserAndRemove(roomID)
+        }
     })
 });
 

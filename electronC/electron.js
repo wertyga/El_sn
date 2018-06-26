@@ -1,13 +1,10 @@
 import path from 'path';
 import { format as formatUrl } from 'url';
 import axios from 'axios';
-
-// import asd from '../icons/crypto_signer.png';
-
 import './electronSockets';
 
 import {app, BrowserWindow, Menu, ipcMain, nativeImage} from 'electron';
-// import installExtension, { REACT_DEVELOPER_TOOLS, REDUX_DEVTOOLS } from 'electron-devtools-installer';
+import installExtension, { REACT_DEVELOPER_TOOLS, REDUX_DEVTOOLS } from 'electron-devtools-installer';
 
 import { host } from '../client/common/globals';
 
@@ -44,13 +41,13 @@ export const menuTemplate = [
         ]
     }
 ];
-// if(true) {
-//     menuTemplate.push({
-//         label: 'DevTools',
-//         role: 'toggleDevTools',
-//         accelerator: 'CommandOrControl+Shift+I'
-//     });
-// };
+if(true) {
+    menuTemplate.push({
+        label: 'DevTools',
+        role: 'toggleDevTools',
+        accelerator: 'CommandOrControl+Shift+I'
+    });
+};
 
 
 export const loginScreen = {
@@ -73,12 +70,12 @@ const createWindow = () => {
         protocol: 'file',
         slashes: true
     }));
-    // Open the DevTools.
-    // if (true) {
-    //     installExtension(REACT_DEVELOPER_TOOLS);
-    //     installExtension(REDUX_DEVTOOLS);
-    //     mainWindow.webContents.openDevTools();
-    // }
+    //Open the DevTools.
+    if (true) {
+        installExtension(REACT_DEVELOPER_TOOLS);
+        installExtension(REDUX_DEVTOOLS);
+        mainWindow.webContents.openDevTools();
+    }
 
     // Emitted when the window is closed.
     mainWindow.on('closed', () => {

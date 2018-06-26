@@ -10,7 +10,7 @@ import { loginUser } from './auth';
 const routes = require('express').Router();
 
 routes.post('/:id', validateCredentials, (req, res) => {
-    Promise.all([
+    return Promise.all([
         loginUser({ _id: req.params.id}),
         getTradePairs()
     ])
