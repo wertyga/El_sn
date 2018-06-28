@@ -80,7 +80,7 @@ function savePercents(doc) {
         })
         .catch(err => {
             console.error('Error in "savePercents" function \n' + err);
-            log(err, 'savePercents');
+            log.error(err, 'savePercents');
         })
 
 };

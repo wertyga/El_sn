@@ -84,6 +84,11 @@ export const confirmChanging = (id, sign, text) => dispatch => {
         })
 };
 
+export const subscribing = (userID) => dispatch => {
+    return axios.post(host(`/api/subscribing`), { userID, token: getToken() })
+        .then(res => dispatch(setUser(res.data.user)))
+};
+
 export const setSeenPower = (userId, powerId) => dispatch => {
     return axios.post(host('/api/set-seen-powers'), { userId, powerId })
         .then(() => dispatch(setSeenPowersAction(powerId)))

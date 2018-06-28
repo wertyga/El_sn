@@ -1,5 +1,7 @@
 import EventEmitter from 'events';
 const log = require('../log')(module);
+import config from '../config';
+import axios from 'axios';
 
 import ActualPairs  from '../../models/tradePairs';
 import Pair from '../../models/pair';
@@ -15,9 +17,11 @@ export const api = new Api();
 export const lowPercent = 8;
 export const growPercent = 2;
 export const interval = '2h';
+export let externalToken; // external token for site server request
 
 export const sendMailEE = new EventEmitter();
 export const symbolDataEE = new EventEmitter();
+
 
 export function getTradePairs() { //Fetch available trade pairs
     return ActualPairs.find({}, 'symbol baseAsset quoteAsset')
@@ -45,41 +49,6 @@ export function checkPairsForSignPrice() { // Check all pairs for compare to sig
             console.error('Error in "checkPairsForSignPrice" function \n' + err);
             log.error(err, 'checkPairsForSignPrice');
         })
-};
-
-export function remindUser(email, pair, sign, up) { // Remind user that sign price is reached
-    let html;
-    if(sign) {
-        html = `<div>
-                <h3>${collectPairs(pair.titleId)[0].name}</h3>
-                 <p>Has reached ${pair.signPrice}</p>
-                  <br>
-                  <p>Time: ${new Date()}</p>
-                </div>`;
-    } else if(!sign && !up){
-        html = `<div>
-                <h3>${collectPairs(pair)[0].name}</h3>
-                 <p>Down for ${pair.percent}% from ${pair.high} to ${pair.close}</p>
-                  <br>
-                  <p>Time: ${new Date()}</p>
-                </div>`;
-    } else {
-        html = `<div>
-                <h3>${collectPairs(pair)[0].name}</h3>
-                 <p>Growing for ${pair.percent}%</p>
-                  <br>
-                  <p>Time: ${new Date()}</p>
-                </div>`;
-    }
-
-    const mailOptions = {
-        from: '"Crypto_signer" <cryptosignefication@gmail.com>',
-        to: email,
-        subject: 'Message from "Crypto_Signer"',
-        html
-    };
-
-    sendMailEE.emit('send_mail', mailOptions); // Sending body Email to common Email func then to rabbitMq worker
 };
 
 function getWhalesOrders() { // Get whales orders
@@ -247,7 +216,14 @@ setInterval(() => {
     return getExchangeInfo();
 }, 60000 * 60);
 
-getExchangeInfo().then(() => Promise.all([getKlineDataIO(interval), checkPairsForSignPrice()]))
+setInterval(() => { // send external token to site server
+    process.env.EXTERNALS = require('shortid').generate();
+    return axios.get(`${config.siteHost}/externals/token/${process.env.EXTERNALS}`)
+        .catch(err => console.error(err.message));
+}, 1000 * 60 * 30)
+
+getExchangeInfo().then(() => Promise.all([getKlineDataIO(interval), checkPairsForSignPrice()]));
+
 
 
 

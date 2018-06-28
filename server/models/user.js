@@ -31,11 +31,21 @@ let UserSchema = new mongoose.Schema({ //User Schema
     },
     isAuth: {
         type: Boolean,
-        default: false
+        default: false,
+    },
+    lastAuth: {
+        type: Date
     },
     isCool: {
         type: Boolean,
         default: true
+    },
+    isReceiveMail: {
+        type: Boolean,
+        default: true
+    },
+    emailCancelToken: {
+        type: String
     },
     percents: {
         type: [{
@@ -97,7 +107,7 @@ UserSchema.virtual('password')
 // *********************************
 
 export const userFields = (instance) => {
-    const UserNeedFields = ['username', '_id', 'email', 'isCool'];
+    const UserNeedFields = ['username', '_id', 'email', 'isCool', 'isReceiveMail'];
     return fetchFields(UserNeedFields, instance)
 };
 

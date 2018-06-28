@@ -23,7 +23,7 @@ class AddingPair extends React.Component {
         window.addEventListener('keyup', this.handleKey);
         this.props.fetchPairPrice(this.props.pair.title)
             .then(price => {
-                this.setState({ currentPrice: price, loading: false });
+                this.setState({ currentPrice: price.toFixed(8), loading: false });
                 this.input.focus();
             })
             .catch(err => { this.setState({ errors: err.response ? err.response.data : err.message, loading: false })});

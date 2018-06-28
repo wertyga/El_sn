@@ -13,6 +13,7 @@ const log = require('./common/log')(module);
 import auth from './routes/auth';
 import api from './routes/api';
 import user from './routes/user';
+import externals from './routes/externals';
 //***********************************************
 import Pair  from './models/pair';
 import { getPowerPercentsFromUser } from "./common/functions/commonFunctions";
@@ -63,6 +64,7 @@ if(prod) {
     app.use('/auth', auth);
     app.use('/api', api);
     app.use('/user', user);
+    app.use('/externals', externals);
 
 //******************************** Uncaught Exception ***************************
 

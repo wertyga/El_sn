@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-import { remindUser } from '../common/functions/main';
+import { remindUser } from '../common/functions/commonFunctions';
 import getNeedFields from '../common/functions/compileNeedFields';
 
 import User from './user';
@@ -28,11 +28,12 @@ ReachedPercent.post('save', doc => {
         Promise.all(users.map(user => {
             if(user.isCool) {
                 const userPercents = user.percents.map(item => item.percentId.toString());
+                const userObj = { email: user.email, id: user._id, emailCancelToken: user.emailCancelToken };
                 if(userPercents.indexOf(doc._id.toString()) === -1) { // If symbol is NOT present in user's list
-                    if(doc.percent < 0) { console.log('New percent saved!: ', doc._id)
-                        remindUser(user.email, doc, false, false);
-                    } else {
-                        remindUser(user.email, doc, false, true);
+                    if(doc.percent < 0 && user.isReceiveMail) { console.log('New percent saved!: ', doc._id)
+                        remindUser(userObj, doc, false, false);
+                    } else if(user.isReceiveMail){
+                        remindUser(userObj, doc, false, true);
                     };
                     user.percents.push({ percentId: doc._id});
                     return user.save();
@@ -40,10 +41,10 @@ ReachedPercent.post('save', doc => {
                     userPercents.indexOf(doc._id.toString()) !== -1 &&
                     (new Date().getHours() - new Date(doc.prevUpdate).getHours() > 2)
                 ) { console.log('Percent updated!: ', doc._id)
-                    if(doc.percent < 0) {
-                        remindUser(user.email, doc, false, false);
-                    } else {
-                        remindUser(user.email, doc, false, true);
+                    if(doc.percent < 0 && user.isReceiveMail) {
+                        remindUser(userObj, doc, false, false);
+                    } else if(user.isReceiveMail) {
+                        remindUser(userObj, doc, false, true);
                     };
                     const percentIndex = userPercents.indexOf(doc._id.toString());
                     user.percents[percentIndex].isSeen = false;

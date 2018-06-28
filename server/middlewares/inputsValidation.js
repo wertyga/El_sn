@@ -2,6 +2,13 @@ import isEmpty from 'lodash/isEmpty';
 
 export default function(data, blankField = 'Field can not be blank') {
     const errors = {};
+    if(typeof data !== 'object' || data instanceof Array || Object.keys(data) < 1) {
+        errors.globalError = 'Lets get out of here!';
+        return {
+            isValid: false,
+            errors
+        }
+    };
 
     Object.keys(data).forEach(item => {
         if(item.replace(/' '|-/g, '').toLowerCase() === 'email' && data[item].field && !validateEmail(data[item].field)) {

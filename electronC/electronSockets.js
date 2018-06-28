@@ -25,7 +25,7 @@ ipcMain.on('logout_user', (e, msg) => { // Resize main window
 ipcMain.on('reached_sign_price', (e, msg) => {
     const notification = new Notification({
         title: msg.symbol,
-        body: `${msg.symbol} has been reached sign price - ${msg.signPrice} \n Time: ${msg.time.split('.')[0]}`,
+        body: `${msg.symbol} has been reached sign price - ${msg.signPrice.toFixed(8)} \n Time: ${msg.time.split('.')[0]}`,
         icon: nativeImage.createFromPath(__dirname + '/../icons/crypto_signer.png')
     });
     notification.show();
@@ -33,7 +33,7 @@ ipcMain.on('reached_sign_price', (e, msg) => {
 ipcMain.on('get_new_powers', (e, data) => { // Emit if get a percent high Or low
     if(Notification.isSupported()) {
         data.forEach(item => {
-            const negative = `Crush down for ${item.percent}% \n From: ${item.high} To: ${item.close}`,
+            const negative = `Crush down for ${item.percent}% \n From: ${item.high.toFixed(8)} To: ${item.close.toFixed(8)}`,
                 positive = `Just jump up for +${item.percent}%`,
                 title = item.symbol === 'BTCUSDT' ? 'BTC / USDT' : item.symbol.split('BTC').join(' / BTC'),
                 body = item.percent > 0 ? positive : negative;

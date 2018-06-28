@@ -82,7 +82,7 @@ class Pair extends React.Component {
                     </p>
 
 
-                    <p className="price"><span>Previous price: </span><strong>{this.props.prevPrice}</strong></p>
+                    <p className="price"><span>Previous price: </span><strong>{this.props.prevPrice.toFixed(8)}</strong></p>
 
                     {this.props.sign &&
                         <div className="signTime">Reached time:

@@ -1,3 +1,5 @@
+import isEmpty from 'lodash/isEmpty';
+
 import validateCredentials from '../middlewares/session';
 import ValidationCorrectPair from '../middlewares/ValidationCorrectPair';
 import { validateEmail } from '../middlewares/inputsValidation';
@@ -9,6 +11,25 @@ import User, { userFields } from '../models/user';
 import Whales from '../models/whale';
 
 const routes = require('express').Router();
+
+routes.post('/subscribing', validateCredentials, (req, res) => {
+    const { userID } = req.body;
+    if(!userID || typeof userID !== 'string' || userID.length < 1) {
+        res.status(401).json('Access denided');
+        return;
+    };
+
+    return User.findById(userID)
+        .then(user => {
+            if(!user) {
+                res.status(403).json({ redirect: '/' });
+            } else {
+                user.isReceiveMail = !user.isReceiveMail;
+                return user.save().then(user => res.json({ user: userFields(user) }))
+            }
+        })
+        .catch(err => res.status(400).json({ errors: err.message }))
+});
 
 routes.post('/get-whales', validateCredentials, (req, res) => {
     const { amount } = req.body;

@@ -93,7 +93,8 @@ function signUpNewUser(req) { // Sign up new user
     return new User({
         username: req.body.username,
         password: req.body.password,
-        email: req.body.email
+        email: req.body.email,
+        emailCancelToken: encryptPassword(req.body.email)
     }).save()
         .then(user => {
             return {

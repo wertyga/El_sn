@@ -29,7 +29,7 @@ SessionSchema.static('saveToken', function(userID) {
             } else {
                 return Promise.all([
                     new this({ token, userID }).save(),
-                    User.findByIdAndUpdate(userID, { $set: { isAuth: true }})
+                    User.findByIdAndUpdate(userID, { $set: { isAuth: true, lastAuth: new Date() }})
                 ])
                     .then(data => {
                         const token = data[0].token;

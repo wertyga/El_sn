@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 
-import { confirmChanging } from '../../actions/api';
+import { confirmChanging, subscribing } from '../../actions/api';
 
 import { validateEmail } from '../../../server/middlewares/inputsValidation'
 
@@ -15,6 +15,7 @@ class Settings extends React.Component {
 
         this.state = {
             loading: false,
+            littleLoading: false,
             isEditing: '',
             errors: ''
         }
@@ -39,6 +40,31 @@ class Settings extends React.Component {
     };
 
     isEditing = inputName => { this.setState({ isEditing: inputName }) };
+
+    subscribing = () => {
+        this.setState({ littleLoading: true });
+        this.props.subscribing(this.props.user._id)
+            .then(() => {
+                this.setState({
+                    littleLoading: false
+                })
+            })
+            .catch(err => {
+                if(err.response && err.response.status === 401) {
+                    this.setState({
+                        littleLoading: false,
+                        errors: 'Access denided: reload the application'
+                    })
+                } else if(err.response && err.response.status === 403 && err.response.data.redirect) {
+                    this.props.history.replace(err.response.data.redirect);
+                } else {
+                    this.setState({
+                        littleLoading: false,
+                        errors: err.response ? err.response.data.errors : err.message
+                    })
+                };
+            })
+    };
 
     render() {
 
@@ -69,11 +95,18 @@ class Settings extends React.Component {
                         history={this.props.history}
                         isEditing={this.isEditing}
                         name="email"
-                        // floatText="E-mail"
                     />
                 </div>
                 <div className="extention"><span>Is extention account:</span>
                     {this.props.user.isCool ? <span className="positive">Yes</span> : <span className="negative">No</span>}
+                </div>
+                <div className="subscribe">
+                    <span>Subscribing to e-mail sending: </span>
+                    <input type="checkbox"
+                           checked={this.props.user.isReceiveMail}
+                           onChange={this.subscribing}
+                           disabled={this.state.littleLoading}
+                    />
                 </div>
             </div>
         );
@@ -91,4 +124,4 @@ Settings.propTypes = {
     confirmChanging: PropTypes.func.isRequired, // Dispatch to DB for changing user data
 };
 
-export default connect(mapState, { confirmChanging })(Settings);
+export default connect(mapState, { confirmChanging, subscribing })(Settings);

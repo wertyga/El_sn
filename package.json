@@ -2,7 +2,7 @@
   "name": "crypto_signer",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "./public/electron/electron.js",
   "scripts": {
     "test": "cross-env NODE_ENV=test jest --watchAll --env=jsdom",
     "webpack:dev": "cross-env NODE_ENV=development webpack -w",
@@ -11,7 +11,8 @@
     "ELECTRON:start:dev": "cross-env NODE_ENV=development nodemon --watch electronC --exec electron public/electron/electron.js",
     "ELECTRON:start:prod": "electron public/electron/electron.js",
     "build": "cross-env NODE_ENV=production webpack && node build_assets/index.js",
-    "electron-packager": "electron-packager ./public --overwrite"
+    "electron-packager": "electron-packager ./public --overwrite",
+    "electron-builder": "build"
   },
   "author": "",
   "license": "ISC",
@@ -103,8 +104,7 @@
   },
   "build": {
     "appId": "com.wc.cryptoSigner",
-    "productName": "Crypto Signer",
-    "target": "NSIS",
+    "productName": "Crypto_Signer",
     "directories": {
       "output": "build"
     },

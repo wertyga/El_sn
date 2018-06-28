@@ -6,10 +6,12 @@ amqp.connect('amqp://localhost', function(err, conn) {
     if(!err) {
         console.log('-- RabbitMQ connected --');
 
-        sendMailEE.on('send_mail', options => {
-            conn.createChannel((err, ch) => {
-                const ex = 'mail';
-                ch.assertExchange(ex, 'fanout', { durable: false });
+        conn.createChannel((err, ch) => {
+            const ex = 'mail';
+            ch.assertExchange(ex, 'fanout', { durable: false });
+
+            sendMailEE.on('send_mail', options => {
+                console.log('publish')
                 ch.publish(ex, '', new Buffer(JSON.stringify(options)));
             });
         });
