@@ -1,6 +1,7 @@
 import amqp from 'amqplib/callback_api';
-import { emailSending } from "../common/functions/commonFunctions";
-import '../common/mongoose';
+import nodemailer from "nodemailer";
+
+import emailConfig from "../common/emailConfig";
 
 
 const log = require('../common/log')(module);
@@ -11,6 +12,8 @@ amqp.connect('amqp://localhost', function(err, conn) {
         return;
     };
 
+    console.log('-- RabbitMQ Receiver Connected --');
+
     conn.createChannel((err, ch) => {
         const ex = 'mail';
 
@@ -20,15 +23,23 @@ amqp.connect('amqp://localhost', function(err, conn) {
 
             ch.consume(q.queue, msg => { console.log('Consume!')
                 const emailOptions = JSON.parse(msg.content.toString());
-                emailSending(emailOptions)
-                    .then(body => {
-                        console.log(`Email sent!`)
-                    })
-                    .catch(err => {
-                        console.error(`Error in email-sending(RMQ): ` + err);
-                        log(error, 'email-sending(RMQ)');
-                    })
+
+                emailSending(emailOptions);
             }, { noAck: true });
         });
     });
 });
+
+// Send E-mail
+export const emailSending = (data) => {
+    const transport = nodemailer.createTransport(emailConfig);
+    transport.sendMail(data,(err, body) => {
+        if(err) {
+            console.error(`Sending email error: ${err}`);
+            log.error(err)
+            setTimeout(() => emailSending(data), 10000);
+        } else {
+            console.log(`Email sent!`);
+        };
+    });
+};

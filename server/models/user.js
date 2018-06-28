@@ -1,5 +1,4 @@
 import mongoose from 'mongoose';
-import hash from 'password-hash';
 import crypto from 'crypto';
 
 import config from '../common/config';

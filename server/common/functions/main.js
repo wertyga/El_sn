@@ -17,7 +17,6 @@ export const api = new Api();
 export const lowPercent = 8;
 export const growPercent = 2;
 export const interval = '2h';
-export let externalToken; // external token for site server request
 
 export const sendMailEE = new EventEmitter();
 export const symbolDataEE = new EventEmitter();

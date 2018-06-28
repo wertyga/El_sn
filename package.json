@@ -12,7 +12,8 @@
     "ELECTRON:start:prod": "electron public/electron/electron.js",
     "build": "cross-env NODE_ENV=production webpack && node build_assets/index.js",
     "electron-packager": "electron-packager ./public --overwrite",
-    "electron-builder": "build"
+    "electron-builder": "build",
+    "rabbitmq": "cross-env NODE_ENV=development  babel-node server/index.js babel-node server/rabbitMQ/receive.js"
   },
   "author": "",
   "license": "ISC",

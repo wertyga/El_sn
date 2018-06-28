@@ -8,6 +8,8 @@ import {sendMailEE} from "./main";
 import collectPairs from "./collectPairs";
 import config from "../config";
 
+const log = require('../log')(module);
+
 export const getPowerPercentsFromUser = (userId) => { // Power percents with 2% grow in 10s and 10% down while 2h
     return User.findById(userId).populate('percents.percentId')
         .then(user => {
@@ -65,7 +67,13 @@ export function remindUser(user, pair, sign, up) { // Remind user that sign pric
         html
     };
 
-    sendMailEE.emit('send_mail', mailOptions); // Sending body Email to common Email func then to rabbitMq worker
+    return User.findOne({ email: user.email})
+        .then(user => {
+            if(user) {
+                sendMailEE.emit('send_mail', mailOptions); // Sending body Email to common Email func then to rabbitMq worker
+            };
+        })
+
 };
 
 // Send E-mail
@@ -79,7 +87,7 @@ export const emailSending = (data) => {
                 transport.sendMail(data,(err, body) => {
                     if(err) {
                         console.error(`Sending email error: ${err}`);
-                        log(err)
+                        log.error(err)
                         setTimeout(() => emailSending(data), 10000);
                     } else {
                         resolve(body);

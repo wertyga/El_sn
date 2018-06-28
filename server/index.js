@@ -5,7 +5,7 @@ import './common/mongoose';
 import config from './common/config';
 
 import './rabbitMQ/send';
-import './rabbitMQ/receive';
+// import './rabbitMQ/receive';
 
 const log = require('./common/log')(module);
 
