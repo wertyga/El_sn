@@ -88,13 +88,22 @@ app.on('ready', () => {
             'lajskdjsakj dljas ljdjsa djsa jdjsaj dljasl dlsajl djjsaljd lkajsld lsa d'
         },
         width: 400,
-        height:200,
+        height: 200,
         icon: {
-            image: icon
+            image: icon,
+            title: nativeImage.createFromPath(__dirname + '/../icons/crypto_signer.png')
         },
-        maxWindows: 3
+        maxWindows: 3,
     });
+
+    notify.on('close', () => {
+        console.log('close')
+    })
+    notify.on('show', () => {
+        console.log('show')
+    })
 });
+
 
 ipcMain.on('notify', () => {
 

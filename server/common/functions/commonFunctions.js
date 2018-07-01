@@ -1,12 +1,14 @@
+import EventEmitter from 'events';
+
 import User from '../../models/user';
 import { percentFields } from "../../models/reachedPercent";
 
 // E-mail
-import {sendMailEE} from "./main";
 import collectPairs from "./collectPairs";
 import config from "../config";
 
 const log = require('../log')(module);
+const sendMailEE = new EventEmitter();
 
 export const getPowerPercentsFromUser = (userId) => { // Power percents with 2% grow in 10s and 10% down while 2h
     return User.findById(userId).populate('percents.percentId')

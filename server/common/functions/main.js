@@ -1,4 +1,3 @@
-import EventEmitter from 'events';
 const log = require('../log')(module);
 import config from '../config';
 import axios from 'axios';
@@ -17,10 +16,6 @@ export const api = new Api();
 export const lowPercent = 8;
 export const growPercent = 2;
 export const interval = '2h';
-
-export const sendMailEE = new EventEmitter();
-export const symbolDataEE = new EventEmitter();
-
 
 export function getTradePairs() { //Fetch available trade pairs
     return ActualPairs.find({}, 'symbol baseAsset quoteAsset')

@@ -1,3 +1,5 @@
+import EventEmitter from 'events';
+
 import filterObject from '../../client/common/functions/filterObject';
 import { BrowserWindow, screen, ipcMain } from 'electron';
 
@@ -23,12 +25,15 @@ import { BrowserWindow, screen, ipcMain } from 'electron';
 //     maxWindows: // Windows count
 //     mainContent: // mainContent styles,
 //     horizPos: // Horizontal position
-//     vertPos: // Vertical position
+//     vertPos: // Vertical position,
+//     useContentSize: // ContentSize of BrowserWindow
+//     transitionSpeed: // Speed of window moving
 
 let count = 0;
 
-class WcNotify {
+class WcNotify extends EventEmitter {
     constructor(opt) {
+        super();
         this._queue = [];
         this._max = opt.maxWindows || 3;
         this._winIDs = [];
@@ -37,6 +42,7 @@ class WcNotify {
         this.notifyHeight = opt.height || 200;
         this.horizPos = opt.horizPos || 20;
         this.vertPos = opt.vertPos || 20;
+        this.transitionSpeed = opt.transitionSpeed || 5;
     };
 
     show() {
@@ -45,15 +51,16 @@ class WcNotify {
             parent: 'top',
             modal: true,
             frame: false,
-            // useContentSize: true,
+            useContentSize: this.opt.useContentSize || false,
             width: this.notifyWidth,
             height: this.notifyHeight,
             hasShadow: false,
             resizable: false,
             alwaysOnTop: true,
-            show: false
+            show: false,
+            movable: false,
         });
-
+        count += 1;
         // Load content
         const file = 'data:text/html;charset=UTF-8,' + encodeURIComponent(loadView(this.opt));
         _notifyWindow.loadURL(file);
@@ -79,7 +86,7 @@ class WcNotify {
         }
     };
 
-    _getWindowPosition(win) {
+    _getWindowPositionRight(win) {
         // Get sizes
         const { width, height } = screen.getPrimaryDisplay().workAreaSize;
 
@@ -92,36 +99,52 @@ class WcNotify {
         }
     };
 
+    _getWindowPositionTop(win) {
+        // Get sizes
+        const { width, height } = screen.getPrimaryDisplay().workAreaSize;
+
+        // Set position
+        const horizPos = width - this.notifyWidth - this.horizPos;
+        const vertPos = this.vertPos + (this.notifyHeight + 5) * (this._winIDs.indexOf(win.id));
+        return {
+            horizPos,
+            vertPos
+        }
+    };
+
     _setEventHandleres = (win) => {
         win.on('show', () => {
-            count += 1;
+            this.emit('show');
             this._winIDs.push(win.id);
-            const { horizPos, vertPos } = this._getWindowPosition(win);
+            const { horizPos, vertPos } = this._getWindowPositionRight(win);
             win.setPosition(horizPos, vertPos);
+            // win.webContents.openDevTools();
 
             ipcMain.on(`windowID-${win.id}`, this._close);
+            ipcMain.on(`body_click-${win.id}`, this._close);
         });
 
         win.on('close', () => {
+            this.emit('close');
             this._winIDs.splice(this._winIDs.indexOf(win.id), 1);
             ipcMain.removeListener(`windowID-${win.id}`, this._close);
+            ipcMain.removeListener(`body_click-${win.id}`, this._close);
         });
         win.on('closed', () => {
             if(this._winIDs.length > 0) {
-                this._launchMove();
+                this._launchMoveRight();
             };
             if(this._queue.length > 0) {
                 this._queue[0].show();
-                // this._setWindowPosition(this._queue[0]);
                 this._queue.shift();
             };
         });
     };
 
-    _moveWindow(windowID) {
+    _moveWindowFromRight(windowID) {
         const window = BrowserWindow.fromId(windowID);
         if(!window) return;
-        const { horizPos, vertPos } = this._getWindowPosition(window);
+        const { horizPos, vertPos } = this._getWindowPositionRight(window);
         let timer = setInterval(() => {
             const [winX, winY] = window.getPosition();
             if(winY >= vertPos) {
@@ -130,14 +153,35 @@ class WcNotify {
             } else {
                 window.setPosition(winX, Math.min(winY + 10, vertPos));
             }
-        }, 13);
+        }, this.transitionSpeed);
     };
 
-   _launchMove() {
-       for(let i = 0; i < this._winIDs.length; i++) {
-           this._moveWindow(this._winIDs[i])
-       };
-   };
+    _moveWindowFromTop(windowID) {
+        const window = BrowserWindow.fromId(windowID);
+        if(!window) return;
+        const { horizPos, vertPos } = this._getWindowPositionTop(window);
+        let timer = setInterval(() => {
+            const [winX, winY] = window.getPosition();
+            if(winY <= vertPos) {
+                clearInterval(timer);
+                timer = null;
+            } else {
+                window.setPosition(winX, Math.max(winY - 10, vertPos));
+            }
+        }, this.transitionSpeed);
+    };
+
+   _launchMoveRight() {
+        for(let i = 0; i < this._winIDs.length; i++) {
+            this._moveWindowFromRight(this._winIDs[i])
+        };
+    };
+
+    _launchMoveTop() {
+        for(let i = this._winIDs.length - 1; i >= 0; i--) {
+            this._moveWindowFromTop(this._winIDs[i])
+        };
+    };
 };
 
 const loadView = (opt) => {
@@ -157,8 +201,10 @@ const loadView = (opt) => {
         ...filterObject(opt.text, 'text')
     };
     const rootStyles = {
+        'user-select': 'none',
         width: '100vw',
         height: '100vh',
+        cursor: 'pointer',
         ...opt.rootStyles
     };
     const mainContent = {
@@ -197,7 +243,7 @@ const loadView = (opt) => {
         <title>${opt.title.text}</title>
      
     </head>
-    <body style="margin: 0; overflow-x: hidden;">
+    <body style="margin: 0; overflow: hidden;">
     
         <div id="root" style="${rootStyleString}">
             <div class="close" style="text-align: right; padding-top: 10px; padding-right: 13px;"><span style="padding: 10px; cursor: pointer;">&times</span></div>
@@ -215,17 +261,15 @@ const loadView = (opt) => {
         </div>
     
         <script>
+            let windowID = require('electron').remote.getCurrentWindow().id;
             function closeWindow() {
-                var windowID = require('electron').remote.getCurrentWindow().id;
                 require('electron').ipcRenderer.send('windowID-' + windowID, windowID);
             };
             
             window.onload = function() {
-                // window.addEventListener('keyup', function(e) {
-                //    if(e.keyCode === 27) {
-                //        closeWindow()
-                //    };
-                // });
+                document.body.onclick = function(e) {
+                    ipcRenderer.send('body_click-' + windowID, windowID);
+                };
 
                 // setTimeout(close, ${opt.closeTimeout || 6000});
                 
