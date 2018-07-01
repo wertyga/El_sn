@@ -4,8 +4,7 @@ import bodyParser from 'body-parser';
 import './common/mongoose';
 import config from './common/config';
 
-import './rabbitMQ/send';
-// import './rabbitMQ/receive';
+import './rabbitMQ/EmailsendMQ';
 
 const log = require('./common/log')(module);
 
@@ -26,13 +25,6 @@ export const app = express();
 export const server = require('http').Server(app);
 
 const timeToSendSocketData = 5000;
-
-    //******************************** Run server ***************************
-
-    server.listen(config.PORT, () => console.log(`Server run on ${config.PORT} port`));
-
-    // *******************************************************************
-
 
 if(prod) {
 
@@ -117,6 +109,12 @@ io.on('connection', socket => {
     })
 });
 
+
+//******************************** Run server ***************************
+
+server.listen(config.PORT, () => console.log(`Server run on ${config.PORT} port`));
+
+// *******************************************************************
 
 
 

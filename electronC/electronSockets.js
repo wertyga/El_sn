@@ -1,6 +1,10 @@
-import { ipcMain, Notification, nativeImage } from 'electron';
+import { ipcMain, Notification, nativeImage, app } from 'electron';
 
 import { mainWindow, loginScreen } from './electron';
+
+
+import WcNotify from './WcNotification/index';
+import icon from '../icons/crypto_signer.png';
 
 // Functions
 const resizeMainScreen = (win) => {
@@ -33,10 +37,13 @@ ipcMain.on('reached_sign_price', (e, msg) => {
 ipcMain.on('get_new_powers', (e, data) => { // Emit if get a percent high Or low
     if(Notification.isSupported()) {
         data.forEach(item => {
-            const negative = `Crush down for ${item.percent}% \n From: ${item.high.toFixed(8)} To: ${item.close.toFixed(8)}`,
-                positive = `Just jump up for +${item.percent}%`,
-                title = item.symbol === 'BTCUSDT' ? 'BTC / USDT' : item.symbol.split('BTC').join(' / BTC'),
-                body = item.percent > 0 ? positive : negative;
+            let body;
+            if(item.percent > 0) {
+                body = `Just jump up for +${item.percent}%`;
+            } else {
+                body = `Crush down for ${item.percent}% \n From: ${item.high.toFixed(8)} To: ${item.close.toFixed(8)}`;
+            }
+            const title = item.symbol === 'BTCUSDT' ? 'BTC / USDT' : item.symbol.split('BTC').join(' / BTC');
             const notification = new Notification({
                 title,
                 body,
@@ -44,12 +51,6 @@ ipcMain.on('get_new_powers', (e, data) => { // Emit if get a percent high Or low
             });
 
             notification.show();
-
-            ipcMain.on('delete_power', id => {
-                if(item._id === id) {
-                    notification.close();
-                };
-            })
 
             notification.on('close', () => {
                 setSeenWithCloseNotification(e, item);
@@ -74,32 +75,33 @@ ipcMain.on('Error_in_set_seen_power', (e, msg) => {
     errorNotification.show();
 });
 
+let notify;
+
+app.on('ready', () => {
+    notify = new WcNotify({
+        title: {
+            text: 'TITLE'
+        },
+        text: {
+            text: 'asjkhdjash jkdhasjk hdnsah dhsajk hdkjsagh dhasjk hdjsah djhasjk hdsah dhaksj dhsa jkhdhsa djhaskj hdksah kdajsh dk' +
+            'agsd jhajks hdjhsak jhdjsa hjkdhkajsh kdhasjk hdksah kjdhkajsh dkhsakhd kajshd haksjhd kjahskdhaksjhd kjahsjkd hkajshd khasjkd h' +
+            'lajskdjsakj dljas ljdjsa djsa jdjsaj dljasl dlsajl djjsaljd lkajsld lsa d'
+        },
+        width: 400,
+        height:200,
+        icon: {
+            image: icon
+        },
+        maxWindows: 3
+    });
+})
+
+ipcMain.on('notify', () => {
+
+    notify.show()
+});
+
 function setSeenWithCloseNotification(e, item) {
     e.sender.send('set_seen_power', item._id);
 };
 
-// function showNotification(messages) {
-//     const [ notifyWidth, notifyHeight] = [400, 200]
-//     const notifyWindow = new BrowserWindow({
-//         show: false,
-//         parent: 'top',
-//         modal: true,
-//         // frame: false,
-//         width: notifyWidth,
-//         height: notifyHeight,
-//         hasShadow: false,
-//         // resizable: false
-//     });
-//     const { width, height } = screen.getPrimaryDisplay().workAreaSize;
-//     notifyWindow.setPosition(width - notifyWidth, height - notifyHeight);
-//
-//
-//     isChildOpen = true;
-//     notifyWindow.loadURL(formatUrl({
-//         pathname: __dirname + '/notification.html',
-//         protocol: 'file',
-//         slashes: true
-//     }));
-//     notifyWindow.show();
-//     setTimeout(() => notifyWindow.close(), 1000)
-// };

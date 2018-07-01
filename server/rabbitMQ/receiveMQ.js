@@ -21,7 +21,7 @@ amqp.connect('amqp://localhost', function(err, conn) {
         ch.assertQueue('', { exclusive: true }, (err, q) => {
             ch.bindQueue(q.queue, ex, '');
 
-            ch.consume(q.queue, msg => { console.log('Consume!')
+            ch.consume(q.queue, msg => {
                 const emailOptions = JSON.parse(msg.content.toString());
 
                 emailSending(emailOptions);
@@ -33,6 +33,7 @@ amqp.connect('amqp://localhost', function(err, conn) {
 // Send E-mail
 export const emailSending = (data) => {
     const transport = nodemailer.createTransport(emailConfig);
+    console.log('Sending...')
     transport.sendMail(data,(err, body) => {
         if(err) {
             console.error(`Sending email error: ${err}`);

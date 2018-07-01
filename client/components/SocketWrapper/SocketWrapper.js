@@ -70,7 +70,7 @@ import PowerPercents from '../PowerPercents/PowerPercents';
 
                 const newPowers = powers.filter(item => !item.isSeen);
                 if(newPowers.length > 0) {
-                    ipcRenderer.send('get_new_powers', newPowers);
+                    // ipcRenderer.send('get_new_powers', newPowers);
                 }
             });
 
@@ -94,6 +94,9 @@ import PowerPercents from '../PowerPercents/PowerPercents';
         render() {
             return (
                 <div className="SocketWrapper">
+                    <button className="btn primary" onClick={() => ipcRenderer.send('notify', {})}>Notify</button>
+                    <button className="btn primary" onClick={() => ipcRenderer.send('left', {})}>Left</button>
+                    <button className="btn primary" onClick={() => ipcRenderer.send('right', {})}>Right</button>
                     {this.state.loading && <Loading />}
                     <div className="upper_bar">{this.state.contentOfUpperBar}</div>
                     <Route path="/user/:id" exact render={() => <UserScreen {...this.props} {...this.state}/>}/>

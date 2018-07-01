@@ -26,6 +26,7 @@ class PowerOne extends React.Component {
     };
 
     bodyScroll = () => {
+        if(!this.mainRef) return;
         const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
         const  { bottom }  = this.mainRef.getBoundingClientRect();
         const totalHeight = scrollTop + window.innerHeight;
@@ -41,9 +42,6 @@ class PowerOne extends React.Component {
 
     deletePower = () => {
         return this.props.deletePower(this.props.item._id, this.props.user._id)
-            .then(() => {
-                ipcRenderer.send('delete_power', this.props.item._id);
-            })
             .catch(err => {
                 const errors = clearSession(this, err);
                 if(errors) this.setState({ errors });

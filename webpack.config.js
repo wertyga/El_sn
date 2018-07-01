@@ -46,7 +46,7 @@ const browserConfig = {
             },
 
             {
-                test: /\.(gif|png|jpeg|jpg)$/i,
+                test: /\.(gif|png|jpeg|jpg|svg)$/i,
                 loaders: [
                     {
                         loader: 'url-loader',
@@ -54,19 +54,19 @@ const browserConfig = {
                     {
                         loader: 'image-webpack-loader',
                         query: {
-                            progressive: true,
-                            optimizationLevel: 7,
-                            interlaced: false,
                             mozjpeg: {
-                                quality: 65
+                                progressive: true,
                             },
-                            pngquant:{
-                                quality: "65-90",
-                                speed: 4
+                            gifsicle: {
+                                interlaced: false,
                             },
-                            svgo:{
-                                plugins: [{ removeViewBox: false }, { removeEmptyAttrs: false }]
-                            }
+                            optipng: {
+                                optimizationLevel: 4,
+                            },
+                            pngquant: {
+                                quality: '75-90',
+                                speed: 3,
+                            },
                         }
                     }
                 ]
@@ -154,6 +154,38 @@ const electronConfig = {
                 test: /\.(js|jsx)$/,
                 exclude: /node_modules/,
                 loaders: 'babel-loader'
+            },
+
+            {
+                test: /\.(png|ico)$/i,
+                loader: 'url-loader'
+            },
+
+            {
+                test: /\.(gif|jpeg|jpg|svg)$/i,
+                loaders: [
+                    {
+                        loader: 'url-loader',
+                    },
+                    {
+                        loader: 'image-webpack-loader',
+                        query: {
+                            mozjpeg: {
+                                progressive: true,
+                            },
+                            gifsicle: {
+                                interlaced: false,
+                            },
+                            optipng: {
+                                optimizationLevel: 4,
+                            },
+                            pngquant: {
+                                quality: '75-90',
+                                speed: 3,
+                            },
+                        }
+                    }
+                ]
             }
         ]
     },

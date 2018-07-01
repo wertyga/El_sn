@@ -54,7 +54,8 @@ if(true) {
 export const loginScreen = {
     width: 330,
     height: 600,
-    resizable: isDevMode,
+    resizable: true,
+    frame: true,
     title: 'Crypto Signer',
     icon: nativeImage.createFromPath(__dirname + '/../icons/crypto_signer.png')
 };
@@ -76,7 +77,7 @@ const createWindow = () => {
         installExtension(REACT_DEVELOPER_TOOLS);
         installExtension(REDUX_DEVTOOLS);
         mainWindow.webContents.openDevTools();
-    }
+    };
 
     // Emitted when the window is closed.
     mainWindow.on('closed', () => {

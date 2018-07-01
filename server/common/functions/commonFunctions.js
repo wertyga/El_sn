@@ -2,8 +2,6 @@ import User from '../../models/user';
 import { percentFields } from "../../models/reachedPercent";
 
 // E-mail
-import emailConfig from '../emailConfig';
-import nodemailer from 'nodemailer';
 import {sendMailEE} from "./main";
 import collectPairs from "./collectPairs";
 import config from "../config";
@@ -76,23 +74,3 @@ export function remindUser(user, pair, sign, up) { // Remind user that sign pric
 
 };
 
-// Send E-mail
-export const emailSending = (data) => {
-    return User.findOne({ email: data.to })
-        .then(user => {
-            if(!user) return false;
-            return new Promise((resolve, reject) => {
-                // resolve(true);
-                const transport = nodemailer.createTransport(emailConfig);
-                transport.sendMail(data,(err, body) => {
-                    if(err) {
-                        console.error(`Sending email error: ${err}`);
-                        log.error(err)
-                        setTimeout(() => emailSending(data), 10000);
-                    } else {
-                        resolve(body);
-                    }
-                });
-            });
-        })
-};
