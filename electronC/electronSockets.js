@@ -94,7 +94,7 @@ app.on('ready', () => {
         },
         maxWindows: 3
     });
-})
+});
 
 ipcMain.on('notify', () => {
 

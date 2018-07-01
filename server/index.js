@@ -4,7 +4,7 @@ import bodyParser from 'body-parser';
 import './common/mongoose';
 import config from './common/config';
 
-import './rabbitMQ/EmailsendMQ';
+// import './rabbitMQ/EmailsendMQ';
 
 const log = require('./common/log')(module);
 

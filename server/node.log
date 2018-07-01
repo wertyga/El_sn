@@ -1,3 +1,9 @@
 Sat Jun 30 2018 21:44:56 GMT+0300 (+03) 
    ERROR: getWhaleOrders /media/wertyga/B688E5DB88E59A5F/LINUX Projects JS/El_sn/server/common/functions/main.js': Error: Request failed with status code 429
 
+Sun Jul 01 2018 15:15:28 GMT+0300 (RTZ 2 (зима)) 
+   ERROR:  G:\REACTJS\El_sn\server\common\mongoose.js': failed to connect to server [localhost:27017] on first connect [MongoNetworkError: connect ECONNREFUSED 127.0.0.1:27017]
+
+Sun Jul 01 2018 15:16:28 GMT+0300 (RTZ 2 (зима)) 
+   ERROR:  G:\REACTJS\El_sn\server\common\mongoose.js': failed to connect to server [localhost:27017] on first connect [MongoNetworkError: connect ECONNREFUSED 127.0.0.1:27017]
+
