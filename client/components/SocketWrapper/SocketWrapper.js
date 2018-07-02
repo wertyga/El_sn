@@ -70,7 +70,7 @@ import PowerPercents from '../PowerPercents/PowerPercents';
 
                 const newPowers = powers.filter(item => !item.isSeen);
                 if(newPowers.length > 0) {
-                    // ipcRenderer.send('get_new_powers', newPowers);
+                    ipcRenderer.send('get_new_powers', newPowers);
                 }
             });
 

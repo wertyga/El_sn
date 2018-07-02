@@ -7,3 +7,6 @@ Sun Jul 01 2018 15:15:28 GMT+0300 (RTZ 2 (зима))
 Sun Jul 01 2018 15:16:28 GMT+0300 (RTZ 2 (зима)) 
    ERROR:  G:\REACTJS\El_sn\server\common\mongoose.js': failed to connect to server [localhost:27017] on first connect [MongoNetworkError: connect ECONNREFUSED 127.0.0.1:27017]
 
+Mon Jul 02 2018 15:13:23 GMT+0300 (Восточная Европа (лето)) 
+   ERROR:  D:\React\El_sn\server\common\functions\main.js': Error: connect ETIMEDOUT 52.84.195.147:443
+

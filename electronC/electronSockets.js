@@ -34,21 +34,28 @@ ipcMain.on('reached_sign_price', (e, msg) => {
     });
     notification.show();
 });
+const notification = new WcNotify({
+    title: {
+        text: title
+    },
+    text: {
+        text
+    },
+    icon: {
+        image: nativeImage.createFromPath(__dirname + '/../icons/crypto_signer.png')
+    }
+});
 ipcMain.on('get_new_powers', (e, data) => { // Emit if get a percent high Or low
     if(Notification.isSupported()) {
         data.forEach(item => {
-            let body;
+            let text;
             if(item.percent > 0) {
-                body = `Just jump up for +${item.percent}%`;
+                text = `Just jump up for +${item.percent}%`;
             } else {
-                body = `Crush down for ${item.percent}% \n From: ${item.high.toFixed(8)} To: ${item.close.toFixed(8)}`;
+                text = `Crush down for ${item.percent}% \n From: ${item.high.toFixed(8)} To: ${item.close.toFixed(8)}`;
             }
             const title = item.symbol === 'BTCUSDT' ? 'BTC / USDT' : item.symbol.split('BTC').join(' / BTC');
-            const notification = new Notification({
-                title,
-                body,
-                icon: nativeImage.createFromPath(__dirname + '/../icons/crypto_signer.png')
-            });
+
 
             notification.show();
 
@@ -78,6 +85,11 @@ ipcMain.on('Error_in_set_seen_power', (e, msg) => {
 let notify;
 
 app.on('ready', () => {
+
+});
+
+
+ipcMain.on('notify', () => {
     notify = new WcNotify({
         title: {
             text: 'TITLE'
@@ -102,10 +114,6 @@ app.on('ready', () => {
     notify.on('show', () => {
         console.log('show')
     })
-});
-
-
-ipcMain.on('notify', () => {
 
     notify.show()
 });
