@@ -1,6 +1,6 @@
 import amqp from 'amqplib/callback_api';
 
-import { sendMailEE } from '../common/functions/main';
+import { sendMailEE } from '../common/functions/commonFunctions';
 
 amqp.connect('amqp://localhost', function(err, conn) {
     if(!err) {
@@ -11,7 +11,7 @@ amqp.connect('amqp://localhost', function(err, conn) {
             ch.assertExchange(ex, 'fanout', { durable: false });
 
             sendMailEE.on('send_mail', options => {
-                console.log('publish')
+                console.log('published')
                 ch.publish(ex, '', new Buffer(JSON.stringify(options)));
             });
         });

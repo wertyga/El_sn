@@ -7,7 +7,7 @@ export default function(req, res, next) {
             if(ses) {
                 return next();
             } else {
-                res.status(401).json({ redirect: '/' })
+                res.status(401).json({ redirect: '/app/login' })
             }
         })
 };

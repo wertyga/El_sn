@@ -1,0 +1,41 @@
+@import '../../styles/vars'
+
+.UpperMenu
+  background-color: $mainColor
+  width: 100%
+  padding: 20px $paddingSide
+  display: flex
+  justify-content: space-between
+  position: relative
+  h1
+    color: $fontColorLight
+    padding-right: 5px
+    &.ping
+      border-right: 2px solid $fontColorLight
+  .circles
+    line-height: 100%
+    padding: 0 10px
+    display: flex
+    flex-direction: column
+    justify-content: space-between
+    cursor: pointer
+    transition: transform .5s
+    span
+      width: 10px
+      height: 10px
+      background-color: $fontColorLight
+      border-radius: 50%
+      //transition: transform .5s
+      //transform: translate(0, 0)
+      //transition-delay: .1s
+      //&:last-child
+      //  transition-delay: .0s
+    &.open
+      transform: rotate(-90deg)
+      //span:first-child
+      //  transform: translate(-150%, 140%)
+      //  transition-delay: .0s
+      //span:last-child
+      //  transform: translate(150%, -130%)
+      //  transition-delay: .1s
+

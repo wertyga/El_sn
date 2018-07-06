@@ -6,9 +6,11 @@ import { percentFields } from "../../models/reachedPercent";
 // E-mail
 import collectPairs from "./collectPairs";
 import config from "../config";
+import nodemailer from "nodemailer";
+import emailConfig from "../emailConfig";
 
 const log = require('../log')(module);
-const sendMailEE = new EventEmitter();
+export const sendMailEE = new EventEmitter();
 
 export const getPowerPercentsFromUser = (userId) => { // Power percents with 2% grow in 10s and 10% down while 2h
     return User.findById(userId).populate('percents.percentId')
@@ -29,7 +31,7 @@ export const getPowerPercentsFromUser = (userId) => { // Power percents with 2% 
 export function remindUser(user, pair, sign, up) { // Remind user that sign price is reached
     let html;
     const denidedBlock = `<div style="width: 100%; font-size: 10px; center; cursor: pointer;">
-                            <a href="${config.siteHost}/unsubscribing/${user.id}/${user.emailCancelToken}"><p>Unsibscribe email sending</p></a>  
+                            <a href="${config.host}/email/unsubscribing/${user.id}/${user.emailCancelToken}"><p>Unsibscribe email sending</p></a>  
                           </div>`
     if(sign) {
         html = `<div>
@@ -74,5 +76,20 @@ export function remindUser(user, pair, sign, up) { // Remind user that sign pric
             };
         })
 
+};
+
+// Send E-mail
+export const emailSending = (data) => {
+    const transport = nodemailer.createTransport(emailConfig);
+    console.log('Sending...')
+    transport.sendMail(data,(err, body) => {
+        if(err) {
+            console.error(`Sending email error: ${err}`);
+            log.error(err)
+            setTimeout(() => emailSending(data), 10000);
+        } else {
+            console.log(`Email sent!`);
+        };
+    });
 };
 

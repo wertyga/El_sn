@@ -1,21 +1,24 @@
 const webpack = require('webpack');
 const path = require('path');
 const nodeExternals = require('webpack-node-externals');
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
+// const ExtractTextPlugin = require("extract-text-webpack-plugin");
+// const HtmlWebpackPlugin = require('html-webpack-plugin');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const FontminPlugin = require('fontmin-webpack');
 
 const dev = process.env.NODE_ENV || 'development';
 const isProd = dev === 'production';
 
 const browserConfig = {
     entry: {
-        bundle: path.join(__dirname, 'client/index.js')
+        app: path.join(__dirname, 'client/index.js'),
+        site: path.join(__dirname, 'SITE/index.js'),
     },
-    externals: [nodeExternals()],
+    // externals: [nodeExternals()],
     output: {
         path: path.join(__dirname, 'public', 'static'),
-        filename: '[name].js'
+        filename: '[name].js',
+        publicPath: '/'
     },
 
     module: {
@@ -32,10 +35,9 @@ const browserConfig = {
 
             {
                 test: /(.woff2|.woff|.eot|.ttf|.otf|.svg)$/,
-                loader: 'url-loader',
+                loader: 'file-loader',
                 query: {
                     name: `fonts/[name].[ext]`,
-                    publicPath: `${__dirname}/public/static`
                 }
             },
 
@@ -46,29 +48,29 @@ const browserConfig = {
             },
 
             {
-                test: /\.(gif|png|jpeg|jpg|svg)$/i,
+                test: /\.(gif|png|jpeg|jpg|svg|ico)$/i,
                 loaders: [
                     {
-                        loader: 'url-loader',
+                        loader: 'file-loader',
                     },
-                    {
-                        loader: 'image-webpack-loader',
-                        query: {
-                            mozjpeg: {
-                                progressive: true,
-                            },
-                            gifsicle: {
-                                interlaced: false,
-                            },
-                            optipng: {
-                                optimizationLevel: 4,
-                            },
-                            pngquant: {
-                                quality: '75-90',
-                                speed: 3,
-                            },
-                        }
-                    }
+                    // {
+                    //     loader: 'image-webpack-loader',
+                    //     query: {
+                    //         mozjpeg: {
+                    //             progressive: true,
+                    //         },
+                    //         gifsicle: {
+                    //             interlaced: false,
+                    //         },
+                    //         optipng: {
+                    //             optimizationLevel: 4,
+                    //         },
+                    //         pngquant: {
+                    //             quality: '75-90',
+                    //             speed: 3,
+                    //         },
+                    //     }
+                    // }
                 ]
             }
 
@@ -76,11 +78,14 @@ const browserConfig = {
     },
 
     plugins: [
-        new HtmlWebpackPlugin({
-            title: 'Crypto Signer',
-            meta: {
-                viewport: 'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no'
-            }
+        // new HtmlWebpackPlugin({
+        //     title: 'Crypto Signer',
+        //     meta: {
+        //         viewport: 'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no'
+        //     }
+        // }),
+        new FontminPlugin({
+            autodetect: true, // automatically pull unicode characters from CSS
         }),
         new webpack.optimize.OccurrenceOrderPlugin(),
         new webpack.NoEmitOnErrorsPlugin(),
@@ -200,7 +205,7 @@ const electronConfig = {
     }
 };
 
-let outputConfig = [browserConfig, electronConfig];
+let outputConfig = [browserConfig];
 
 if(isProd) {
     browserConfig.plugins.push(new UglifyJsPlugin());

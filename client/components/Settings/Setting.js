@@ -41,9 +41,13 @@ class Settings extends React.Component {
 
     isEditing = inputName => { this.setState({ isEditing: inputName }) };
 
-    subscribing = () => {
-        this.setState({ littleLoading: true });
-        this.props.subscribing(this.props.user._id)
+    subscribing = (sign) => {
+        const sendObj = {
+            main: sign === 'main' ? !this.props.user.isReceiveMail.main : this.props.user.isReceiveMail.main,
+            power: sign === 'power' ? !this.props.user.isReceiveMail.power : this.props.user.isReceiveMail.power,
+        };
+        this.setState({ littleLoading: true, errors: '' });
+        this.props.subscribing(this.props.user._id, sendObj)
             .then(() => {
                 this.setState({
                     littleLoading: false
@@ -103,11 +107,23 @@ class Settings extends React.Component {
                 <div className="subscribe">
                     <span>Subscribing to e-mail sending: </span>
                     <input type="checkbox"
-                           checked={this.props.user.isReceiveMail}
-                           onChange={this.subscribing}
+                           checked={this.props.user.isReceiveMail.main}
+                           onChange={() => this.subscribing('main')}
                            disabled={this.state.littleLoading}
+                           value={this.props.user.isReceiveMail.main}
                     />
                 </div>
+                {this.props.user.isCool &&
+                    <div className="subscribe">
+                        <span>Subscribing to e-mail sending for power symbols: </span>
+                        <input type="checkbox"
+                               checked={this.props.user.isReceiveMail.power}
+                               onChange={() => this.subscribing('power')}
+                               disabled={this.state.littleLoading}
+                               value={this.props.user.isReceiveMail.power}
+                        />
+                    </div>
+                }
             </div>
         );
     };

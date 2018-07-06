@@ -1,30 +1,23 @@
 import LoginScreen from '../components/LogInScreen/LogInScreen';
-import UserScreen from '../components/UserScreen/UserScreen';
 import SignupPage from '../components/SignupPage/SignupPage';
-import Whales from '../components/Whales/Whales';
 import NotFound from '../components/404/404';
 import SocketWrapper from '../components/SocketWrapper/SocketWrapper';
 
 export default [
     {
-        path: '/',
-        exact: true,
+        path: '/app/login',
         component: LoginScreen
     },
     {
-        path: '/user/sign-up',
+        path: '/app/user/sign-up',
         component: SignupPage
     },
-    // {
-    //     path: '/user/:username/whales-orders',
-    //     component: Whales
-    // },
     {
-        path: '/user/:id',
+        path: '/app/user/:id',
         component: SocketWrapper
     },
     {
-        path: '/*',
+        path: '/app/*',
         component: NotFound
     }
 ]

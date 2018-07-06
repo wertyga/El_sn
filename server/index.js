@@ -4,7 +4,7 @@ import bodyParser from 'body-parser';
 import './common/mongoose';
 import config from './common/config';
 
-// import './rabbitMQ/EmailsendMQ';
+import './rabbitMQ/sendMQ';
 
 const log = require('./common/log')(module);
 
@@ -12,7 +12,8 @@ const log = require('./common/log')(module);
 import auth from './routes/auth';
 import api from './routes/api';
 import user from './routes/user';
-import externals from './routes/externals';
+import email from './routes/email';
+import fetch from './routes/fetch';
 //***********************************************
 import Pair  from './models/pair';
 import { getPowerPercentsFromUser } from "./common/functions/commonFunctions";
@@ -25,6 +26,24 @@ export const app = express();
 export const server = require('http').Server(app);
 
 const timeToSendSocketData = 5000;
+
+//****************** Webpack ********************
+if (false) {
+    const webpack = require('webpack');
+    const webpackConfig = require('../webpack.config');
+    const webpackHotMiddleware = require('webpack-hot-middleware');
+    const webpackMiddleware = require('webpack-dev-middleware');
+
+    const compiler = webpack(webpackConfig);
+
+    app.use(webpackMiddleware(compiler, {
+        hot: true,
+        publicPath: webpackConfig[0].output.publicPath,
+        noInfo: true
+    }));
+    app.use(webpackHotMiddleware(compiler));
+}
+//**********************************************
 
 if(prod) {
 
@@ -51,12 +70,21 @@ if(prod) {
     //************************************************************
 }
     app.use(bodyParser.json());
+    app.use(express.static(__dirname + '/../public/static'));
 
     //******************************** Routes ***************************
+    app.use('/fetch', fetch);
     app.use('/auth', auth);
     app.use('/api', api);
     app.use('/user', user);
-    app.use('/externals', externals);
+    app.use('/email', email);
+
+    app.get('/app/*', (req, res) => {
+        res.sendFile(__dirname + '/app.html');
+    });
+    app.get('/*', (req, res) => {
+        res.sendFile(__dirname + '/site.html')
+    });
 
 //******************************** Uncaught Exception ***************************
 

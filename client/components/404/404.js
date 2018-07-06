@@ -5,7 +5,9 @@ const noFound = () => {
                  width: '100%',
                  display: 'flex',
                  alignItems: 'center',
-                 flexDirection: 'column'}}>
+                 flexDirection: 'column',
+                 paddingTop: '20%'
+             }}>
             <h2>Page not found</h2>
             <h1>404 Error</h1>
         </div>

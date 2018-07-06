@@ -1,13 +1,9 @@
 const log = require('../log')(module);
-import config from '../config';
-import axios from 'axios';
 
 import ActualPairs  from '../../models/tradePairs';
 import Pair from '../../models/pair';
 import Whale  from '../../models/whale';
 import SymbolData from '../../models/symbolData';
-
-import collectPairs from './collectPairs';
 
 import Api, { BinanceSocketApi } from '../api/binanceAPI';
 
@@ -200,23 +196,17 @@ function getKlineDataIO(interval) {
 };
 
 // Intervals
-// setInterval(() => {
-//     checkPairsForSignPrice();
-// }, 10000);
-// setInterval(() => {
-//     return getWhalesOrders();
-// }, 60000);
-// setInterval(() => {
-//     return getExchangeInfo();
-// }, 60000 * 60);
-//
-// setInterval(() => { // send external token to site server
-//     process.env.EXTERNALS = require('shortid').generate();
-//     return axios.get(`${config.siteHost}/externals/token/${process.env.EXTERNALS}`)
-//         .catch(err => console.error(err.message));
-// }, 1000 * 60 * 30)
-//
-// getExchangeInfo().then(() => Promise.all([getKlineDataIO(interval), checkPairsForSignPrice()]));
+setInterval(() => {
+    checkPairsForSignPrice();
+}, 10000);
+setInterval(() => {
+    return getWhalesOrders();
+}, 60000);
+setInterval(() => {
+    return getExchangeInfo();
+}, 60000 * 60);
+
+getExchangeInfo().then(() => Promise.all([getKlineDataIO(interval), checkPairsForSignPrice()]));
 
 
 

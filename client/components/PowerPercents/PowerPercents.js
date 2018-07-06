@@ -57,7 +57,7 @@ class PowerPercents extends React.Component {
             <div className="PowerPercents">
                 <div className="upper_bar">
                     <div className="back_to_login"
-                         onClick={() => this.props.history.replace(`/user/${this.props.user._id}`)}
+                         onClick={() => this.props.history.replace(`/app/user/${this.props.user._id}`)}
                     >
                         <i className="fas fa-angle-left"></i>
                     </div>

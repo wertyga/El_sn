@@ -66,7 +66,7 @@ const createWindow = () => {
     Menu.setApplicationMenu(mainMenu);
     mainWindow = new BrowserWindow(loginScreen);
 
-    // and load the index.html of the app.
+    // and load the app.html of the app.
     mainWindow.loadURL(formatUrl({
         pathname: path.join(__dirname, '..', 'static', 'index.html'),
         protocol: 'file',

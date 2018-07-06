@@ -30,10 +30,10 @@ ReachedPercent.post('save', doc => {
                 const userPercents = user.percents.map(item => item.percentId.toString());
                 const userObj = { email: user.email, id: user._id, emailCancelToken: user.emailCancelToken };
                 if(userPercents.indexOf(doc._id.toString()) === -1) { // If symbol is NOT present in user's list
-                    if(doc.percent < 0 && user.isReceiveMail) { console.log('New percent saved!: ', doc._id)
-                        return remindUser(userObj, doc, false, false);
-                    } else if(user.isReceiveMail){
-                        return remindUser(userObj, doc, false, true);
+                    if(doc.percent < 0 && user.isReceiveMail.power) { console.log('New percent saved!: ', doc._id)
+                        remindUser(userObj, doc, false, false);
+                    } else if(user.isReceiveMail.power){
+                        remindUser(userObj, doc, false, true);
                     };
                     user.percents.push({ percentId: doc._id});
                     return user.save();
@@ -41,10 +41,10 @@ ReachedPercent.post('save', doc => {
                     userPercents.indexOf(doc._id.toString()) !== -1 &&
                     (new Date().getHours() - new Date(doc.prevUpdate).getHours() > 2)
                 ) { console.log('Percent updated!: ', doc._id)
-                    if(doc.percent < 0 && user.isReceiveMail) {
-                        return  remindUser(userObj, doc, false, false);
-                    } else if(user.isReceiveMail) {
-                        return remindUser(userObj, doc, false, true);
+                    if(doc.percent < 0 && user.isReceiveMail.power) {
+                        remindUser(userObj, doc, false, false);
+                    } else if(user.isReceiveMail.power) {
+                        remindUser(userObj, doc, false, true);
                     };
                     const percentIndex = userPercents.indexOf(doc._id.toString());
                     user.percents[percentIndex].isSeen = false;

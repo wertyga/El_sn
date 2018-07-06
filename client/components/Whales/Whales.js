@@ -71,7 +71,7 @@ class Whales extends React.Component {
         if(!this.state.optionValue && this.state.loading) return;
         if(e && e.keyCode === 13 || !e.keyCode) {
             this.setState({loading: true});
-            this.getWhaleOrders()
+            return this.getWhaleOrders()
                 .then(() => {
                     this.setState({loading: false});
                     this.input.blur();
@@ -98,7 +98,7 @@ class Whales extends React.Component {
             <div className="Whales">
                 {this.state.errors && <div className="error">{this.state.errors}</div>}
                 {this.state.loading && <Loading />}
-                <Link className="back" to={`/user/${this.props.user._id}`}>{back}</Link>
+                <div className="back" to={`/user/${this.props.user._id}`} onClick={() => this.props.history.replace(`/app/user/${this.props.user._id}`)}>{back}</div>
                 <div className="whales_wrapper">
                     <div className="input">
                         <div className="upper">
@@ -146,7 +146,7 @@ class Whales extends React.Component {
                                 <div className={this.state.close.find(pair => pair === item._id) ? 'data close' : 'data'}>
                                     {item.orders.map((order, i) =>
                                         <ul key={i}>
-                                            <li>Price: {order.price}</li>
+                                            <li>Price: {order.price.toFixed(8)}</li>
                                             <li>Amount: {order.amount}</li>
                                             <li>Total BTC: {order.totalBtc}</li>
                                         </ul>

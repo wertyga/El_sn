@@ -10,7 +10,7 @@ const JSONContent = `{
     "name": "crypto_signer",
     "version": "1.0.0",
     "description": "",
-    "main": ${nw ? '"static/index.html"' : '"./electron/electron.js"'},
+    "main": ${nw ? '"static/app.html"' : '"./electron/electron.js"'},
     "author": "",
     "license": "ISC",
     "dependencies": {

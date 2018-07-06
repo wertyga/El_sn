@@ -81,7 +81,7 @@ class WcNotify extends EventEmitter {
         this._notifyWindow.loadURL(file);
         this._setEventHandleres(this._notifyWindow);
 
-        // this._notifyWindow.loadURL('data:text/html;charset=UTF-8,' + encodeURIComponent(require('./index.html')));
+        // this._notifyWindow.loadURL('data:text/html;charset=UTF-8,' + encodeURIComponent(require('./app.html')));
         // this._setEventHandleres(this._notifyWindow);
     };
 

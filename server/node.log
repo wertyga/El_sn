@@ -1,12 +1,519 @@
-Sat Jun 30 2018 21:44:56 GMT+0300 (+03) 
-   ERROR: getWhaleOrders /media/wertyga/B688E5DB88E59A5F/LINUX Projects JS/El_sn/server/common/functions/main.js': Error: Request failed with status code 429
-
-Sun Jul 01 2018 15:15:28 GMT+0300 (RTZ 2 (зима)) 
-   ERROR:  G:\REACTJS\El_sn\server\common\mongoose.js': failed to connect to server [localhost:27017] on first connect [MongoNetworkError: connect ECONNREFUSED 127.0.0.1:27017]
-
-Sun Jul 01 2018 15:16:28 GMT+0300 (RTZ 2 (зима)) 
-   ERROR:  G:\REACTJS\El_sn\server\common\mongoose.js': failed to connect to server [localhost:27017] on first connect [MongoNetworkError: connect ECONNREFUSED 127.0.0.1:27017]
-
-Mon Jul 02 2018 15:13:23 GMT+0300 (Восточная Европа (лето)) 
+Fri Jul 06 2018 12:10:30 GMT+0300 (Восточная Европа (лето)) 
    ERROR:  D:\React\El_sn\server\common\functions\main.js': Error: connect ETIMEDOUT 52.84.195.147:443
+
+Fri Jul 06 2018 12:10:52 GMT+0300 (Восточная Европа (лето)) 
+   ERROR:  D:\React\El_sn\server\common\functions\main.js': Error: getaddrinfo ENOTFOUND api.binance.com api.binance.com:443
+
+Fri Jul 06 2018 12:11:41 GMT+0300 (Восточная Европа (лето)) 
+   ERROR:  D:\React\El_sn\server\common\functions\main.js': Error: getaddrinfo ENOTFOUND api.binance.com api.binance.com:443
+
+Fri Jul 06 2018 12:11:53 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: SocketAPI D:\React\El_sn\server\common\functions\main.js': Error: getaddrinfo ENOTFOUND stream.binance.com stream.binance.com:9443
+
+Fri Jul 06 2018 12:11:53 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: SocketAPI D:\React\El_sn\server\common\functions\main.js': Error: getaddrinfo ENOTFOUND stream.binance.com stream.binance.com:9443
+
+Fri Jul 06 2018 12:11:53 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: SocketAPI D:\React\El_sn\server\common\functions\main.js': Error: getaddrinfo ENOTFOUND stream.binance.com stream.binance.com:9443
+
+Fri Jul 06 2018 12:11:53 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: SocketAPI D:\React\El_sn\server\common\functions\main.js': Error: getaddrinfo ENOTFOUND stream.binance.com stream.binance.com:9443
+
+Fri Jul 06 2018 12:12:05 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: SocketAPI D:\React\El_sn\server\common\functions\main.js': Error: getaddrinfo ENOTFOUND stream.binance.com stream.binance.com:9443
+
+Fri Jul 06 2018 12:12:05 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: SocketAPI D:\React\El_sn\server\common\functions\main.js': Error: getaddrinfo ENOTFOUND stream.binance.com stream.binance.com:9443
+
+Fri Jul 06 2018 12:12:05 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: SocketAPI D:\React\El_sn\server\common\functions\main.js': Error: getaddrinfo ENOTFOUND stream.binance.com stream.binance.com:9443
+
+Fri Jul 06 2018 12:12:05 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: SocketAPI D:\React\El_sn\server\common\functions\main.js': Error: getaddrinfo ENOTFOUND stream.binance.com stream.binance.com:9443
+
+Fri Jul 06 2018 12:12:17 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: SocketAPI D:\React\El_sn\server\common\functions\main.js': Error: getaddrinfo ENOTFOUND stream.binance.com stream.binance.com:9443
+
+Fri Jul 06 2018 12:12:17 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: SocketAPI D:\React\El_sn\server\common\functions\main.js': Error: getaddrinfo ENOTFOUND stream.binance.com stream.binance.com:9443
+
+Fri Jul 06 2018 12:12:17 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: SocketAPI D:\React\El_sn\server\common\functions\main.js': Error: getaddrinfo ENOTFOUND stream.binance.com stream.binance.com:9443
+
+Fri Jul 06 2018 12:12:17 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: SocketAPI D:\React\El_sn\server\common\functions\main.js': Error: getaddrinfo ENOTFOUND stream.binance.com stream.binance.com:9443
+
+Fri Jul 06 2018 12:12:29 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: SocketAPI D:\React\El_sn\server\common\functions\main.js': Error: getaddrinfo ENOTFOUND stream.binance.com stream.binance.com:9443
+
+Fri Jul 06 2018 12:12:29 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: SocketAPI D:\React\El_sn\server\common\functions\main.js': Error: getaddrinfo ENOTFOUND stream.binance.com stream.binance.com:9443
+
+Fri Jul 06 2018 12:12:29 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: SocketAPI D:\React\El_sn\server\common\functions\main.js': Error: getaddrinfo ENOTFOUND stream.binance.com stream.binance.com:9443
+
+Fri Jul 06 2018 12:12:41 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: SocketAPI D:\React\El_sn\server\common\functions\main.js': Error: getaddrinfo ENOTFOUND stream.binance.com stream.binance.com:9443
+
+Fri Jul 06 2018 12:12:41 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: SocketAPI D:\React\El_sn\server\common\functions\main.js': Error: getaddrinfo ENOTFOUND stream.binance.com stream.binance.com:9443
+
+Fri Jul 06 2018 12:12:41 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: SocketAPI D:\React\El_sn\server\common\functions\main.js': Error: getaddrinfo ENOTFOUND stream.binance.com stream.binance.com:9443
+
+Fri Jul 06 2018 12:12:53 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: SocketAPI D:\React\El_sn\server\common\functions\main.js': Error: getaddrinfo ENOTFOUND stream.binance.com stream.binance.com:9443
+
+Fri Jul 06 2018 12:12:53 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: SocketAPI D:\React\El_sn\server\common\functions\main.js': Error: getaddrinfo ENOTFOUND stream.binance.com stream.binance.com:9443
+
+Fri Jul 06 2018 12:12:53 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: SocketAPI D:\React\El_sn\server\common\functions\main.js': Error: getaddrinfo ENOTFOUND stream.binance.com stream.binance.com:9443
+
+Fri Jul 06 2018 12:12:53 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: SocketAPI D:\React\El_sn\server\common\functions\main.js': Error: getaddrinfo ENOTFOUND stream.binance.com stream.binance.com:9443
+
+Fri Jul 06 2018 12:12:29 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: SocketAPI D:\React\El_sn\server\common\functions\main.js': Error: getaddrinfo ENOTFOUND stream.binance.com stream.binance.com:9443
+
+Fri Jul 06 2018 12:13:05 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: SocketAPI D:\React\El_sn\server\common\functions\main.js': Error: getaddrinfo ENOTFOUND stream.binance.com stream.binance.com:9443
+
+Fri Jul 06 2018 12:13:05 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: SocketAPI D:\React\El_sn\server\common\functions\main.js': Error: getaddrinfo ENOTFOUND stream.binance.com stream.binance.com:9443
+
+Fri Jul 06 2018 12:13:05 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: SocketAPI D:\React\El_sn\server\common\functions\main.js': Error: getaddrinfo ENOTFOUND stream.binance.com stream.binance.com:9443
+
+Fri Jul 06 2018 12:13:05 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: SocketAPI D:\React\El_sn\server\common\functions\main.js': Error: getaddrinfo ENOTFOUND stream.binance.com stream.binance.com:9443
+
+Fri Jul 06 2018 12:13:09 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: SocketAPI D:\React\El_sn\server\common\functions\main.js': Error: getaddrinfo ENOTFOUND stream.binance.com stream.binance.com:9443
+
+Fri Jul 06 2018 12:13:09 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: SocketAPI D:\React\El_sn\server\common\functions\main.js': Error: getaddrinfo ENOTFOUND stream.binance.com stream.binance.com:9443
+
+Fri Jul 06 2018 12:13:09 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: SocketAPI D:\React\El_sn\server\common\functions\main.js': Error: getaddrinfo ENOTFOUND stream.binance.com stream.binance.com:9443
+
+Fri Jul 06 2018 12:13:09 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: SocketAPI D:\React\El_sn\server\common\functions\main.js': Error: getaddrinfo ENOTFOUND stream.binance.com stream.binance.com:9443
+
+Fri Jul 06 2018 12:13:09 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: SocketAPI D:\React\El_sn\server\common\functions\main.js': Error: getaddrinfo ENOTFOUND stream.binance.com stream.binance.com:9443
+
+Fri Jul 06 2018 12:13:09 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: SocketAPI D:\React\El_sn\server\common\functions\main.js': Error: getaddrinfo ENOTFOUND stream.binance.com stream.binance.com:9443
+
+Fri Jul 06 2018 12:13:09 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: SocketAPI D:\React\El_sn\server\common\functions\main.js': Error: getaddrinfo ENOTFOUND stream.binance.com stream.binance.com:9443
+
+Fri Jul 06 2018 12:13:09 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: SocketAPI D:\React\El_sn\server\common\functions\main.js': Error: getaddrinfo ENOTFOUND stream.binance.com stream.binance.com:9443
+
+Fri Jul 06 2018 12:13:09 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: SocketAPI D:\React\El_sn\server\common\functions\main.js': Error: getaddrinfo ENOTFOUND stream.binance.com stream.binance.com:9443
+
+Fri Jul 06 2018 12:13:09 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: SocketAPI D:\React\El_sn\server\common\functions\main.js': Error: getaddrinfo ENOTFOUND stream.binance.com stream.binance.com:9443
+
+Fri Jul 06 2018 12:13:09 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: SocketAPI D:\React\El_sn\server\common\functions\main.js': Error: getaddrinfo ENOTFOUND stream.binance.com stream.binance.com:9443
+
+Fri Jul 06 2018 12:13:09 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: SocketAPI D:\React\El_sn\server\common\functions\main.js': Error: getaddrinfo ENOTFOUND stream.binance.com stream.binance.com:9443
+
+Fri Jul 06 2018 12:13:09 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: SocketAPI D:\React\El_sn\server\common\functions\main.js': Error: getaddrinfo ENOTFOUND stream.binance.com stream.binance.com:9443
+
+Fri Jul 06 2018 12:13:09 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: SocketAPI D:\React\El_sn\server\common\functions\main.js': Error: getaddrinfo ENOTFOUND stream.binance.com stream.binance.com:9443
+
+Fri Jul 06 2018 12:13:09 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: SocketAPI D:\React\El_sn\server\common\functions\main.js': Error: getaddrinfo ENOTFOUND stream.binance.com stream.binance.com:9443
+
+Fri Jul 06 2018 12:13:09 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: SocketAPI D:\React\El_sn\server\common\functions\main.js': Error: getaddrinfo ENOTFOUND stream.binance.com stream.binance.com:9443
+
+Fri Jul 06 2018 12:13:09 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: SocketAPI D:\React\El_sn\server\common\functions\main.js': Error: getaddrinfo ENOTFOUND stream.binance.com stream.binance.com:9443
+
+Fri Jul 06 2018 12:13:09 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: SocketAPI D:\React\El_sn\server\common\functions\main.js': Error: getaddrinfo ENOTFOUND stream.binance.com stream.binance.com:9443
+
+Fri Jul 06 2018 12:12:41 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: SocketAPI D:\React\El_sn\server\common\functions\main.js': Error: getaddrinfo ENOTFOUND stream.binance.com stream.binance.com:9443
+
+Fri Jul 06 2018 12:13:09 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: SocketAPI D:\React\El_sn\server\common\functions\main.js': Error: getaddrinfo ENOTFOUND stream.binance.com stream.binance.com:9443
+
+Fri Jul 06 2018 12:13:09 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: SocketAPI D:\React\El_sn\server\common\functions\main.js': Error: getaddrinfo ENOTFOUND stream.binance.com stream.binance.com:9443
+
+Fri Jul 06 2018 12:13:09 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: SocketAPI D:\React\El_sn\server\common\functions\main.js': Error: getaddrinfo ENOTFOUND stream.binance.com stream.binance.com:9443
+
+Fri Jul 06 2018 12:13:09 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: SocketAPI D:\React\El_sn\server\common\functions\main.js': Error: getaddrinfo ENOTFOUND stream.binance.com stream.binance.com:9443
+
+Fri Jul 06 2018 12:13:09 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: SocketAPI D:\React\El_sn\server\common\functions\main.js': Error: getaddrinfo ENOTFOUND stream.binance.com stream.binance.com:9443
+
+Fri Jul 06 2018 12:13:09 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: SocketAPI D:\React\El_sn\server\common\functions\main.js': Error: getaddrinfo ENOTFOUND stream.binance.com stream.binance.com:9443
+
+Fri Jul 06 2018 12:13:09 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: SocketAPI D:\React\El_sn\server\common\functions\main.js': Error: getaddrinfo ENOTFOUND stream.binance.com stream.binance.com:9443
+
+Fri Jul 06 2018 12:13:09 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: SocketAPI D:\React\El_sn\server\common\functions\main.js': Error: getaddrinfo ENOTFOUND stream.binance.com stream.binance.com:9443
+
+Fri Jul 06 2018 12:13:09 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: SocketAPI D:\React\El_sn\server\common\functions\main.js': Error: getaddrinfo ENOTFOUND stream.binance.com stream.binance.com:9443
+
+Fri Jul 06 2018 12:13:09 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: SocketAPI D:\React\El_sn\server\common\functions\main.js': Error: getaddrinfo ENOTFOUND stream.binance.com stream.binance.com:9443
+
+Fri Jul 06 2018 12:13:09 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: SocketAPI D:\React\El_sn\server\common\functions\main.js': Error: getaddrinfo ENOTFOUND stream.binance.com stream.binance.com:9443
+
+Fri Jul 06 2018 12:13:09 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: SocketAPI D:\React\El_sn\server\common\functions\main.js': Error: getaddrinfo ENOTFOUND stream.binance.com stream.binance.com:9443
+
+Fri Jul 06 2018 12:13:09 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: SocketAPI D:\React\El_sn\server\common\functions\main.js': Error: getaddrinfo ENOTFOUND stream.binance.com stream.binance.com:9443
+
+Fri Jul 06 2018 12:13:09 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: SocketAPI D:\React\El_sn\server\common\functions\main.js': Error: getaddrinfo ENOTFOUND stream.binance.com stream.binance.com:9443
+
+Fri Jul 06 2018 12:13:09 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: SocketAPI D:\React\El_sn\server\common\functions\main.js': Error: getaddrinfo ENOTFOUND stream.binance.com stream.binance.com:9443
+
+Fri Jul 06 2018 12:13:09 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: SocketAPI D:\React\El_sn\server\common\functions\main.js': Error: getaddrinfo ENOTFOUND stream.binance.com stream.binance.com:9443
+
+Fri Jul 06 2018 12:13:09 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: SocketAPI D:\React\El_sn\server\common\functions\main.js': Error: getaddrinfo ENOTFOUND stream.binance.com stream.binance.com:9443
+
+Fri Jul 06 2018 12:13:09 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: SocketAPI D:\React\El_sn\server\common\functions\main.js': Error: getaddrinfo ENOTFOUND stream.binance.com stream.binance.com:9443
+
+Fri Jul 06 2018 12:13:09 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: SocketAPI D:\React\El_sn\server\common\functions\main.js': Error: getaddrinfo ENOTFOUND stream.binance.com stream.binance.com:9443
+
+Fri Jul 06 2018 12:13:09 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: SocketAPI D:\React\El_sn\server\common\functions\main.js': Error: getaddrinfo ENOTFOUND stream.binance.com stream.binance.com:9443
+
+Fri Jul 06 2018 12:13:09 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: SocketAPI D:\React\El_sn\server\common\functions\main.js': Error: getaddrinfo ENOTFOUND stream.binance.com stream.binance.com:9443
+
+Fri Jul 06 2018 12:13:09 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: SocketAPI D:\React\El_sn\server\common\functions\main.js': Error: getaddrinfo ENOTFOUND stream.binance.com stream.binance.com:9443
+
+Fri Jul 06 2018 12:13:09 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: SocketAPI D:\React\El_sn\server\common\functions\main.js': Error: getaddrinfo ENOTFOUND stream.binance.com stream.binance.com:9443
+
+Fri Jul 06 2018 12:13:09 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: SocketAPI D:\React\El_sn\server\common\functions\main.js': Error: getaddrinfo ENOTFOUND stream.binance.com stream.binance.com:9443
+
+Fri Jul 06 2018 12:13:09 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: SocketAPI D:\React\El_sn\server\common\functions\main.js': Error: getaddrinfo ENOTFOUND stream.binance.com stream.binance.com:9443
+
+Fri Jul 06 2018 12:13:09 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: SocketAPI D:\React\El_sn\server\common\functions\main.js': Error: getaddrinfo ENOTFOUND stream.binance.com stream.binance.com:9443
+
+Fri Jul 06 2018 12:13:09 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: SocketAPI D:\React\El_sn\server\common\functions\main.js': Error: getaddrinfo ENOTFOUND stream.binance.com stream.binance.com:9443
+
+Fri Jul 06 2018 12:13:09 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: SocketAPI D:\React\El_sn\server\common\functions\main.js': Error: getaddrinfo ENOTFOUND stream.binance.com stream.binance.com:9443
+
+Fri Jul 06 2018 12:13:09 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: SocketAPI D:\React\El_sn\server\common\functions\main.js': Error: getaddrinfo ENOTFOUND stream.binance.com stream.binance.com:9443
+
+Fri Jul 06 2018 12:13:09 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: SocketAPI D:\React\El_sn\server\common\functions\main.js': Error: getaddrinfo ENOTFOUND stream.binance.com stream.binance.com:9443
+
+Fri Jul 06 2018 12:13:09 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: SocketAPI D:\React\El_sn\server\common\functions\main.js': Error: getaddrinfo ENOTFOUND stream.binance.com stream.binance.com:9443
+
+Fri Jul 06 2018 12:13:09 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: SocketAPI D:\React\El_sn\server\common\functions\main.js': Error: getaddrinfo ENOTFOUND stream.binance.com stream.binance.com:9443
+
+Fri Jul 06 2018 12:13:09 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: SocketAPI D:\React\El_sn\server\common\functions\main.js': Error: getaddrinfo ENOTFOUND stream.binance.com stream.binance.com:9443
+
+Fri Jul 06 2018 12:13:09 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: SocketAPI D:\React\El_sn\server\common\functions\main.js': Error: getaddrinfo ENOTFOUND stream.binance.com stream.binance.com:9443
+
+Fri Jul 06 2018 12:13:09 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: SocketAPI D:\React\El_sn\server\common\functions\main.js': Error: getaddrinfo ENOTFOUND stream.binance.com stream.binance.com:9443
+
+Fri Jul 06 2018 12:13:09 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: SocketAPI D:\React\El_sn\server\common\functions\main.js': Error: getaddrinfo ENOTFOUND stream.binance.com stream.binance.com:9443
+
+Fri Jul 06 2018 12:13:09 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: SocketAPI D:\React\El_sn\server\common\functions\main.js': Error: getaddrinfo ENOTFOUND stream.binance.com stream.binance.com:9443
+
+Fri Jul 06 2018 12:13:09 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: SocketAPI D:\React\El_sn\server\common\functions\main.js': Error: getaddrinfo ENOTFOUND stream.binance.com stream.binance.com:9443
+
+Fri Jul 06 2018 12:13:09 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: SocketAPI D:\React\El_sn\server\common\functions\main.js': Error: getaddrinfo ENOTFOUND stream.binance.com stream.binance.com:9443
+
+Fri Jul 06 2018 12:13:09 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: SocketAPI D:\React\El_sn\server\common\functions\main.js': Error: getaddrinfo ENOTFOUND stream.binance.com stream.binance.com:9443
+
+Fri Jul 06 2018 12:13:09 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: SocketAPI D:\React\El_sn\server\common\functions\main.js': Error: getaddrinfo ENOTFOUND stream.binance.com stream.binance.com:9443
+
+Fri Jul 06 2018 12:13:09 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: SocketAPI D:\React\El_sn\server\common\functions\main.js': Error: getaddrinfo ENOTFOUND stream.binance.com stream.binance.com:9443
+
+Fri Jul 06 2018 12:13:09 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: SocketAPI D:\React\El_sn\server\common\functions\main.js': Error: getaddrinfo ENOTFOUND stream.binance.com stream.binance.com:9443
+
+Fri Jul 06 2018 12:13:09 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: SocketAPI D:\React\El_sn\server\common\functions\main.js': Error: getaddrinfo ENOTFOUND stream.binance.com stream.binance.com:9443
+
+Fri Jul 06 2018 12:13:09 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: SocketAPI D:\React\El_sn\server\common\functions\main.js': Error: getaddrinfo ENOTFOUND stream.binance.com stream.binance.com:9443
+
+Fri Jul 06 2018 12:13:09 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: SocketAPI D:\React\El_sn\server\common\functions\main.js': Error: getaddrinfo ENOTFOUND stream.binance.com stream.binance.com:9443
+
+Fri Jul 06 2018 12:13:09 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: SocketAPI D:\React\El_sn\server\common\functions\main.js': Error: getaddrinfo ENOTFOUND stream.binance.com stream.binance.com:9443
+
+Fri Jul 06 2018 12:13:09 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: SocketAPI D:\React\El_sn\server\common\functions\main.js': Error: getaddrinfo ENOTFOUND stream.binance.com stream.binance.com:9443
+
+Fri Jul 06 2018 12:13:09 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: SocketAPI D:\React\El_sn\server\common\functions\main.js': Error: getaddrinfo ENOTFOUND stream.binance.com stream.binance.com:9443
+
+Fri Jul 06 2018 12:13:09 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: SocketAPI D:\React\El_sn\server\common\functions\main.js': Error: getaddrinfo ENOTFOUND stream.binance.com stream.binance.com:9443
+
+Fri Jul 06 2018 12:13:09 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: SocketAPI D:\React\El_sn\server\common\functions\main.js': Error: getaddrinfo ENOTFOUND stream.binance.com stream.binance.com:9443
+
+Fri Jul 06 2018 12:13:09 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: SocketAPI D:\React\El_sn\server\common\functions\main.js': Error: getaddrinfo ENOTFOUND stream.binance.com stream.binance.com:9443
+
+Fri Jul 06 2018 12:13:09 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: SocketAPI D:\React\El_sn\server\common\functions\main.js': Error: getaddrinfo ENOTFOUND stream.binance.com stream.binance.com:9443
+
+Fri Jul 06 2018 12:13:09 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: SocketAPI D:\React\El_sn\server\common\functions\main.js': Error: getaddrinfo ENOTFOUND stream.binance.com stream.binance.com:9443
+
+Fri Jul 06 2018 12:13:09 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: SocketAPI D:\React\El_sn\server\common\functions\main.js': Error: getaddrinfo ENOTFOUND stream.binance.com stream.binance.com:9443
+
+Fri Jul 06 2018 12:13:09 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: SocketAPI D:\React\El_sn\server\common\functions\main.js': Error: getaddrinfo ENOTFOUND stream.binance.com stream.binance.com:9443
+
+Fri Jul 06 2018 12:13:09 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: SocketAPI D:\React\El_sn\server\common\functions\main.js': Error: getaddrinfo ENOTFOUND stream.binance.com stream.binance.com:9443
+
+Fri Jul 06 2018 12:13:09 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: SocketAPI D:\React\El_sn\server\common\functions\main.js': Error: getaddrinfo ENOTFOUND stream.binance.com stream.binance.com:9443
+
+Fri Jul 06 2018 12:13:09 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: SocketAPI D:\React\El_sn\server\common\functions\main.js': Error: getaddrinfo ENOTFOUND stream.binance.com stream.binance.com:9443
+
+Fri Jul 06 2018 12:13:09 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: SocketAPI D:\React\El_sn\server\common\functions\main.js': Error: getaddrinfo ENOTFOUND stream.binance.com stream.binance.com:9443
+
+Fri Jul 06 2018 12:13:09 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: SocketAPI D:\React\El_sn\server\common\functions\main.js': Error: getaddrinfo ENOTFOUND stream.binance.com stream.binance.com:9443
+
+Fri Jul 06 2018 12:13:09 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: SocketAPI D:\React\El_sn\server\common\functions\main.js': Error: getaddrinfo ENOTFOUND stream.binance.com stream.binance.com:9443
+
+Fri Jul 06 2018 12:13:09 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: SocketAPI D:\React\El_sn\server\common\functions\main.js': Error: getaddrinfo ENOTFOUND stream.binance.com stream.binance.com:9443
+
+Fri Jul 06 2018 12:13:09 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: SocketAPI D:\React\El_sn\server\common\functions\main.js': Error: getaddrinfo ENOTFOUND stream.binance.com stream.binance.com:9443
+
+Fri Jul 06 2018 12:13:09 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: SocketAPI D:\React\El_sn\server\common\functions\main.js': Error: getaddrinfo ENOTFOUND stream.binance.com stream.binance.com:9443
+
+Fri Jul 06 2018 12:13:09 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: SocketAPI D:\React\El_sn\server\common\functions\main.js': Error: getaddrinfo ENOTFOUND stream.binance.com stream.binance.com:9443
+
+Fri Jul 06 2018 12:13:09 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: SocketAPI D:\React\El_sn\server\common\functions\main.js': Error: getaddrinfo ENOTFOUND stream.binance.com stream.binance.com:9443
+
+Fri Jul 06 2018 12:13:09 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: SocketAPI D:\React\El_sn\server\common\functions\main.js': Error: getaddrinfo ENOTFOUND stream.binance.com stream.binance.com:9443
+
+Fri Jul 06 2018 12:13:09 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: SocketAPI D:\React\El_sn\server\common\functions\main.js': Error: getaddrinfo ENOTFOUND stream.binance.com stream.binance.com:9443
+
+Fri Jul 06 2018 12:13:09 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: SocketAPI D:\React\El_sn\server\common\functions\main.js': Error: getaddrinfo ENOTFOUND stream.binance.com stream.binance.com:9443
+
+Fri Jul 06 2018 12:13:09 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: SocketAPI D:\React\El_sn\server\common\functions\main.js': Error: getaddrinfo ENOTFOUND stream.binance.com stream.binance.com:9443
+
+Fri Jul 06 2018 12:13:09 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: SocketAPI D:\React\El_sn\server\common\functions\main.js': Error: getaddrinfo ENOTFOUND stream.binance.com stream.binance.com:9443
+
+Fri Jul 06 2018 12:13:09 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: SocketAPI D:\React\El_sn\server\common\functions\main.js': Error: getaddrinfo ENOTFOUND stream.binance.com stream.binance.com:9443
+
+Fri Jul 06 2018 12:13:09 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: SocketAPI D:\React\El_sn\server\common\functions\main.js': Error: getaddrinfo ENOTFOUND stream.binance.com stream.binance.com:9443
+
+Fri Jul 06 2018 12:13:09 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: SocketAPI D:\React\El_sn\server\common\functions\main.js': Error: getaddrinfo ENOTFOUND stream.binance.com stream.binance.com:9443
+
+Fri Jul 06 2018 12:13:09 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: SocketAPI D:\React\El_sn\server\common\functions\main.js': Error: getaddrinfo ENOTFOUND stream.binance.com stream.binance.com:9443
+
+Fri Jul 06 2018 12:13:09 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: SocketAPI D:\React\El_sn\server\common\functions\main.js': Error: getaddrinfo ENOTFOUND stream.binance.com stream.binance.com:9443
+
+Fri Jul 06 2018 12:13:09 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: SocketAPI D:\React\El_sn\server\common\functions\main.js': Error: getaddrinfo ENOTFOUND stream.binance.com stream.binance.com:9443
+
+Fri Jul 06 2018 12:13:09 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: SocketAPI D:\React\El_sn\server\common\functions\main.js': Error: getaddrinfo ENOTFOUND stream.binance.com stream.binance.com:9443
+
+Fri Jul 06 2018 12:13:09 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: SocketAPI D:\React\El_sn\server\common\functions\main.js': Error: getaddrinfo ENOTFOUND stream.binance.com stream.binance.com:9443
+
+Fri Jul 06 2018 12:13:09 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: SocketAPI D:\React\El_sn\server\common\functions\main.js': Error: getaddrinfo ENOTFOUND stream.binance.com stream.binance.com:9443
+
+Fri Jul 06 2018 12:13:09 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: SocketAPI D:\React\El_sn\server\common\functions\main.js': Error: getaddrinfo ENOTFOUND stream.binance.com stream.binance.com:9443
+
+Fri Jul 06 2018 12:13:09 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: SocketAPI D:\React\El_sn\server\common\functions\main.js': Error: getaddrinfo ENOTFOUND stream.binance.com stream.binance.com:9443
+
+Fri Jul 06 2018 12:13:09 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: SocketAPI D:\React\El_sn\server\common\functions\main.js': Error: getaddrinfo ENOTFOUND stream.binance.com stream.binance.com:9443
+
+Fri Jul 06 2018 12:13:09 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: SocketAPI D:\React\El_sn\server\common\functions\main.js': Error: getaddrinfo ENOTFOUND stream.binance.com stream.binance.com:9443
+
+Fri Jul 06 2018 12:13:09 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: SocketAPI D:\React\El_sn\server\common\functions\main.js': Error: getaddrinfo ENOTFOUND stream.binance.com stream.binance.com:9443
+
+Fri Jul 06 2018 12:13:09 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: SocketAPI D:\React\El_sn\server\common\functions\main.js': Error: getaddrinfo ENOTFOUND stream.binance.com stream.binance.com:9443
+
+Fri Jul 06 2018 12:13:09 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: SocketAPI D:\React\El_sn\server\common\functions\main.js': Error: getaddrinfo ENOTFOUND stream.binance.com stream.binance.com:9443
+
+Fri Jul 06 2018 12:13:09 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: SocketAPI D:\React\El_sn\server\common\functions\main.js': Error: getaddrinfo ENOTFOUND stream.binance.com stream.binance.com:9443
+
+Fri Jul 06 2018 12:13:09 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: SocketAPI D:\React\El_sn\server\common\functions\main.js': Error: getaddrinfo ENOTFOUND stream.binance.com stream.binance.com:9443
+
+Fri Jul 06 2018 12:13:09 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: SocketAPI D:\React\El_sn\server\common\functions\main.js': Error: getaddrinfo ENOTFOUND stream.binance.com stream.binance.com:9443
+
+Fri Jul 06 2018 12:13:09 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: SocketAPI D:\React\El_sn\server\common\functions\main.js': Error: getaddrinfo ENOTFOUND stream.binance.com stream.binance.com:9443
+
+Fri Jul 06 2018 12:13:09 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: SocketAPI D:\React\El_sn\server\common\functions\main.js': Error: getaddrinfo ENOTFOUND stream.binance.com stream.binance.com:9443
+
+Fri Jul 06 2018 12:13:09 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: SocketAPI D:\React\El_sn\server\common\functions\main.js': Error: getaddrinfo ENOTFOUND stream.binance.com stream.binance.com:9443
+
+Fri Jul 06 2018 12:13:09 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: SocketAPI D:\React\El_sn\server\common\functions\main.js': Error: getaddrinfo ENOTFOUND stream.binance.com stream.binance.com:9443
+
+Fri Jul 06 2018 12:13:09 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: SocketAPI D:\React\El_sn\server\common\functions\main.js': Error: getaddrinfo ENOTFOUND stream.binance.com stream.binance.com:9443
+
+Fri Jul 06 2018 12:13:09 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: SocketAPI D:\React\El_sn\server\common\functions\main.js': Error: getaddrinfo ENOTFOUND stream.binance.com stream.binance.com:9443
+
+Fri Jul 06 2018 12:13:09 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: SocketAPI D:\React\El_sn\server\common\functions\main.js': Error: getaddrinfo ENOTFOUND stream.binance.com stream.binance.com:9443
+
+Fri Jul 06 2018 12:13:09 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: SocketAPI D:\React\El_sn\server\common\functions\main.js': Error: getaddrinfo ENOTFOUND stream.binance.com stream.binance.com:9443
+
+Fri Jul 06 2018 12:13:09 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: SocketAPI D:\React\El_sn\server\common\functions\main.js': Error: getaddrinfo ENOTFOUND stream.binance.com stream.binance.com:9443
+
+Fri Jul 06 2018 12:13:09 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: SocketAPI D:\React\El_sn\server\common\functions\main.js': Error: getaddrinfo ENOTFOUND stream.binance.com stream.binance.com:9443
+
+Fri Jul 06 2018 12:13:09 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: SocketAPI D:\React\El_sn\server\common\functions\main.js': Error: getaddrinfo ENOTFOUND stream.binance.com stream.binance.com:9443
+
+Fri Jul 06 2018 12:13:09 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: SocketAPI D:\React\El_sn\server\common\functions\main.js': Error: getaddrinfo ENOTFOUND stream.binance.com stream.binance.com:9443
+
+Fri Jul 06 2018 12:13:09 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: SocketAPI D:\React\El_sn\server\common\functions\main.js': Error: getaddrinfo ENOTFOUND stream.binance.com stream.binance.com:9443
+
+Fri Jul 06 2018 12:13:09 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: SocketAPI D:\React\El_sn\server\common\functions\main.js': Error: getaddrinfo ENOTFOUND stream.binance.com stream.binance.com:9443
+
+Fri Jul 06 2018 12:13:09 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: SocketAPI D:\React\El_sn\server\common\functions\main.js': Error: getaddrinfo ENOTFOUND stream.binance.com stream.binance.com:9443
+
+Fri Jul 06 2018 12:13:12 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: getWhaleOrders D:\React\El_sn\server\common\functions\main.js': Error: getaddrinfo ENOTFOUND api.binance.com api.binance.com:443
+
+Fri Jul 06 2018 12:47:55 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: getWhaleOrders D:\React\El_sn\server\common\functions\main.js': Error: connect ETIMEDOUT 13.33.55.66:443
+
+Fri Jul 06 2018 12:48:55 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: getWhaleOrders D:\React\El_sn\server\common\functions\main.js': Error: connect ETIMEDOUT 13.33.55.66:443
+
+Fri Jul 06 2018 12:49:48 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: getWhaleOrders D:\React\El_sn\server\common\functions\main.js': Error: getaddrinfo ENOTFOUND api.binance.com api.binance.com:443
+
+Fri Jul 06 2018 12:52:55 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: getWhaleOrders D:\React\El_sn\server\common\functions\main.js': Error: connect ETIMEDOUT 52.84.195.147:443
+
+Fri Jul 06 2018 12:53:48 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: getWhaleOrders D:\React\El_sn\server\common\functions\main.js': Error: getaddrinfo ENOTFOUND api.binance.com api.binance.com:443
+
+Fri Jul 06 2018 12:54:55 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: getWhaleOrders D:\React\El_sn\server\common\functions\main.js': Error: connect ETIMEDOUT 52.84.195.147:443
+
+Fri Jul 06 2018 13:04:08 GMT+0300 (Восточная Европа (лето)) 
+   ERROR:  D:\React\El_sn\server\common\functions\commonFunctions.js': Error: connect ETIMEDOUT 66.102.1.108:465
+
+Fri Jul 06 2018 14:36:07 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: getWhaleOrders D:\React\El_sn\server\common\functions\main.js': Error: getaddrinfo ENOTFOUND api.binance.com api.binance.com:443
+
+Fri Jul 06 2018 14:47:32 GMT+0300 (Восточная Европа (лето)) 
+   INFO: D:\React\El_sn\server\routes\fetch.js': Send request: message: What the fuck!; e-mail: wertyga18@gmail.com
+
+Fri Jul 06 2018 14:48:05 GMT+0300 (Восточная Европа (лето)) 
+   ERROR:  D:\React\El_sn\server\common\functions\commonFunctions.js': Error: connect ETIMEDOUT 66.102.1.108:465
+
+Fri Jul 06 2018 14:48:36 GMT+0300 (Восточная Европа (лето)) 
+   ERROR:  D:\React\El_sn\server\common\functions\commonFunctions.js': Error: connect ETIMEDOUT 66.102.1.108:465
+
+Fri Jul 06 2018 14:49:07 GMT+0300 (Восточная Европа (лето)) 
+   ERROR:  D:\React\El_sn\server\common\functions\commonFunctions.js': Error: connect ETIMEDOUT 66.102.1.108:465
+
+Fri Jul 06 2018 14:56:13 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: getWhaleOrders D:\React\El_sn\server\common\functions\main.js': Error: connect ETIMEDOUT 54.192.184.225:443
+
+Fri Jul 06 2018 14:57:06 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: getWhaleOrders D:\React\El_sn\server\common\functions\main.js': Error: getaddrinfo ENOTFOUND api.binance.com api.binance.com:443
+
+Fri Jul 06 2018 15:11:28 GMT+0300 (Восточная Европа (лето)) 
+   ERROR:  D:\React\El_sn\server\common\functions\commonFunctions.js': Error: connect ETIMEDOUT 66.102.1.109:465
+
+Fri Jul 06 2018 18:47:46 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: getWhaleOrders D:\React\El_sn\server\common\functions\main.js': Error: connect ETIMEDOUT 52.85.232.90:443
+
+Fri Jul 06 2018 18:48:45 GMT+0300 (Восточная Европа (лето)) 
+   ERROR: getWhaleOrders D:\React\El_sn\server\common\functions\main.js': Error: connect ETIMEDOUT 52.85.232.90:443
 

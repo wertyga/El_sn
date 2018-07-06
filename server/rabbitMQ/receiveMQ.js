@@ -1,8 +1,6 @@
 import amqp from 'amqplib/callback_api';
-import nodemailer from "nodemailer";
 
-import emailConfig from "../common/emailConfig";
-
+import { emailSending } from "../common/functions/commonFunctions";
 
 const log = require('../common/log')(module);
 
@@ -30,17 +28,4 @@ amqp.connect('amqp://localhost', function(err, conn) {
     });
 });
 
-// Send E-mail
-export const emailSending = (data) => {
-    const transport = nodemailer.createTransport(emailConfig);
-    console.log('Sending...')
-    transport.sendMail(data,(err, body) => {
-        if(err) {
-            console.error(`Sending email error: ${err}`);
-            log.error(err)
-            setTimeout(() => emailSending(data), 10000);
-        } else {
-            console.log(`Email sent!`);
-        };
-    });
-};
+

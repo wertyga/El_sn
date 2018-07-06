@@ -2,7 +2,7 @@
 import { connect } from 'react-redux';
 import { Route } from 'react-router-dom';
 import io from "socket.io-client";
-import {ipcRenderer} from "electron";
+// import {ipcRenderer} from "electron";
 
 import { setPowerPercents } from '../../actions/socket';
 import { getUserData } from '../../actions/auth';
@@ -15,6 +15,8 @@ import Loading from '../common/Loading/Loading';
 import UserScreen from '../UserScreen/UserScreen';
 import Whales from '../Whales/Whales';
 import PowerPercents from '../PowerPercents/PowerPercents';
+
+import notify from '../../common/functions/notification';
 
 // ipcRenderer.send('get_reached_percent', 'User login');
     class SocketWrapper extends React.Component {
@@ -29,7 +31,8 @@ import PowerPercents from '../PowerPercents/PowerPercents';
         };
 
         componentDidMount() {
-            ipcRenderer.send('login_user', 'User login');
+            // ipcRenderer.send('login_user', 'User login');
+            Notification.requestPermission()
 
             if (isEmpty(this.props.user)) {
                 this.setState({ loading: true });
@@ -70,38 +73,78 @@ import PowerPercents from '../PowerPercents/PowerPercents';
 
                 const newPowers = powers.filter(item => !item.isSeen);
                 if(newPowers.length > 0) {
-                    ipcRenderer.send('get_new_powers', newPowers);
+                    return Notification.requestPermission()
+                        .then(res => {
+                            if(res === 'granted') {
+                                newPowers.forEach(item => {
+                                    let text;
+                                    if(item.percent > 0) {
+                                        text = `Just jump up for +${item.percent}%`;
+                                    } else {
+                                        text = `Crush down for ${item.percent}% \n From: ${item.high.toFixed(8)} To: ${item.close.toFixed(8)}`;
+                                    }
+                                    const title = item.symbol === 'BTCUSDT' ? 'BTC / USDT' : item.symbol.split('BTC').join(' / BTC');
+
+                                    this.showNotification({ tag: item.symbol, title, text });
+
+                                })
+                            };
+                        })
+                    // ipcRenderer.send('get_new_powers', newPowers);
                 }
             });
 
-            ipcRenderer.on('set_seen_power', (e, msg) => {
-                const powerSymbol = this.props.powerPercents.find(item => item._id === msg);
-                if(powerSymbol && !powerSymbol.isSeen) {
-                    this.props.setSeenPower(this.props.user._id, msg)
-                        .catch(err => {
-                            ipcRenderer.send('Error_in_set_seen_power', err.response ? err.response.data : err.message)
-                        })
-                };
-            });
-            ipcRenderer.on('go_to_power_page', (e, msg) => {
-                this.props.history.replace(`/user/${this.props.user._id}/power-orders`)
+            // ipcRenderer.on('set_seen_power', (e, msg) => {
+            //     const powerSymbol = this.props.powerPercents.find(item => item._id === msg);
+            //     if(powerSymbol && !powerSymbol.isSeen) {
+            //         this.props.setSeenPower(this.props.user._id, msg)
+            //             .catch(err => {
+            //                 ipcRenderer.send('Error_in_set_seen_power', err.response ? err.response.data : err.message)
+            //             })
+            //     };
+            // });
+            // ipcRenderer.on('go_to_power_page', (e, msg) => {
+            //     this.props.history.replace(`/user/${this.props.user._id}/power-orders`)
+            // });
+
+            // if(this.props.user._id) ipcRenderer.send('login_user_id', this.props.user._id);
+        };
+
+        showNotification = (item) => { // Show notification
+            if(notified.indexOf(item.tag) !== -1) return;
+
+            notified.push(item.tag);
+            const n = notify({
+                title: item.title,
+                body: item.text,
+                tag: item.symbol
             });
 
-            if(this.props.user._id) ipcRenderer.send('login_user_id', this.props.user._id);
+            // n.onclick = e => this.notified.splice(this.notified.indexOf(e.currentTarget.tag), 1);
+
+            setTimeout(n.close.bind(n), 4000);
         };
+        // closeNotify = () => {
+        //     navigator.serviceWorker.ready.then(function(registration) {
+        //         registration.getNotifications({ tag: 'test '}).then(function(notifications) {
+        //             console.log(notifications)
+        //         })
+        //     });
+        // };
 
 
         render() {
             return (
                 <div className="SocketWrapper">
-                    <button className="btn primary" onClick={() => ipcRenderer.send('notify', {})}>Notify</button>
-                    <button className="btn primary" onClick={() => ipcRenderer.send('left', {})}>Left</button>
-                    <button className="btn primary" onClick={() => ipcRenderer.send('right', {})}>Right</button>
+                    {/*<button className="btn primary" onClick={this.notify}>Notify</button>*/}
+                    {/*<button className="btn primary" onClick={this.closeNotify}>Close notify</button>*/}
+                    {/*<button className="btn primary" onClick={() => ipcRenderer.send('left', {})}>Left</button>*/}
+                    {/*<button className="btn primary" onClick={() => ipcRenderer.send('right', {})}>Right</button>*/}
                     {this.state.loading && <Loading />}
-                    <div className="upper_bar">{this.state.contentOfUpperBar}</div>
-                    <Route path="/user/:id" exact render={() => <UserScreen {...this.props} {...this.state}/>}/>
-                    <Route path="/user/:id/whales-orders" component={Whales}/>
-                    <Route path="/user/:id/power-orders" component={PowerPercents}/>
+                    {/*<div className="upper_bar">{this.state.contentOfUpperBar}</div>*/}
+                    <Route path="/app/user/:id" exact render={() => <UserScreen {...this.props} {...this.state}/>}/>
+                    <Route path="/app/user/:id/whales-orders" component={Whales}/>
+                    <Route path="/app/user/:id/power-orders" component={PowerPercents}/>
                 </div>
             );
         }

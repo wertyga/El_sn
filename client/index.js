@@ -6,6 +6,8 @@ import { BrowserRouter, HashRouter } from 'react-router-dom';
 
 import configureStore from './common/functions/configureStore';
 
+import appIcon from '../icons/crypto_signer_app.png';
+
 import './common/globals';
 
 import './styles/index.sass';
@@ -16,15 +18,23 @@ process.env.NODE_ENV === 'production' && window.addEventListener('contextmenu', 
 
 const store = configureStore();
 
-let app = document.createElement('div');
-app.setAttribute('id', 'app');
-document.body.prepend(app);
+// // #app creating
+// let app = document.createElement('div');
+// app.setAttribute('id', 'app');
+// document.body.prepend(app);
+
+// Favicon creating
+const link = document.createElement('link');
+link.setAttribute('rel', "shortcut icon");
+link.setAttribute('href', appIcon);
+link.setAttribute('type', "image/png");
+document.head.appendChild(link);
 
 ReactDOM.render (
-    <HashRouter>
+    <BrowserRouter>
         <Provider store={store}>
             <App />
         </Provider>
-    </HashRouter>,
+    </BrowserRouter>,
     document.getElementById('app')
 );

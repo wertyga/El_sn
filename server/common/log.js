@@ -22,6 +22,19 @@ class Logger {
                 }
             }).catch(err => console.error(`Can't write log file: ${err}`))
     };
+
+    info(msg) {
+        let message = `${new Date()} \n   INFO: ${this.pathName}': ${msg}\n\n`;
+        return this.stat(config.logFile)
+            .then(stats => this.appendFile(config.logFile, message))
+            .catch(err => {
+                if(err.code === 'ENOENT') {
+                    return this.writeFile(config.logFile, message);
+                } else {
+                    throw err;
+                }
+            }).catch(err => console.error(`Can't write log file: ${err}`))
+    };
 };
 
 function logger(module) {

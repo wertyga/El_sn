@@ -34,7 +34,7 @@ const pairSchema = new mongoose.Schema({
 pairSchema.post('save', function(doc) {
     return User.findById(doc.owner)
         .then(user => {
-            if(user && doc.sign && user.isReceiveMail) {
+            if(user && doc.sign && user.isReceiveMail.main) {
                 const userObj = { email: user.email, id: user._id, emailCancelToken: user.emailCancelToken };
                 return remindUser(userObj, doc, { sign: true });
             } else if(user && user.tradePairs.indexOf(String(doc._id) === -1)) {

@@ -13,8 +13,8 @@ import Whales from '../models/whale';
 const routes = require('express').Router();
 
 routes.post('/subscribing', validateCredentials, (req, res) => {
-    const { userID } = req.body;
-    if(!userID || typeof userID !== 'string' || userID.length < 1) {
+    const { userID, data } = req.body;
+    if(!userID || typeof userID !== 'string' || userID.length < 1 || !data) {
         res.status(401).json('Access denided');
         return;
     };
@@ -24,8 +24,12 @@ routes.post('/subscribing', validateCredentials, (req, res) => {
             if(!user) {
                 res.status(403).json({ redirect: '/' });
             } else {
-                user.isReceiveMail = !user.isReceiveMail;
-                return user.save().then(user => res.json({ user: userFields(user) }))
+                if(!user.isCool && data.power !== user.isReceiveMail.power) {
+                    throw new Error('Permission denided')
+                } else {
+                    user.isReceiveMail = data;
+                    return user.save().then(user => res.json({ user: userFields(user) }))
+                }
             }
         })
         .catch(err => res.status(400).json({ errors: err.message }))

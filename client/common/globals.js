@@ -12,9 +12,10 @@ global.toRound = function (obj, digital, addZeroes) { // .toFixed with "human fa
     return last ? String(`${first}.${last}`) : String(`${first}`);
 };
 
-export const host = (path) => `http://localhost:3005${path}`;
+export const host = (path) => path;
 
 global.host = host; // Localhost path
+global.notified = [];
 global.getToken = () => localStorage.getItem('token'); // Get localStorage token
 
 

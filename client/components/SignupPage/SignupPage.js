@@ -53,7 +53,7 @@ class SignupPage extends React.Component {
             this.setState({ loading: true, errors: {}});
             const url = '/auth/sign-up';
             this.props.userAuth({...sendObj, url })
-                .then(id => this.props.history.push(`/user/${id}`))
+                .then(id => this.props.history.push(`/app/user/${id}`))
                 .catch(err => {
                     this.setState({
                         loading: false,
@@ -66,7 +66,7 @@ class SignupPage extends React.Component {
     };
 
     backToLogin = () => {
-        this.props.history.push('/')
+        this.props.history.push('/app/login')
     };
 
     render() {
