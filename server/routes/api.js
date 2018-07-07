@@ -22,7 +22,7 @@ routes.post('/subscribing', validateCredentials, (req, res) => {
     return User.findById(userID)
         .then(user => {
             if(!user) {
-                res.status(403).json({ redirect: '/' });
+                res.status(403).json({ redirect: '/app/login' });
             } else {
                 if(!user.isCool && data.power !== user.isReceiveMail.power) {
                     throw new Error('Permission denided')
@@ -116,7 +116,7 @@ routes.post('/get-symbol-price/:symbol', (req, res) => { // Get price of symbol 
 routes.post('/edit-user-data', validateCredentials, (req, res) => {
     const { id, sign, text } = req.body;
     if(sign === 'username') {
-        User.findOne({ username: text })
+        return User.findOne({ username: text })
             .then(user => {
                 if(user) {
                     res.status(404).json('Username is already exist');
@@ -125,11 +125,16 @@ routes.post('/edit-user-data', validateCredentials, (req, res) => {
                 };
             })
     } else if(sign === 'email') {
-        if(!validateEmail(text)) {
-            res.status(404).json('E-mail does not valid');
-        } else {
-            validateAndEditUser(id, sign, text, res);
-        };
+        return User.findOne({ email: text })
+            .then(user => {
+                if(user) {
+                    res.status(404).json('E-mail is already exist');
+                } else if(!validateEmail(text)) {
+                    res.status(404).json('E-mail does not valid');
+                } else {
+                    validateAndEditUser(id, sign, text, res);
+                };
+            })
     } else {
         validateAndEditUser(id, sign, text, res);
     }
@@ -141,7 +146,7 @@ routes.post('/set-seen-powers', (req, res) => {
     User.findById(userId)
         .then(user => {
             if(!user) {
-                res.status(401).json({ redirect: '/' });
+                res.status(401).json({ redirect: '/app/login' });
             } else {
                 user.percents.forEach(item => {
                     if(item.percentId.toString() === powerId) item.isSeen = true;
@@ -161,7 +166,7 @@ routes.get('/:userId/get-powers', (req, res) => {
             if(user) {
                 res.json(user);
             } else {
-                res.status(401).json({ redirect: '/' })
+                res.status(401).json({ redirect: '/app/login' })
             }
         })
         .catch(err => res.status(500).json(err.message))
@@ -173,7 +178,7 @@ routes.get('/:userId/delete-power/:powerId', (req, res) => {
     return User.findById(userId)
         .then(user => {
             if(!user) {
-                res.status(401).json({ redirect: '/' });
+                res.status(401).json({ redirect: '/app/login' });
             } else {
                 user.percents = user.percents.filter(item => item.percentId.toString() !== powerId);
                 return user.save().then(user => res.json(`Success deleted ${powerId} power symbol`))
@@ -189,7 +194,7 @@ function validateAndEditUser(id, sign, text, res) {
     return User.findById(id)
         .then(user => {
             if(!user) {
-                res.status(401).json({ redirect: '/' });
+                res.status(401).json({ redirect: '/app/login' });
             } else {
                 if(sign && !text) {
                     res.status(400).json(`${sign} can not be blank`);
