@@ -17,7 +17,7 @@ routes.post('/:id', validateCredentials, (req, res) => {
         .then(data => {
             const [user, pairs] = data;
             if(!user) {
-                res.status(401).json({ redirect: '/' });
+                res.status(401).json({ redirect: '/app/login' });
                 return;
             }
             const store = {

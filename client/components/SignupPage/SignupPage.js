@@ -87,6 +87,7 @@ class SignupPage extends React.Component {
                         disabled={this.state.loading}
                     />
                     <Input
+                        type="password"
                         placeholder="Enter password..."
                         name="password"
                         value={this.state.password}

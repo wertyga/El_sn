@@ -42,13 +42,15 @@ let UserSchema = new mongoose.Schema({ //User Schema
     isReceiveMail: {
         type: {
             main: {
-                type: Boolean,
-                default: true,
+                type: Boolean
             },
             power: {
-                type: Boolean,
-                default: false,
+                type: Boolean
             }
+        },
+        default: {
+            main: true,
+            power: false
         }
     },
     emailCancelToken: {
