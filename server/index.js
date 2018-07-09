@@ -3,6 +3,12 @@ import bodyParser from 'body-parser';
 
 import './common/mongoose';
 import config from './common/config';
+import renderHtml from './common/functions/renderHtml';
+
+// Import components
+import App from '../SITE/components/App/App';
+import AppIndex from '../client/components/App/App';
+import NotFoundPage from '../SITE/components/404/404';
 
 import './rabbitMQ/sendMQ';
 
@@ -70,7 +76,7 @@ if(prod) {
     //************************************************************
 }
     app.use(bodyParser.json());
-    app.use(express.static(__dirname + '/../public/static'));
+    app.use(express.static('public/static'));
 
     //******************************** Routes ***************************
     app.use('/fetch', fetch);
@@ -80,10 +86,14 @@ if(prod) {
     app.use('/email', email);
 
     app.get('/app/*', (req, res) => {
-        res.sendFile(__dirname + '/app.html');
+        res.send(renderHtml(req, 'app', <AppIndex />))
     });
+
     app.get('/*', (req, res) => {
-        res.sendFile(__dirname + '/site.html')
+        res.send(renderHtml(req, 'site', <App />))
+    });
+    app.get('*', (req, res) => {
+        res.send(renderHtml(req, 'site', <NotFoundPage />))
     });
 
 //******************************** Uncaught Exception ***************************

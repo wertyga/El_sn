@@ -21,6 +21,11 @@ class Request extends React.Component {
         };
     };
 
+    componentDidMount() {
+        const bg = document.getElementsByClassName('bg')[0];
+        if(bg) bg.classList.remove('root');
+    };
+
     onSubmit = e => {
         e.preventDefault();
 

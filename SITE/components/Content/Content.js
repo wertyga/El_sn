@@ -8,7 +8,6 @@ import login from '../../screenshots/login_screen.png';
 import settings from '../../screenshots/settings_screen.png';
 import main from '../../screenshots/main_screen.png';
 import whales from '../../screenshots/whales_screen.png';
-import bg from '../../screenshots/binary-bitcoin-hd-wallpaper.jpg';
 
 import './Content.sass';
 
@@ -27,10 +26,6 @@ export default class Content extends React.Component {
 
     componentDidMount() {
         document.getElementsByClassName('bg')[0].classList.add('root');
-    };
-
-    componentWillUnmount() {
-        document.getElementsByClassName('bg')[0].classList.remove('root');
     };
 
     componentDidUpdate(prevProps, prevState) {

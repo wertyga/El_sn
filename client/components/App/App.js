@@ -5,8 +5,6 @@ import routes from '../../common/routes';
 // import './App.sass';
 
 class App extends React.Component {
-
-
     render() {
         return (
             <Switch>

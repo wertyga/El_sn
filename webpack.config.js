@@ -1,7 +1,7 @@
 const webpack = require('webpack');
 const path = require('path');
 const nodeExternals = require('webpack-node-externals');
-// const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
 // const HtmlWebpackPlugin = require('html-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const FontminPlugin = require('fontmin-webpack');
@@ -25,20 +25,21 @@ const browserConfig = {
         rules: [
             {
                 test: /\.css$/,
-                loaders: ['style-loader', 'css-loader']
+                use: ExtractTextPlugin.extract({
+                    use: [{ loader: 'css-loader' }]
+                })
             },
 
             {
                 test: /\.sass$/,
-                loaders: ['style-loader', 'css-loader', 'sass-loader']
+                use: ExtractTextPlugin.extract({
+                    use: [{ loader: 'css-loader' }, { loader: 'sass-loader'}]
+                })
             },
 
             {
                 test: /(.woff2|.woff|.eot|.ttf|.otf|.svg)$/,
-                loader: 'file-loader',
-                query: {
-                    name: `fonts/[name].[ext]`,
-                }
+                loader: 'file-loader'
             },
 
             {
@@ -52,25 +53,7 @@ const browserConfig = {
                 loaders: [
                     {
                         loader: 'file-loader',
-                    },
-                    // {
-                    //     loader: 'image-webpack-loader',
-                    //     query: {
-                    //         mozjpeg: {
-                    //             progressive: true,
-                    //         },
-                    //         gifsicle: {
-                    //             interlaced: false,
-                    //         },
-                    //         optipng: {
-                    //             optimizationLevel: 4,
-                    //         },
-                    //         pngquant: {
-                    //             quality: '75-90',
-                    //             speed: 3,
-                    //         },
-                    //     }
-                    // }
+                    }
                 ]
             }
 
@@ -84,6 +67,9 @@ const browserConfig = {
         //         viewport: 'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no'
         //     }
         // }),
+        new ExtractTextPlugin({
+            filename: "css/main.css"
+        }),
         new FontminPlugin({
             autodetect: true, // automatically pull unicode characters from CSS
         }),
@@ -110,18 +96,43 @@ const serverConfig = {
     target: 'node',
     externals: [nodeExternals()],
     output: {
-        path: path.join(__dirname, 'public'),
-        filename: '[name].js',
+        path: path.join(__dirname, 'public', 'server'),
+        filename: 'server.js',
         libraryTarget: "commonjs2"
     },
 
     module: {
         rules: [
             {
+                test: /\.css$/,
+                use: 'css-loader/locals'
+            },
+
+            {
+                test: /\.sass$/,
+                loaders: ['css-loader', 'sass-loader']
+            },
+
+            {
                 test: /\.(js|jsx)$/,
                 exclude: /node_modules/,
                 loaders: 'babel-loader'
+            },
+
+            {
+                test: /\.(gif|png|jpeg|jpg|svg|woff2|woff|eot|ttf|otf)$/i,
+                loaders: [
+                    {
+                        loader: 'file-loader',
+                        options: {
+                            name: "media/[name].[ext]",
+                            publicPath: url => url.replace(/public/, ""),
+                            emitFile: false
+                        }
+                    }
+                ]
             }
+
         ]
     },
 
@@ -130,8 +141,7 @@ const serverConfig = {
         new webpack.NoEmitOnErrorsPlugin(),
         new webpack.ProvidePlugin({
             'React': 'react',
-            "PropTypes":"prop-types",
-            "Promise": "bluebird"
+            "PropTypes":"prop-types"
         })
     ]
 };
@@ -205,7 +215,7 @@ const electronConfig = {
     }
 };
 
-let outputConfig = [browserConfig];
+let outputConfig = [browserConfig, serverConfig];
 
 if(isProd) {
     browserConfig.plugins.push(new UglifyJsPlugin());

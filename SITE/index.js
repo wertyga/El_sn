@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './components/App/App';
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter, StaticRouter } from 'react-router-dom';
 
 import './common/globals';
 
@@ -16,11 +16,9 @@ link.setAttribute('href', favicon);
 link.setAttribute('type', "image/png");
 document.head.appendChild(link);
 
-ReactDOM.render (
+ReactDOM.hydrate (
     <BrowserRouter>
-        {/*<Provider store={store}>*/}
-            <App />
-        {/*</Provider>*/}
+        <App />
     </BrowserRouter>,
     document.getElementById('app')
 );

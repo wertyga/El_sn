@@ -11,10 +11,10 @@ const route = require('express').Router();
 
 // Registration new user
 route.post('/sign-up', validateInputs, (req, res) => {
-    User.findOne({ username: req.body.username })
+    User.find({ $or: [{ username: req.body.username }, { email: req.body.email }] })
         .then(user => {
-            if(user) {
-                res.status(409).json({ errors: { username: 'User is already exist' }});
+            if(user.length > 0) {
+                res.status(409).json({ errors: { globalError: 'User is already exist' }});
             } else {
                 return Promise.all([
                     signUpNewUser(req),

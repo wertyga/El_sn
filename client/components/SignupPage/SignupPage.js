@@ -27,6 +27,7 @@ class SignupPage extends React.Component {
             [e.target.name]: e.target.value,
             errors: {
                 ...this.state.errors,
+                globalError: '',
                 [e.target.name]: ''
             }
         });
@@ -73,10 +74,10 @@ class SignupPage extends React.Component {
         return (
             <div className="SignupPage">
                 <div className="back_to_login" onClick={this.backToLogin}><i className="fas fa-angle-left"></i></div>
-                {this.state.errors.globalError && <div className="error">{this.state.errors.globalError}</div>}
                 <h2>Signup:</h2>
                 {this.state.loading && <Loading />}
                 <div className="inputs">
+                    {this.state.errors.globalError && <div className="error">{this.state.errors.globalError}</div>}
                     <Input
                         placeholder="Enter username..."
                         name="username"

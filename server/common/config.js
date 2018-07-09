@@ -7,7 +7,7 @@ export default {
     host: 'http://localhost:3000',
     PORT: env === 'test' ? 3001 : 3000,
     mongoose: {
-        uri: env === 'test' ? `mongodb://localhost/${dbName}-test` : `mongodb://localhost/${dbName}`,
+        uri: `mongodb://localhost:27017/${env === 'test' ? dbName + '-test' : dbName}`,
         options: {
             server: {
                 socketOptions: {

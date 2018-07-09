@@ -88,7 +88,7 @@ export class LogInScreen extends React.Component {
                         <span>Back</span>
                     </div>
                     <div className="logo_wrapper">
-                        <img src={logo} alt="Logo-App"/>
+                        <h3>Crypto_signer</h3>
                     </div>
                 </div>
 

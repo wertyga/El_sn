@@ -26,7 +26,9 @@ class Logger {
     info(msg) {
         let message = `${new Date()} \n   INFO: ${this.pathName}': ${msg}\n\n`;
         return this.stat(config.logFile)
-            .then(stats => this.appendFile(config.logFile, message))
+            .then(stats => {
+                this.appendFile(config.logFile, message);
+            })
             .catch(err => {
                 if(err.code === 'ENOENT') {
                     return this.writeFile(config.logFile, message);

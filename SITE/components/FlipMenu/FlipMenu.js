@@ -15,10 +15,10 @@ const menuItems = [
     //     title: 'User cabinet',
     //     to: '/cabinet'
     // },
-    {
-        title: 'Go to app',
-        to: '/redirect'
-    },
+    // {
+    //     title: 'Go to app',
+    //     to: '/app/login'
+    // },
     {
         title: 'Send request',
         to: '/request'
@@ -57,8 +57,15 @@ export default class FlipMenu extends React.Component {
 
     render() {
         return (
-            ReactDOM.createPortal(
             <ul className={classnames({ FlipMenu: true, open: this.props.showMenu })} ref={node => this.mainRef = node}>
+                <li className="menu_item"
+                    onClick={(e) => {
+                        this.props.setShowMenu(false);
+                        window.location.assign('app/login');
+                    }}
+                >
+                    <div>Go to app</div>
+                </li>
                 {menuItems.map((item, i) => (
                         <li key={item.title}
                             style={{ transitionDelay: `${(i + 1) * 100}ms` }}
@@ -68,9 +75,7 @@ export default class FlipMenu extends React.Component {
                             <Link to={item.to}>{item.title}</Link>
                         </li>)
                 )}
-            </ul>,
-                document.getElementById('app')
-            )
+            </ul>
         );
     };
 };

@@ -16,7 +16,10 @@ import './styles/fontawesome-all.min.css';
 
 process.env.NODE_ENV === 'production' && window.addEventListener('contextmenu', function(e) { e.preventDefault(); return false });
 
-const store = configureStore();
+const preloadState = window.__PRELOADED_STATE__;
+delete window.__PRELOADED_STATE__;
+
+const store = configureStore(preloadState);
 
 // // #app creating
 // let app = document.createElement('div');
@@ -30,7 +33,7 @@ link.setAttribute('href', appIcon);
 link.setAttribute('type', "image/png");
 document.head.appendChild(link);
 
-ReactDOM.render (
+ReactDOM.hydrate (
     <BrowserRouter>
         <Provider store={store}>
             <App />
