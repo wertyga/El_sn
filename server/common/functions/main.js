@@ -11,7 +11,7 @@ export const api = new Api();
 
 export const lowPercent = 8;
 export const growPercent = 2;
-export const interval = '2h';
+export const interval = '1h';
 
 export function getTradePairs() { //Fetch available trade pairs
     return ActualPairs.find({}, 'symbol baseAsset quoteAsset')

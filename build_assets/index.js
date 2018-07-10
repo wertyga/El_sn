@@ -8,7 +8,7 @@ const receiveMQ = require('./babelableRabbitMQReceiver');
 
 console.log('[X] Building assets...');
 Promise.all([
-    receiveMQ()
+    // receiveMQ()
     // createJSON(),
     // server(path.join(__dirname, '../server')),
     // icons()

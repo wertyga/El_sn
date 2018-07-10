@@ -20,12 +20,6 @@ export const Email = Loadable({
         return <Loading show={true}/>
     }
 });
-export const AppTransition = Loadable({
-    loader: () => import('../../AppTransition/AppTransition'),
-    loading() {
-        return <Loading show={true}/>
-    }
-});
 export const Credentials = Loadable({
     loader: () => import('../../Credentials/Credentials'),
     loading() {

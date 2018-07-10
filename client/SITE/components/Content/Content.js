@@ -76,9 +76,6 @@ export default class Content extends React.Component {
                             or focus and follow on some of them.
                         </p>
                         <br/>
-                        {/*<p>For users with extention account(till every new user will receive it) will be available opportunity to get information*/}
-                        {/*about abruptly go down or grow up of currency.*/}
-                        {/*</p>*/}
                         <div className="final"><span>Yours:</span>   Crypto_signer team</div>
                     </div>
                 </div>
@@ -124,7 +121,7 @@ export default class Content extends React.Component {
                             <h4>Power screen</h4>
                             <p>Power screen shows you coins that had very big price down of fast grow up</p>
                             <br/>
-                            <p>Big price down: in 2 hours price down more then 8%</p>
+                            <p>Big price down: in 1 hour price down more then 8%</p>
                             <p>Fast grow up: in very short period of time price grow up 2% and more</p>
                         </div>
                     </div>
@@ -144,7 +141,7 @@ export default class Content extends React.Component {
             <div className="extention">
                 <h2>Extention account</h2>
                 <div className="content">
-                    <p>For users with extention account(till every new user will receive it) will be
+                    <p>For users with extention account (till every new user will receive it) will be
                         available opportunity to get information about abruptly go down or grow up of currency.</p>
                 </div>
             </div>

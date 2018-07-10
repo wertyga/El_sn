@@ -2,6 +2,8 @@
 
 .Request
   padding: $paddingTop $paddingSide
+  position: relative
+  color: $fontColorLight
   label
     margin-bottom: 5px
   h2
@@ -15,14 +17,16 @@
       max-width: 300px
       margin-bottom: 10px
     textarea
-      margin-bottom: 30px
       max-width: 600px
       height: 300px
+      margin-bottom: 10px
     .btn
       max-width: 200px
-  .error
-    text-align: left
-    margin-bottom: 10px
+      margin-top: 30px
+    .error
+      text-align: left
+      margin-bottom: 10px
+      margin-top: 0
   .modal
     position: absolute
     top: 50%
@@ -33,5 +37,7 @@
     flex-direction: column
     background-color: $bgColor
     border: 1px solid $borderColor
+    color: $fontColor
     p
       margin-bottom: 20px
+

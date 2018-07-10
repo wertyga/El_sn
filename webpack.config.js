@@ -31,7 +31,7 @@ const browserConfig = {
             {
                 test: /\.sass$/,
                 use: ExtractTextPlugin.extract({
-                    use: [{ loader: 'css-loader' }, { loader: 'sass-loader'}]
+                    use: [{ loader: 'css-loader', options: { minimize: true } }, { loader: 'sass-loader'}]
                 })
             },
 
@@ -131,7 +131,7 @@ const serverConfig = {
                             publicPath: url => url.replace(/public/, ""),
                             emitFile: false
                         }
-                    }
+                    },
                 ]
             }
 
@@ -146,6 +146,33 @@ const serverConfig = {
             "PropTypes":"prop-types"
         })
     ]
+};
+
+const receiveMQConfig = {
+    entry: {
+        server: path.join(__dirname, 'server/rabbitMQ/receiveMQ.js')
+    },
+    target: 'node',
+    node: {
+        __dirname: false,
+        __filename: false
+    },
+    externals: [nodeExternals()],
+    output: {
+        path: path.join(__dirname, 'public', 'server'),
+        filename: 'receiveMQ.js',
+        libraryTarget: "commonjs2"
+    },
+
+    module: {
+        rules: [
+            {
+                test: /\.(js|jsx)$/,
+                exclude: /node_modules/,
+                loaders: 'babel-loader'
+            },
+        ]
+    }
 };
 
 const electronConfig = {
@@ -217,7 +244,7 @@ const electronConfig = {
     }
 };
 
-let outputConfig = [browserConfig, serverConfig];
+let outputConfig = [browserConfig, serverConfig, receiveMQConfig];
 
 if(isProd) {
     browserConfig.plugins.push(new UglifyJsPlugin());

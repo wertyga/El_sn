@@ -1,6 +1,8 @@
 @import '../../styles/vars'
 
 .Site
+  background: url("../../../../crypto.jpg") center center fixed
+  background-size: cover
   font-family: 'ImpactRegular', sans-serif
   color: $fontColor
   box-sizing: border-box
@@ -12,15 +14,16 @@
     position: fixed
     top: 0
     left: 50%
-    z-index: -1
+    z-index: 0
     width: 200vw
     height: 100vh
     display: inline-flex
     transform-origin: 0 50%
-    transition: transform 1s
+    transition: transform 1s, opacity 1.5s
     transform: rotate(30deg) scaleY(4)
     &.root
       transform: rotate(90deg) scale(4) translateX(-50%)
+      opacity: .7
     .icon
       position: fixed
       top: 42%
