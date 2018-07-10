@@ -2,7 +2,7 @@ import './Loading.sass';
 
 export default () => {
     return (
-        <div className="Loading">
+        <div className="LoadingApp">
             <div className="cssload-loader">
                 <div className="cssload-inner cssload-one"></div>
                 <div className="cssload-inner cssload-two"></div>

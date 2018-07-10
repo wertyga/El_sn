@@ -33,7 +33,9 @@ class SignupPage extends React.Component {
         });
     };
 
-    onSubmit = () => {
+    onSubmit = (e) => {
+        e.preventDefault();
+        console.log('Submit')
         const sendObj = {
             password: {
                 field: this.state.password,

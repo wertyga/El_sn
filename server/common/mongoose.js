@@ -6,7 +6,7 @@ const log = require('./log')(module)
 // mongoose.set('debug', true);
 mongoose.Promise = require('bluebird');
 
-mongoose.connect(config.mongoose.uri, { useNewUrlParser: true }, (err) => {
+mongoose.connect(config.mongoose.uri, { }, (err) => {
     if(err) {
         log.error(err.message);
     } else {

@@ -1,5 +1,6 @@
 import express from 'express';
 import bodyParser from 'body-parser';
+import path from 'path';
 
 import './common/mongoose';
 import config from './common/config';
@@ -76,7 +77,7 @@ if(prod) {
     //************************************************************
 }
     app.use(bodyParser.json());
-    app.use(express.static('public/static'));
+    app.use(express.static(path.join(__dirname, '../static')));
 
     //******************************** Routes ***************************
     app.use('/fetch', fetch);

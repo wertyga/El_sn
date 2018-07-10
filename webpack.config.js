@@ -92,6 +92,10 @@ const serverConfig = {
         server: path.join(__dirname, 'server/index.js')
     },
     target: 'node',
+    node: {
+        __dirname: false,
+        __filename: false
+    },
     externals: [nodeExternals()],
     output: {
         path: path.join(__dirname, 'public', 'server'),

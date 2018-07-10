@@ -2,7 +2,7 @@ import validateFields from '../middlewares/validateRequireFields';
 
 import Request from '../models/request';
 
-const log = require('../common/log')(module);
+const log = require('../common/log')();
 const routes = require('express').Router();
 
 routes.post('/request', validateFields, (req, res) => {

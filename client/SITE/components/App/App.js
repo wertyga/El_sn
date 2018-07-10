@@ -7,12 +7,8 @@ import UpperMenu from '../UpperMenu/UpperMenu';
 import './App.sass';
 
 class App extends React.Component {
-    constructor() {
-        super();
-
-        this.state = {
-            res: ''
-        };
+    constructor(props) {
+        super(props);
     };
 
     componentDidMount() {

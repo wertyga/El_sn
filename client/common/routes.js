@@ -14,57 +14,62 @@ import SocketWrapper from '../components/SocketWrapper/SocketWrapper';
 import Application from '../components/Application/Application';
 
 export default [
+    {
+        path: '/app',
+        render: () => (
+            <Application />
+        )
+    },
     // Site
     {
         path: '/',
-        exact: true,
         render: () => (
-            <Site><Content /></Site>
+            <Site />
         )
     },
-    {
-        path: '/request',
-        render: () => (
-            <Site><Request /></Site>
-        )
-    },
-    {
-        path: '/email/unsubscribing/:userID/:emailCancelToken',
-        render: () => (
-            <Site><Email /></Site>
-        )
-    },
-    {
-        path: '/credentials',
-        render: () => (
-            <Site><Credentials /></Site>
-        )
-    },
+    // {
+    //     path: '/request',
+    //     render: () => (
+    //         <Site><Request /></Site>
+    //     )
+    // },
+    // {
+    //     path: '/email/unsubscribing/:userID/:emailCancelToken',
+    //     render: () => (
+    //         <Site><Email /></Site>
+    //     )
+    // },
+    // {
+    //     path: '/credentials',
+    //     render: () => (
+    //         <Site><Credentials /></Site>
+    //     )
+    // },
     // Application
-    {
-        path: '/app/login',
-        render: () => (
-            <Application><LoginScreen /></Application>
-        )
-    },
-    {
-        path: '/app/user/sign-up',
-        render: () => (
-            <Application><SignupPage /></Application>
-        )
-    },
-    {
-        path: '/app/user/:id',
-        render: () => (
-            <Application><SocketWrapper /></Application>
-        )
-    },
-    {
-        path: '/app/*',
-        component: NotFoundApp
-    },
-    {
-        path: '/*',
-        component: NotFoundPage
-    },
+    // {
+    //     path: '/app/login',
+    //     render: () => (
+    //         <Application><LoginScreen /></Application>
+    //     )
+    // },
+    // {
+    //     path: '/app/user/sign-up',
+    //     render: () => (
+    //         <Application><SignupPage /></Application>
+    //     )
+    // },
+    // {
+    //     path: '/app/user/:id',
+    //     render: () => (
+    //         <Application><SocketWrapper /></Application>
+    //     )
+    // },
+    // {
+    //     path: '/app/*',
+    //     component: NotFoundApp
+    // },
+    // {
+    //     path: '/*',
+    //     component: NotFoundPage
+    // },
 ]

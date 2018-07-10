@@ -3,8 +3,8 @@ import util from 'util';
 import config from './config';
 
 class Logger {
-    constructor(module) {
-        this.pathName = module.filename;
+    constructor() {
+        this.pathName = __filename;
         this.stat = util.promisify(fs.stat);
         this.writeFile = util.promisify(fs.writeFile);
         this.appendFile = util.promisify(fs.appendFile);

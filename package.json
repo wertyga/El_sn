@@ -7,7 +7,7 @@
     "test": "cross-env NODE_ENV=test jest --watchAll --env=jsdom",
     "webpack:dev": "cross-env NODE_ENV=development webpack -w",
     "SERVER:start:dev": "cross-env NODE_ENV=development nodemon --watch public/server --exec node public/server/server.js",
-    "SERVER:start:prod": "cross-env NODE_ENV=production node --nouse-idle-notification --expose-gc public/server",
+    "SERVER:start:prod": "cross-env NODE_ENV=production node --nouse-idle-notification --expose-gc public/server/server.js",
     "ELECTRON:start:dev": "cross-env NODE_ENV=development nodemon --watch public/electron --exec electron public/electron/electron.js",
     "ELECTRON:start:prod": "electron public/electron/electron.js",
     "build": "cross-env NODE_ENV=production webpack && node build_assets/index.js",

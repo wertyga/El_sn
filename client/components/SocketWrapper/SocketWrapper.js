@@ -136,12 +136,7 @@ import notify from '../../common/functions/notification';
         render() {
             return (
                 <div className="SocketWrapper">
-                    {/*<button className="btn primary" onClick={this.notify}>Notify</button>*/}
-                    {/*<button className="btn primary" onClick={this.closeNotify}>Close notify</button>*/}
-                    {/*<button className="btn primary" onClick={() => ipcRenderer.send('left', {})}>Left</button>*/}
-                    {/*<button className="btn primary" onClick={() => ipcRenderer.send('right', {})}>Right</button>*/}
                     {this.state.loading && <Loading />}
-                    {/*<div className="upper_bar">{this.state.contentOfUpperBar}</div>*/}
                     <Route path="/app/user/:id" exact render={() => <UserScreen {...this.props} {...this.state}/>}/>
                     <Route path="/app/user/:id/whales-orders" component={Whales}/>
                     <Route path="/app/user/:id/power-orders" component={PowerPercents}/>

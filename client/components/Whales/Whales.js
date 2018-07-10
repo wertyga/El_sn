@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import classnames from 'classnames';
 
 import { getWhaleOrders } from '../../actions/api';
 import { getUserData } from '../../actions/auth';

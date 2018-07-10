@@ -3,7 +3,9 @@ import { Switch, Route } from 'react-router-dom';
 import routes from '../../common/routes';
 
 class App extends React.Component {
-
+    constructor(props) {
+        super(props)
+    };
     render() {
         return (
             <Switch>

@@ -74,7 +74,7 @@ export class LogInScreen extends React.Component {
 
     signup = (e) => {
         e.preventDefault();
-        this.props.history.push('/app/user/sign-up')
+        this.props.history.push('/app/sign-up')
     };
 
     goToMain = () => {
