@@ -39,7 +39,8 @@ export class LogInScreen extends React.Component {
         });
     };
 
-    Submit = login => { // Login user
+    Submit = e => { // Login user
+        e.preventDefault();
         const sendObject = {
             username: {
                 field: this.state.username,
@@ -71,7 +72,8 @@ export class LogInScreen extends React.Component {
         }
     };
 
-    signup = () => {
+    signup = (e) => {
+        e.preventDefault();
         this.props.history.push('/app/user/sign-up')
     };
 

@@ -25,7 +25,8 @@ export default class Content extends React.Component {
     };
 
     componentDidMount() {
-        document.getElementsByClassName('bg')[0].classList.add('root');
+        const bg = document.getElementsByClassName('bg')[0];
+        if(bg) bg.classList.add('root');
     };
 
     componentDidUpdate(prevProps, prevState) {

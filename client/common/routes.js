@@ -1,23 +1,70 @@
+// Site
+import Site from '../SITE/components/Site/Site';
+import Content from '../SITE/components/Content/Content';
+import Request from '../SITE/components/Request/Request';
+import Credentials from '../SITE/components/Credentials/Credentials';
+import Email from '../SITE/components/Email/Email';
+import NotFoundPage from "../SITE/components/404/404";
+
+// Application
 import LoginScreen from '../components/LogInScreen/LogInScreen';
 import SignupPage from '../components/SignupPage/SignupPage';
-import NotFound from '../components/404/404';
+import NotFoundApp from '../components/404/404';
 import SocketWrapper from '../components/SocketWrapper/SocketWrapper';
+import Application from '../components/Application/Application';
 
 export default [
+    // Site
+    {
+        path: '/',
+        exact: true,
+        render: () => (
+            <Site><Content /></Site>
+        )
+    },
+    {
+        path: '/request',
+        render: () => (
+            <Site><Request /></Site>
+        )
+    },
+    {
+        path: '/email/unsubscribing/:userID/:emailCancelToken',
+        render: () => (
+            <Site><Email /></Site>
+        )
+    },
+    {
+        path: '/credentials',
+        render: () => (
+            <Site><Credentials /></Site>
+        )
+    },
+    // Application
     {
         path: '/app/login',
-        component: LoginScreen
+        render: () => (
+            <Application><LoginScreen /></Application>
+        )
     },
     {
         path: '/app/user/sign-up',
-        component: SignupPage
+        render: () => (
+            <Application><SignupPage /></Application>
+        )
     },
     {
         path: '/app/user/:id',
-        component: SocketWrapper
+        render: () => (
+            <Application><SocketWrapper /></Application>
+        )
     },
     {
         path: '/app/*',
-        component: NotFound
-    }
+        component: NotFoundApp
+    },
+    {
+        path: '/*',
+        component: NotFoundPage
+    },
 ]

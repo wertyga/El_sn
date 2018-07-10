@@ -4,26 +4,15 @@ import { StaticRouter } from 'react-router-dom';
 
 import configureStore from '../../../client/common/functions/configureStore';
 
-export default (req, sign, Component, state) => {
-    let store,
-        html;
-    if(sign !== 'site') {
-        store = configureStore(state);
-        html = renderToString(
-            <StaticRouter context={{}} location={req.url}>
-                <Provider store={store}>
-                    {Component}
-                </Provider>
-            </StaticRouter>
-        );
-    } else {
-        html = renderToString(
-            <StaticRouter context={{}} location={req.url}>
+export default (req, Component, state) => {
+    const store = configureStore(state);
+    const html = renderToString(
+        <StaticRouter context={{}} location={req.url}>
+            <Provider store={store}>
                 {Component}
-            </StaticRouter>
-        );
-    };
-
+                </Provider>
+        </StaticRouter>
+    );
 
     return (`
             <!DOCTYPE html>
@@ -34,9 +23,9 @@ export default (req, sign, Component, state) => {
                 <title>Crypto signer</title>
                 <link rel="stylesheet" href="/css/main.css">
                 <script>
-                    window.__PRELOADED_STATE__ = ${sign !== 'site' ? JSON.stringify(store.getState()).replace(/</g, '\\u003c') : null}
+                    window.__PRELOADED_STATE__ = ${JSON.stringify(store.getState()).replace(/</g, '\\u003c')}
                 </script>
-               <script src="/${sign}.js" defer></script>
+               <script src="/bundle.js" defer></script>
             </head>
             <body>
             

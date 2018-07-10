@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './components/App/App';
 import { Provider } from 'react-redux';
-import { BrowserRouter, HashRouter } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 
 import configureStore from './common/functions/configureStore';
 
@@ -20,11 +20,6 @@ const preloadState = window.__PRELOADED_STATE__;
 delete window.__PRELOADED_STATE__;
 
 const store = configureStore(preloadState);
-
-// // #app creating
-// let app = document.createElement('div');
-// app.setAttribute('id', 'app');
-// document.body.prepend(app);
 
 // Favicon creating
 const link = document.createElement('link');

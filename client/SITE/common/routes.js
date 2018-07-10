@@ -1,7 +1,6 @@
 import Content from '../components/Content/Content';
 import Request from '../components/Request/Request';
 import Credentials from '../components/Credentials/Credentials';
-import AppTransition from '../components/AppTransition/AppTransition';
 import Email from '../components/Email/Email';
 
 
@@ -34,8 +33,8 @@ export default [
         path: '/credentials',
         component: Credentials
     },
-    {
-        path: '/*',
-        component: NotFoundPage
-    },
+    // {
+    //     path: '/*',
+    //     component: NotFoundPage
+    // },
 ]

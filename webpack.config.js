@@ -11,10 +11,8 @@ const isProd = dev === 'production';
 
 const browserConfig = {
     entry: {
-        app: path.join(__dirname, 'client/index.js'),
-        site: path.join(__dirname, 'SITE/index.js'),
+        bundle: path.join(__dirname, 'client/index.js')
     },
-    // externals: [nodeExternals()],
     output: {
         path: path.join(__dirname, 'public', 'static'),
         filename: '[name].js',
