@@ -1,4 +1,5 @@
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 import { userAuth } from '../../actions/auth';
 
@@ -76,6 +77,7 @@ export class LogInScreen extends React.Component {
     render() {
         return (
             <div className="LogInScreen">
+                <div className="login_header" onClick={this.backToLogin}><p>Login</p></div>
                 <form className="form" onSubmit={this.Submit}>
                     {this.state.errors.globalError && <div className="error">{this.state.errors.globalError}</div>}
                     {this.state.loading  && <Loading />}
@@ -117,6 +119,8 @@ export class LogInScreen extends React.Component {
                             Sign-Up/Registration
                         </button>
                     </div>
+
+                    <Link to="/remind" className="remind">Forgot password?</Link>
 
                 </form>
             </div>

@@ -81,6 +81,7 @@ Input.propTypes = {
     floatText: PropTypes.string, // FloatText of Input
     disabled: PropTypes.bool, // Disabled of Input
     onClick: PropTypes.func, // Function for invoke some behavior when clicked on input
+    onFocus: PropTypes.func, // Function to react on focus event
     // ref: PropTypes.element, // Reference to this Input
 
 };

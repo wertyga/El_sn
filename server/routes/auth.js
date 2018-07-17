@@ -1,11 +1,12 @@
-import hash from 'password-hash';
-
+import shortID from 'shortid';
 import validateInputs from '../middlewares/validateRequireFields';
 
 import { getTradePairs } from '../common/functions/main';
 
 import User, { userFields, encryptPassword } from '../models/user';
 import Session from '../models/session';
+
+import { sendMailEE } from "../common/functions/commonFunctions";
 
 const route = require('express').Router();
 
@@ -81,6 +82,37 @@ route.post('/logout', (req, res) => { // Logout user
 
 route.get('/quit-app/:userID', (req, res) => {
     return Session.findByUserAndRemove(req.params.userID)
+});
+
+route.post('/remind-pass', (req, res) => {
+    const { username } = req.body;
+
+    if(!username) {
+        return res.status(403).json({ errors: { username: 'Field can not be blank' } });
+    } else {
+        return User.findOne({ username })
+            .then(user => {
+                if(!user) {
+                    return res.status(404).json({ errors: { username: 'User is not exist' } });
+                } else {
+                    const verifyCode = shortID.generate();
+                    const mailOptions = {
+                        from: '"Crypto_signer" <cryptosignefication@gmail.com>',
+                        to: user.email,
+                        subject: 'Verify code for reestablish password from "Crypto_Signer"',
+                        html: `<p>Verify code:</p><p><strong>${verifyCode}</strong></p>`
+                    };
+                    sendMailEE.emit('send_mail', mailOptions);
+                    user.verifyPassCode = verifyCode;
+                    return user.save().then(() => res.json('Code was send!'));
+                };
+            })
+            .catch(err => res.status(err.status || 500).json({ errors: { globalError: err.message } }))
+    }
+});
+
+route.post('/verify-pass', (req, res) => {
+
 });
 
 export default route;

@@ -62,6 +62,11 @@ let UserSchema = new mongoose.Schema({ //User Schema
             isSeen: { type: Boolean, default: false }
         }],
         default: []
+    },
+    verifyPassCode: {
+        type: String,
+        default: '',
+        index: { expires: 30 }
     }
 });
 

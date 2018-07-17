@@ -5,6 +5,10 @@ import * as consts from './constants';
 import { setPairs, setTradePairs } from './api';
 import { setPercent } from './socket';
 
+export const remindPass = username => dispatch => {
+    return axios.post(host('/auth/remind-pass'), { username })
+};
+
 export const userAuth = (data) => dispatch => { // User authentication
     return axios.post(host(data.url), data)
         .then(res => {
