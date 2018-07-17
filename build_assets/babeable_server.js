@@ -22,17 +22,15 @@ module.exports = function babeable(file) { // Babel the server folder and copy i
         fs.readdirSync(file)
             .map(item => path.join(file, item))
             .forEach(async item => babeable(item));
-    } else if(file.match(/\.(js)$/)){
+    } else if(file.match(/\.js/)){
         babel.transformFile(file, babelOptions, (err, result) => {
             if(err) {
                 console.error(err);
                 return;
             } else {
-                fs.writeFile(file.replace('server', 'public/server'), result.code, err => { if(err) { console.error(err) }});
+                fs.writeFile(file.replace('server', 'public/server'), result.code, err => { if(err) { console.error(err) }})
             };
         });
-    } else if(file.match(/\.(html)$/)) {
-        fs.copyFile(file, file.replace('server', 'public/server'), err => { if(err) { console.error(err) }});
     };
 };
 

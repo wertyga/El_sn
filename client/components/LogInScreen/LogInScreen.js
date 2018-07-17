@@ -8,8 +8,6 @@ import Loading from '../common/Loading/Loading';
 
 import Input from '../common/Input/Input';
 
-import logo from '../../../icons/logo.png';
-
 import './LogInScreen.sass';
 
 export class LogInScreen extends React.Component {
@@ -39,8 +37,7 @@ export class LogInScreen extends React.Component {
         });
     };
 
-    Submit = e => { // Login user
-        e.preventDefault();
+    Submit = login => { // Login user
         const sendObject = {
             username: {
                 field: this.state.username,
@@ -58,7 +55,7 @@ export class LogInScreen extends React.Component {
             // const url = login ? '/auth/login' : '/auth/sign-up';
             const url = '/auth/login';
             this.props.userAuth({...sendObject, url })
-                .then(id => this.props.history.push(`/app/user/${id}`))
+                .then(id => this.props.history.push(`/user/${id}`))
                 .catch(err => {
                     this.setState({
                         loading: false,
@@ -72,28 +69,13 @@ export class LogInScreen extends React.Component {
         }
     };
 
-    signup = (e) => {
-        e.preventDefault();
-        this.props.history.push('/app/sign-up')
-    };
-
-    goToMain = () => {
-        location.assign('/')
+    signup = () => {
+        this.props.history.push('/user/sign-up')
     };
 
     render() {
         return (
             <div className="LogInScreen">
-                <div className="upper_bar" onClick={this.goToMain}>
-                    <div className="left">
-                        <i className="fas fa-angle-left"></i>
-                        <span>Back</span>
-                    </div>
-                    <div className="logo_wrapper">
-                        <h3>Crypto_signer</h3>
-                    </div>
-                </div>
-
                 <form className="form" onSubmit={this.Submit}>
                     {this.state.errors.globalError && <div className="error">{this.state.errors.globalError}</div>}
                     {this.state.loading  && <Loading />}

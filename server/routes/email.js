@@ -1,3 +1,5 @@
+import config from '../common/config';
+
 const log = require('../common/log')(module);
 const routes = require('express').Router();
 

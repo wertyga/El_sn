@@ -20,14 +20,6 @@ class PowerPercents extends React.Component {
         };
     };
 
-    componentDidMount() {
-        // window.onscroll = this.setSeen;
-        // const newPowers = this.props.powers.filter(item => !item.isSeen);
-        // if(newPowers.length > 0) {
-        //     this.props.setSeenPowers(this.props.user._id); // Set powers symbols to to seen
-        // };
-    };
-
     componentDidUpdate(prevProps) {
         if((this.props.user !== prevProps.user) && !isEmpty(this.props.user)) {
             this.setState({ loading: true });
@@ -39,10 +31,6 @@ class PowerPercents extends React.Component {
                 });
         };
     };
-
-    // setSeen = (powerId, bottom) => {
-    //     console.log(powerId, bottom);
-    // };
 
     deletePower = id => {
         return this.props.deletePower(id, this.props.user._id)
@@ -57,7 +45,7 @@ class PowerPercents extends React.Component {
             <div className="PowerPercents">
                 <div className="upper_bar">
                     <div className="back_to_login"
-                         onClick={() => this.props.history.replace(`/app/user/${this.props.user._id}`)}
+                         onClick={() => this.props.history.replace(`/user/${this.props.user._id}`)}
                     >
                         <i className="fas fa-angle-left"></i>
                     </div>
@@ -74,7 +62,7 @@ class PowerPercents extends React.Component {
                             history={this.props.history}
                         />
                     )}
-                    {this.props.powers.length < 1 && <div className="empty">This stash is empty now</div>}
+                    {this.props.powers.length < 1 && !this.state.loading && <div className="empty">This stash is empty now</div>}
                 </div>
             </div>
         );

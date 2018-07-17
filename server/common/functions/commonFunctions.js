@@ -31,7 +31,7 @@ export const getPowerPercentsFromUser = (userId) => { // Power percents with 2% 
 export function remindUser(user, pair, sign, up) { // Remind user that sign price is reached
     let html;
     const denidedBlock = `<div style="width: 100%; font-size: 10px; center; cursor: pointer;">
-                            <a href="${config.host}/email/unsubscribing/${user.id}/${user.emailCancelToken}"><p>Unsibscribe email sending</p></a>  
+                            <a href="${config.siteHost}/email/unsubscribing/${user.id}/${user.emailCancelToken}"><p>Unsibscribe email sending</p></a>  
                           </div>`
     if(sign) {
         html = `<div>

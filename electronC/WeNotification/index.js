@@ -1,14 +1,10 @@
 import EventEmitter from 'events';
-import { format as formatUrl } from 'url';
-import path from 'path';
 
-import filterObject from '../../client/common/functions/filterObject';
-import { BrowserWindow, screen, ipcMain, BrowserView } from 'electron';
-import {mainWindow} from "../electron";
+import { BrowserWindow, screen, ipcMain } from 'electron';
 
 // Properties
 //     title: {
-//         text: 'Tile text'
+//         text: 'Tile text' // <strong>Some markup</strong> - available
 //             // styles of title
 //     },
 //     text: {
@@ -35,8 +31,6 @@ import {mainWindow} from "../electron";
 //     leaveTransitionSpeed: // Speed of window moving(default: 6ms)
 //     useContentSize: // Is use content size
 
-let count = 0;
-
 let _winIDs = [];
 let _queue = [];
 let _max = 3;
@@ -44,7 +38,7 @@ let isMaxHeight = 0;
 
 const looseBetweenNotifications = 5;
 
-class WcNotify extends EventEmitter {
+class WeNotify extends EventEmitter {
     constructor(opt) {
         super();
         if(opt.maxWindows) _max = opt.maxWindows;
@@ -55,52 +49,46 @@ class WcNotify extends EventEmitter {
         this.vertPos = opt.vertPos || 20;
         this.appearTransitionSpeed = opt.appearTransitionSpeed || 8;
         this.leaveTransitionSpeed = opt.leaveTransitionSpeed || 6;
+        this.closeTimeout = opt.closeTimeout || 6000;
+    };
 
+    show() {
         const { width, height } = screen.getPrimaryDisplay().workAreaSize;
-
         // Make window
-        this._notifyWindow = new BrowserWindow({
+        let _notifyWindow = new BrowserWindow({
+            icon: this.opt.icon.title || false,
             maxWidth: width,
             maxHeight: height,
             parent: 'top',
             modal: true,
             frame: false,
-            useContentSize: false,
+            useContentSize: true,
             width: this.notifyWidth,
             height: this.notifyHeight,
             hasShadow: false,
             resizable: false,
             alwaysOnTop: true,
-            show: false,
-            movable: false,
-            icon: opt.icon.image
+            show: false
         });
 
         // Load content
-        const file = 'data:text/html;charset=UTF-8,' + encodeURIComponent(loadView(opt));
-        this._notifyWindow.loadURL(file);
-        this._setEventHandleres(this._notifyWindow);
+        const file = 'data:text/html;charset=UTF-8,' + encodeURIComponent(loadView(this.opt));
+        _notifyWindow.loadURL(file);
+        this._notifyWindow = _notifyWindow;
 
-        // this._notifyWindow.loadURL('data:text/html;charset=UTF-8,' + encodeURIComponent(require('./app.html')));
-        // this._setEventHandleres(this._notifyWindow);
-    };
-
-    show() {
-
-        count += 1;
+        this._setEventHandleres(_notifyWindow);
 
         //Check count of windows
         const checkHeights = isMaxHeight +
-            this._notifyWindow.getSize()[1] +
-            looseBetweenNotifications * 2 >= screen.getPrimaryDisplay().workAreaSize.height;
+                _notifyWindow.getSize()[1] +
+                looseBetweenNotifications * 2 >= screen.getPrimaryDisplay().workAreaSize.height;
 
         if((_winIDs.length < _max) && !checkHeights) {
-            this._notifyWindow.show();
-            this._notifyWindow.focus();
-            isMaxHeight += this._notifyWindow.getSize()[1];
-
+            _notifyWindow.show();
+            _notifyWindow.focus();
+            isMaxHeight += _notifyWindow.getSize()[1];
         } else {
-            _queue.push(this._notifyWindow);
+            _queue.push(_notifyWindow);
         };
     };
 
@@ -143,7 +131,7 @@ class WcNotify extends EventEmitter {
     };
 
     close = () => {
-        if(this._notifyWindow) {
+        if(this._notifyWindow && process.platform !== 'linux') {
             this._animateCloseToRightFromRightBottom()
                 .then(() => {
                     _winIDs.splice(_winIDs.indexOf(this._notifyWindow.id), 1);
@@ -151,6 +139,10 @@ class WcNotify extends EventEmitter {
                     this._notifyWindow.close();
                 })
                 .catch(err => console.error(err))
+        } else if(this._notifyWindow){
+            _winIDs.splice(_winIDs.indexOf(this._notifyWindow.id), 1);
+            isMaxHeight -= this._notifyWindow.getSize()[1];
+            this._notifyWindow.close();
         }
     };
 
@@ -190,8 +182,22 @@ class WcNotify extends EventEmitter {
         win.on('show', () => {
             this.emit('show');
             _winIDs.push(win.id);
-            this._initialPositionRightBottom();
-            this._appearFromRightToLeft();
+            if(process.platform !== 'linux') {
+                this._initialPositionRightBottom();
+                this._appearFromRightToLeft();
+            } else {
+                const { horizPos, vertPos } = this._getWindowPositionRight(win);
+                win.setPosition(horizPos, vertPos);
+            };
+
+            setTimeout(() => {
+                if(win || !win.isDestroyed()) {
+                    this.close()
+                } else {
+                    win = null;
+                    return;
+                };
+            }, this.closeTimeout);
 
             // win.webContents.openDevTools();
 
@@ -202,6 +208,7 @@ class WcNotify extends EventEmitter {
         win.on('close', () => {
             this.emit('close');
 
+            this._notifyWindow = null;
             ipcMain.removeListener(`windowID-${win.id}`, this.close);
             ipcMain.removeListener(`body_click-${win.id}`, this.bodyClick);
         });
@@ -217,46 +224,51 @@ class WcNotify extends EventEmitter {
     };
 
     _moveWindowFromRight(windowID) {
-        const window = BrowserWindow.fromId(windowID);
+        let window = BrowserWindow.fromId(windowID);
         if(!window) return;
         const { horizPos, vertPos } = this._getWindowPositionRight(window);
         let timer = setInterval(() => {
-            const [winX, winY] = window.getPosition();
-            if(winY >= vertPos) {
-               clearInterval(timer);
-               timer = null;
+            if(!window || window.isDestroyed()) {
+                window = null;
+                return;
             } else {
-                window.setPosition(winX, Math.min(winY + 30, vertPos));
-            }
+                const [winX, winY] = window.getPosition();
+                if(winY >= vertPos) {
+                    clearInterval(timer);
+                    timer = null;
+                } else {
+                    window.setPosition(winX, Math.min(winY + 30, vertPos));
+                }
+            };
         }, 2);
     };
 
-    _moveWindowFromTop(windowID) {
-        const window = BrowserWindow.fromId(windowID);
-        if(!window) return;
-        const { horizPos, vertPos } = this._getWindowPositionTop(window);
-        let timer = setInterval(() => {
-            const [winX, winY] = window.getPosition();
-            if(winY <= vertPos) {
-                clearInterval(timer);
-                timer = null;
-            } else {
-                window.setPosition(winX, Math.max(winY - 30, vertPos));
-            }
-        }, 2);
-    };
+    // _moveWindowFromTop(windowID) {
+    //     const window = BrowserWindow.fromId(windowID);
+    //     if(!window) return;
+    //     const { horizPos, vertPos } = this._getWindowPositionTop(window);
+    //     let timer = setInterval(() => {
+    //         const [winX, winY] = window.getPosition();
+    //         if(winY <= vertPos) {
+    //             clearInterval(timer);
+    //             timer = null;
+    //         } else {
+    //             window.setPosition(winX, Math.max(winY - 30, vertPos));
+    //         }
+    //     }, 2);
+    // };
 
-    _launchMoveDownInRightBottom() {
+    _launchMoveDownInRightBottom() { // Slide down upper notification when downer is closed
         for(let i = 0; i < _winIDs.length; i++) {
             this._moveWindowFromRight(_winIDs[i])
         };
     };
 
-    _launchMoveTopInRightTop() {
-        for(let i = _winIDs.length - 1; i >= 0; i--) {
-            this._moveWindowFromTop(_winIDs[i])
-        };
-    };
+    // _launchMoveTopInRightTop() {
+    //     for(let i = _winIDs.length - 1; i >= 0; i--) {
+    //         this._moveWindowFromTop(_winIDs[i])
+    //     };
+    // };
 };
 
 const loadView = (opt) => {
@@ -280,14 +292,23 @@ const loadView = (opt) => {
         width: '100vw',
         height: '100vh',
         cursor: 'pointer',
+        'padding-top': 20,
         ...opt.rootStyles
     };
     const mainContent = {
         display: 'inline-flex',
         'padding-left': 10,
-        'padding-right': 30,
+        'padding-right': 35,
         'padding-bottom': 10,
         ...opt.mainContent
+    };
+    const closeStyle = {
+        'text-align': 'right',
+        'padding-top': '10px',
+        'padding-right': '13px',
+        position: 'absolute',
+        right: 0,
+        top: 0
     };
     const mainContentStylesString = Object.keys(mainContent)
         .map(item => {
@@ -309,6 +330,10 @@ const loadView = (opt) => {
         .map(item => {
             return item + ': ' + (typeof rootStyles[item] === 'number' ? rootStyles[item] + 'px' : rootStyles[item])
         }).join('; ');
+    const closeStyleString = Object.keys(closeStyle)
+        .map(item => {
+            return item + ': ' + (typeof closeStyle[item] === 'number' ? closeStyle[item] + 'px' : closeStyle[item])
+        }).join('; ');
 
     return (`
     <!DOCTYPE html>
@@ -320,7 +345,7 @@ const loadView = (opt) => {
     </head>
     <body style="margin: 0; overflow: hidden;">
     
-    <div class="close" style="text-align: right; padding-top: 10px; padding-right: 13px;"><span style="padding: 10px; cursor: pointer;">&times</span></div>
+    <div class="close" style="${closeStyleString}"><span style="padding: 10px; cursor: pointer;">&times</span></div>
         <div id="root" style="${rootStyleString}">
             <div class="up"></div>
             <div class="main" style="${mainContentStylesString}">
@@ -328,7 +353,7 @@ const loadView = (opt) => {
                     <img style="width: 100%;" src=${(opt.icon && opt.icon.image) ? opt.icon.image : ''} alt="">
                 </div>
                 <div class="description" style="display: flex; flex-direction: column; flex: 1;">
-                    <div class="title" style="${titleStyleString}">${opt.title.text}<strong>${count}</strong></div>
+                    <div class="title" style="${titleStyleString}">${opt.title.text}</div>
                     <div class="text" style="${textStyleString}">${opt.text.text}</div>
                 </div>
             </div>
@@ -359,6 +384,23 @@ const loadView = (opt) => {
     </body>
     </html>
   `)
-}
+};
 
-module.exports = WcNotify;
+function filterObject(obj = {}, fields = '') {
+    if(!(fields instanceof Array)) fields = [fields];
+
+    return Object.keys(obj)
+        .filter(item => {
+            if(fields.indexOf(item) !== -1) {
+                return false;
+            } else {
+                return true;
+            }
+        })
+        .reduce((init, item) => {
+            init[item] = obj[item]
+            return init;
+        }, {});
+};
+
+module.exports = WeNotify;

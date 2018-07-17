@@ -2,9 +2,8 @@ const webpack = require('webpack');
 const path = require('path');
 const nodeExternals = require('webpack-node-externals');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
-// const HtmlWebpackPlugin = require('html-webpack-plugin');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
-const FontminPlugin = require('fontmin-webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 
 const dev = process.env.NODE_ENV || 'development';
 const isProd = dev === 'production';
@@ -13,31 +12,31 @@ const browserConfig = {
     entry: {
         bundle: path.join(__dirname, 'client/index.js')
     },
+    externals: [nodeExternals()],
     output: {
         path: path.join(__dirname, 'public', 'static'),
-        filename: '[name].js',
-        publicPath: '/'
+        filename: '[name].js'
     },
 
     module: {
         rules: [
             {
                 test: /\.css$/,
-                use: ExtractTextPlugin.extract({
-                    use: [{ loader: 'css-loader' }]
-                })
+                loaders: ['style-loader', 'css-loader']
             },
 
             {
                 test: /\.sass$/,
-                use: ExtractTextPlugin.extract({
-                    use: [{ loader: 'css-loader', options: { minimize: true } }, { loader: 'sass-loader'}]
-                })
+                loaders: ['style-loader', 'css-loader', 'sass-loader']
             },
 
             {
                 test: /(.woff2|.woff|.eot|.ttf|.otf|.svg)$/,
-                loader: 'file-loader'
+                loader: 'url-loader',
+                query: {
+                    name: `fonts/[name].[ext]`,
+                    publicPath: `${__dirname}/public/static`
+                }
             },
 
             {
@@ -47,10 +46,28 @@ const browserConfig = {
             },
 
             {
-                test: /\.(gif|png|jpeg|jpg|svg|ico)$/i,
+                test: /\.(gif|png|jpeg|jpg|svg)$/i,
                 loaders: [
                     {
-                        loader: 'file-loader',
+                        loader: 'url-loader',
+                    },
+                    {
+                        loader: 'image-webpack-loader',
+                        query: {
+                            mozjpeg: {
+                                progressive: true,
+                            },
+                            gifsicle: {
+                                interlaced: false,
+                            },
+                            optipng: {
+                                optimizationLevel: 4,
+                            },
+                            pngquant: {
+                                quality: '75-90',
+                                speed: 3,
+                            },
+                        }
                     }
                 ]
             }
@@ -59,17 +76,11 @@ const browserConfig = {
     },
 
     plugins: [
-        // new HtmlWebpackPlugin({
-        //     title: 'Crypto Signer',
-        //     meta: {
-        //         viewport: 'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no'
-        //     }
-        // }),
-        new ExtractTextPlugin({
-            filename: "css/main.css"
-        }),
-        new FontminPlugin({
-            autodetect: true, // automatically pull unicode characters from CSS
+        new HtmlWebpackPlugin({
+            title: 'Crypto Signer',
+            meta: {
+                viewport: 'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no'
+            }
         }),
         new webpack.optimize.OccurrenceOrderPlugin(),
         new webpack.NoEmitOnErrorsPlugin(),
@@ -92,49 +103,20 @@ const serverConfig = {
         server: path.join(__dirname, 'server/index.js')
     },
     target: 'node',
-    node: {
-        __dirname: false,
-        __filename: false
-    },
     externals: [nodeExternals()],
     output: {
-        path: path.join(__dirname, 'public', 'server'),
-        filename: 'server.js',
+        path: path.join(__dirname, 'public'),
+        filename: '[name].js',
         libraryTarget: "commonjs2"
     },
 
     module: {
         rules: [
             {
-                test: /\.css$/,
-                use: 'css-loader/locals'
-            },
-
-            {
-                test: /\.sass$/,
-                loaders: ['css-loader', 'sass-loader']
-            },
-
-            {
                 test: /\.(js|jsx)$/,
                 exclude: /node_modules/,
                 loaders: 'babel-loader'
-            },
-
-            {
-                test: /\.(gif|png|jpeg|jpg|svg|woff2|woff|eot|ttf|otf)$/i,
-                loaders: [
-                    {
-                        loader: 'file-loader',
-                        options: {
-                            name: "media/[name].[ext]",
-                            publicPath: url => url.replace(/public/, ""),
-                            emitFile: false
-                        }
-                    },
-                ]
             }
-
         ]
     },
 
@@ -143,36 +125,10 @@ const serverConfig = {
         new webpack.NoEmitOnErrorsPlugin(),
         new webpack.ProvidePlugin({
             'React': 'react',
-            "PropTypes":"prop-types"
+            "PropTypes":"prop-types",
+            "Promise": "bluebird"
         })
     ]
-};
-
-const receiveMQConfig = {
-    entry: {
-        server: path.join(__dirname, 'server/rabbitMQ/receiveMQ.js')
-    },
-    target: 'node',
-    node: {
-        __dirname: false,
-        __filename: false
-    },
-    externals: [nodeExternals()],
-    output: {
-        path: path.join(__dirname, 'public', 'server'),
-        filename: 'receiveMQ.js',
-        libraryTarget: "commonjs2"
-    },
-
-    module: {
-        rules: [
-            {
-                test: /\.(js|jsx)$/,
-                exclude: /node_modules/,
-                loaders: 'babel-loader'
-            },
-        ]
-    }
 };
 
 const electronConfig = {
@@ -244,7 +200,7 @@ const electronConfig = {
     }
 };
 
-let outputConfig = [browserConfig, serverConfig, receiveMQConfig];
+let outputConfig = [browserConfig, electronConfig];
 
 if(isProd) {
     browserConfig.plugins.push(new UglifyJsPlugin());

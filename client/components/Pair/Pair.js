@@ -1,8 +1,7 @@
 import { connect } from 'react-redux';
-// import { ipcRenderer } from 'electron';
+import { ipcRenderer } from 'electron';
 
 import { updatePrice } from '../../actions/api';
-import notify from '../../common/functions/notification';
 
 import './Pair.sass';
 
@@ -26,18 +25,12 @@ class Pair extends React.Component {
         if(this.props.price !== prevProps.price || this.props.prevPrice !== prevProps.prevPrice) {
             this.comparePriceDifferent();
         };
-        if((this.props.sign !== prevProps.sign) && this.props.sign) { // Sho notification for reached pair price
-            const title = this.props.symbol === 'BTCUSDT' ? 'BTC / USDT' : this.props.symbol.split('BTC').join(' / BTC');
-            const body = `Has been reached ${this.props.signPrice}\n\n Time: ${new Date()}`;
-            const n = notify({
-                title,
-                body
-            });
-            // ipcRenderer.send('reached_sign_price', {
-            //     signPrice: this.props.signPrice,
-            //     time: this.props.updatedAt,
-            //     symbol: this.props.symbol
-            // })
+        if((this.props.sign !== prevProps.sign) && this.props.sign) {
+            ipcRenderer.send('reached_sign_price', {
+                signPrice: this.props.signPrice,
+                time: this.props.updatedAt,
+                symbol: this.props.symbol
+            })
         };
     };
 

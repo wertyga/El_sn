@@ -4,12 +4,6 @@ import path from 'path';
 
 import './common/mongoose';
 import config from './common/config';
-import renderHtml from './common/functions/renderHtml';
-
-// Import components
-import App from '../client/components/App/App';
-import NotFoundPageSite from '../client/SITE/components/404/404';
-import NotFoundPageApp from '../client/components/404/404';
 
 import './rabbitMQ/sendMQ';
 
@@ -20,7 +14,6 @@ import auth from './routes/auth';
 import api from './routes/api';
 import user from './routes/user';
 import email from './routes/email';
-import fetch from './routes/fetch';
 //***********************************************
 import Pair  from './models/pair';
 import { getPowerPercentsFromUser } from "./common/functions/commonFunctions";
@@ -80,21 +73,10 @@ if(prod) {
     app.use(express.static(path.join(__dirname, '../static')));
 
     //******************************** Routes ***************************
-    app.use('/fetch', fetch);
     app.use('/auth', auth);
     app.use('/api', api);
     app.use('/user', user);
     app.use('/email', email);
-
-    app.get('/*', (req, res) => {
-        res.send(renderHtml(req, <App />))
-    });
-    app.get('/app/*', (req, res) => {
-        res.send(renderHtml(req, <NotFoundPageApp />))
-    });
-    app.get('*', (req, res) => {
-        res.send(renderHtml(req, <NotFoundPageSite />))
-    });
 
 //******************************** Uncaught Exception ***************************
 

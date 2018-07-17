@@ -1,15 +1,14 @@
 const path = require('path');
 
-// const createJSON = require('./createJSON');
-// const server = require('./babeable_server');
-// const icons = require('./copyIcons');
-const receiveMQ = require('./babelableRabbitMQReceiver');
+const createJSON = require('./createJSON');
+const server = require('./babeable_server');
+const icons = require('./copyIcons');
 
+const serverPath = path.join(__dirname, '..', 'server');
 
 console.log('[X] Building assets...');
 Promise.all([
-    // receiveMQ()
-    // createJSON(),
-    // server(path.join(__dirname, '../server')),
-    // icons()
+    createJSON(),
+    server(serverPath),
+    icons()
 ]);

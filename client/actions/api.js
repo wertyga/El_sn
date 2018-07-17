@@ -85,7 +85,7 @@ export const confirmChanging = (id, sign, text) => dispatch => {
 };
 
 export const subscribing = (userID, data) => dispatch => {
-    return axios.post(host(`/api/subscribing`), { userID, data, token: getToken() })
+    return axios.post(host(`/api/subscribing`), { userID, token: getToken(), data })
         .then(res => dispatch(setUser(res.data.user)))
 };
 

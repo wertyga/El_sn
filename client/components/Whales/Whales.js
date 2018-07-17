@@ -1,4 +1,5 @@
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import classnames from 'classnames';
 
 import { getWhaleOrders } from '../../actions/api';
@@ -98,7 +99,7 @@ class Whales extends React.Component {
             <div className="Whales">
                 {this.state.errors && <div className="error">{this.state.errors}</div>}
                 {this.state.loading && <Loading />}
-                <div className="back" to={`/user/${this.props.user._id}`} onClick={() => this.props.history.replace(`/app/user/${this.props.user._id}`)}>{back}</div>
+                <Link className="back" to={`/user/${this.props.user._id}`}>{back}</Link>
                 <div className="whales_wrapper">
                     <div className="input">
                         <div className="upper">
@@ -154,7 +155,7 @@ class Whales extends React.Component {
                                 </div>
                             </div>
                         )}
-                        {this.state.orders.length < 1 && <div className="empty">This stash is empty now</div>}
+                        {this.state.orders.length < 1 && !this.state.loading && <div className="empty">This stash is empty now</div>}
                     </div>
                 </div>
             </div>

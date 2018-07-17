@@ -27,15 +27,12 @@ class SignupPage extends React.Component {
             [e.target.name]: e.target.value,
             errors: {
                 ...this.state.errors,
-                globalError: '',
                 [e.target.name]: ''
             }
         });
     };
 
-    onSubmit = (e) => {
-        e.preventDefault();
-        console.log('Submit')
+    onSubmit = () => {
         const sendObj = {
             password: {
                 field: this.state.password,
@@ -56,7 +53,7 @@ class SignupPage extends React.Component {
             this.setState({ loading: true, errors: {}});
             const url = '/auth/sign-up';
             this.props.userAuth({...sendObj, url })
-                .then(id => this.props.history.push(`/app/user/${id}`))
+                .then(id => this.props.history.push(`/user/${id}`))
                 .catch(err => {
                     this.setState({
                         loading: false,
@@ -69,7 +66,7 @@ class SignupPage extends React.Component {
     };
 
     backToLogin = () => {
-        this.props.history.push('/app/login')
+        this.props.history.push('/')
     };
 
     render() {
@@ -78,8 +75,8 @@ class SignupPage extends React.Component {
                 <div className="back_to_login" onClick={this.backToLogin}><i className="fas fa-angle-left"></i></div>
                 <h2>Signup:</h2>
                 {this.state.loading && <Loading />}
+                {this.state.errors.globalError && <div className="error">{this.state.errors.globalError}</div>}
                 <div className="inputs">
-                    {this.state.errors.globalError && <div className="error">{this.state.errors.globalError}</div>}
                     <Input
                         placeholder="Enter username..."
                         name="username"
@@ -90,7 +87,6 @@ class SignupPage extends React.Component {
                         disabled={this.state.loading}
                     />
                     <Input
-                        type="password"
                         placeholder="Enter password..."
                         name="password"
                         value={this.state.password}

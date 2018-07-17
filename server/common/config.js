@@ -5,6 +5,7 @@ const dbName = 'crypto_signer';
 
 export default {
     host: 'http://localhost:3005',
+    siteHost: 'https://cryto-signer.tk',
     PORT: env === 'test' ? 3001 : 3005,
     mongoose: {
         uri: `mongodb://localhost:27017/${env === 'test' ? dbName + '-test' : dbName}`,

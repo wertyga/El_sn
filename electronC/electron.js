@@ -17,7 +17,6 @@ const NODE_ENV = process.env.NODE_ENV || 'development';
 const isDevMode = NODE_ENV === 'development';
 const isProd = NODE_ENV === 'production';
 
-
 export const menuTemplate = [
     {
         label: 'Reload',
@@ -54,10 +53,10 @@ if(true) {
 export const loginScreen = {
     width: 330,
     height: 600,
-    resizable: true,
+    resizable: false,
     frame: true,
     title: 'Crypto Signer',
-    icon: nativeImage.createFromPath(__dirname + '/../icons/crypto_signer.png')
+    icon: nativeImage.createFromPath(__dirname + '/../icons/crypto_signer_app.png')
 };
 
 const createWindow = () => {
@@ -66,7 +65,7 @@ const createWindow = () => {
     Menu.setApplicationMenu(mainMenu);
     mainWindow = new BrowserWindow(loginScreen);
 
-    // and load the app.html of the app.
+    // and load the index.html of the app.
     mainWindow.loadURL(formatUrl({
         pathname: path.join(__dirname, '..', 'static', 'index.html'),
         protocol: 'file',
@@ -76,7 +75,7 @@ const createWindow = () => {
     if (true) {
         installExtension(REACT_DEVELOPER_TOOLS);
         installExtension(REDUX_DEVTOOLS);
-        mainWindow.webContents.openDevTools();
+        // mainWindow.webContents.openDevTools();
     };
 
     // Emitted when the window is closed.

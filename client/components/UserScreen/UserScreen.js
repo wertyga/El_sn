@@ -1,5 +1,4 @@
 import { connect } from 'react-redux';
-// import { ipcRenderer } from 'electron';
 import ReactDOM from 'react-dom';
 
 import FlipMove from 'react-flip-move';
@@ -74,10 +73,6 @@ class UserScreen extends React.Component {
             optionValue: value,
             optionItems: this.collectPairs(this.props.pairs.filter(item => item.symbol.toUpperCase()
                     .indexOf(value.replace('/', '').toUpperCase()) === 0)),
-                // collectPairs(
-                // this.props.pairs.filter(item => {
-                //     return item.symbol.toUpperCase().indexOf(value.replace('/', '').toUpperCase()) === 0
-                // })
             errors: ''
         })
     };
@@ -120,8 +115,7 @@ class UserScreen extends React.Component {
     logout = () => { // Logout user
         setTimeout(() => {
             this.props.clearUser(this.props.user._id);
-            this.props.history.push('/app/login');
-            // ipcRenderer.send('logout_user', 'Logout User')
+            this.props.history.push('/');
         }, 350)
     };
 
@@ -129,7 +123,7 @@ class UserScreen extends React.Component {
         this.setState({ loading: true });
         this.props.getWhaleOrders()
             .then(() => {
-                this.props.history.replace(`/app/user/${this.props.user._id}/whales-orders`);
+                this.props.history.replace(`/user/${this.props.user._id}/whales-orders`);
             })
             .catch(err => {
                 const errors = clearSession(this, err);
@@ -217,7 +211,7 @@ class UserScreen extends React.Component {
             },
             {
                 text: 'Get power symbols',
-                onClick: () => this.props.history.replace(`/app/user/${this.props.user._id}/power-orders`),
+                onClick: () => this.props.history.replace(`/user/${this.props.user._id}/power-orders`),
                 className: {
                     sign: this.props.newPowerPercent
                 }

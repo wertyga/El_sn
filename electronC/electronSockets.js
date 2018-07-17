@@ -2,9 +2,11 @@ import { ipcMain, Notification, nativeImage, app } from 'electron';
 
 import { mainWindow, loginScreen } from './electron';
 
+import compileSymbol from '../server/common/functions/compileSymbols';
 
-import WcNotify from './WcNotification/index';
-import icon from '../icons/crypto_signer.png';
+
+import WeNotify from './WeNotification/index';
+import icon from '../icons/crypto_signer_app.png';
 
 // Functions
 const resizeMainScreen = (win) => {
@@ -27,50 +29,83 @@ ipcMain.on('logout_user', (e, msg) => { // Resize main window
     resizeToLoginScreen(mainWindow)
 });
 ipcMain.on('reached_sign_price', (e, msg) => {
-    const notification = new Notification({
-        title: msg.symbol,
-        body: `${msg.symbol} has been reached sign price - ${msg.signPrice.toFixed(8)} \n Time: ${msg.time.split('.')[0]}`,
-        icon: nativeImage.createFromPath(__dirname + '/../icons/crypto_signer.png')
+    const notification = new WeNotify({
+        icon: {
+            image: icon,
+            title: nativeImage.createFromPath(__dirname + '/../icons/crypto_signer_app.png'),
+            width: '10%',
+        },
+        title: {
+            text: compileSymbol(msg.symbol)
+        },
+        text: {
+            text:  `<div>Has been reached sign price - ${msg.signPrice.toFixed(8)}</div> <div>Time: ${msg.time.split('.')[0]}</div>`,
+            'margin-left': 10,
+            'margin-top': 5
+        },
+        width: 400,
+        height: 100,
+        closeTimeout: 1000 * 60 *60
     });
     notification.show();
+    notification.on('click', () => notification.close());
 });
-const notification = new WcNotify({
-    title: {
-        text: title
-    },
-    text: {
-        text
-    },
-    icon: {
-        image: nativeImage.createFromPath(__dirname + '/../icons/crypto_signer.png')
-    }
-});
+
+let symbols = []; // Symbols that are already have been shown
 ipcMain.on('get_new_powers', (e, data) => { // Emit if get a percent high Or low
-    if(Notification.isSupported()) {
+    const title = 'Bounce price';
+    let text = data.map(item => {
+        if(symbols.indexOf(item.symbol) !== -1) return '';
+
+        symbols.push(item.symbol);
+        let text;
+        if(item.percent > 0) {
+            text = `Just jump up for +${item.percent}%`;
+        } else {
+            text = `Crush down for ${item.percent}% \n From: ${item.high.toFixed(8)} To: ${item.close.toFixed(8)}`;
+        };
+        return `<div><strong>${compileSymbol(item.symbol)}</strong></div>` +
+               `<div>${text}</div>`;
+    })
+        .filter(item => !!item);
+
+    text = text.length > 3 ? text.splice(0, 3).join('\n') + 'more...' : text.join('\n');
+    const notifyHeight = data.length > 3 ? 50 * 3 + 10 + 20 : 50 * data.length + 20 + 20;
+
+    if(text.length < 1) return;
+
+    const notify = new WeNotify({
+        title: {
+            text: title
+        },
+        text: {
+            text: text,
+            'margin-left': 10
+        },
+        width: 400,
+        height: notifyHeight,
+        icon: {
+            image: icon,
+            title: nativeImage.createFromPath(__dirname + '/../icons/crypto_signer_app.png'),
+            width: '10%',
+        },
+        closeTimeout: 1000 * 60 *60
+    });
+    notify.show();
+
+    notify.on('close', () => {
         data.forEach(item => {
-            let text;
-            if(item.percent > 0) {
-                text = `Just jump up for +${item.percent}%`;
-            } else {
-                text = `Crush down for ${item.percent}% \n From: ${item.high.toFixed(8)} To: ${item.close.toFixed(8)}`;
-            }
-            const title = item.symbol === 'BTCUSDT' ? 'BTC / USDT' : item.symbol.split('BTC').join(' / BTC');
-
-
-            notification.show();
-
-            notification.on('close', () => {
-                setSeenWithCloseNotification(e, item);
-                notification.close();
-            });
-            notification.on('click', () => {
-                mainWindow.focus();
-                mainWindow.maximize();
-                e.sender.send('go_to_power_page', item._id);
-                notification.close();
-            });
-        });
-    };
+            setSeenWithCloseNotification(e, item);
+            symbols.splice(symbols.indexOf(item.symbol), 1);
+        })
+        // notification.close();
+    });
+    notify.on('click', () => {
+        mainWindow.focus();
+        mainWindow.maximize();
+        e.sender.send('go_to_power_page');
+        notify.close();
+    });
 });
 
 ipcMain.on('Error_in_set_seen_power', (e, msg) => {
@@ -82,41 +117,43 @@ ipcMain.on('Error_in_set_seen_power', (e, msg) => {
     errorNotification.show();
 });
 
-let notify;
-
-app.on('ready', () => {
-
-});
+app.on('ready', () => {});
 
 
-ipcMain.on('notify', () => {
-    notify = new WcNotify({
-        title: {
-            text: 'TITLE'
-        },
-        text: {
-            text: 'asjkhdjash jkdhasjk hdnsah dhsajk hdkjsagh dhasjk hdjsah djhasjk hdsah dhaksj dhsa jkhdhsa djhaskj hdksah kdajsh dk' +
-            'agsd jhajks hdjhsak jhdjsa hjkdhkajsh kdhasjk hdksah kjdhkajsh dkhsakhd kajshd haksjhd kjahskdhaksjhd kjahsjkd hkajshd khasjkd h' +
-            'lajskdjsakj dljas ljdjsa djsa jdjsaj dljasl dlsajl djjsaljd lkajsld lsa d'
-        },
-        width: 400,
-        height: 200,
-        icon: {
-            image: icon,
-            title: nativeImage.createFromPath(__dirname + '/../icons/crypto_signer.png')
-        },
-        maxWindows: 3,
-    });
-
-    notify.on('close', () => {
-        console.log('close')
-    })
-    notify.on('show', () => {
-        console.log('show')
-    })
-
-    notify.show()
-});
+// ipcMain.on('notify', () => {
+//     const notify = new WeNotify({
+//         title: {
+//             text: 'TITLE'
+//         },
+//         text: {
+//             text: 'asjkhdjash jkdhasjk hdnsah dhsajk hdkjsagh dhasjk hdjsah djhasjk hdsah dhaksj dhsa jkhdhsa djhaskj hdksah kdajsh dk' +
+//             'agsd jhajks hdjhsak jhdjsa hjkdhkajsh kdhasjk hdksah kjdhkajsh dkhsakhd kajshd haksjhd kjahskdhaksjhd kjahsjkd hkajshd khasjkd h' +
+//             'lajskdjsakj dljas ljdjsa djsa jdjsaj dljasl dlsajl djjsaljd lkajsld lsa d',
+//             'margin-left': 10
+//         },
+//         width: 400,
+//         height: 200,
+//         icon: {
+//             image: icon,
+//             title: nativeImage.createFromPath(__dirname + '/../icons/crypto_signer_app.png'),
+//             width: '10%',
+//
+//         },
+//         maxWindows: 3,
+//     });
+//
+//     notify.on('close', () => {
+//         console.log('close')
+//     })
+//     notify.on('show', () => {
+//         console.log('show')
+//     })
+//     notify.on('click', () => {
+//         console.log('click')
+//     })
+//
+//     notify.show()
+// });
 
 function setSeenWithCloseNotification(e, item) {
     e.sender.send('set_seen_power', item._id);

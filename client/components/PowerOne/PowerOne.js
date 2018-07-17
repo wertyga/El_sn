@@ -1,14 +1,11 @@
-import EE from 'events';
-
 import { connect } from 'react-redux';
+import { ipcRenderer } from 'electron';
 
 import clearSession from "../../common/functions/clearSession";
 
 import { setSeenPower, deletePower } from '../../actions/api';
 
 import './PowerOne.sass';
-
-export const powerEE = new EE();
 
 class PowerOne extends React.Component {
     constructor(props) {
@@ -26,7 +23,6 @@ class PowerOne extends React.Component {
     componentDidMount() {
         window.addEventListener('scroll', this.bodyScroll);
         setTimeout(this.bodyScroll, 1000);
-        powerEE.emit('set_seen_power', this.props.item.symbol)
     };
 
     bodyScroll = () => {
@@ -37,9 +33,6 @@ class PowerOne extends React.Component {
 
         if((totalHeight > (bottom + 50 + scrollTop)) && !this.props.item.isSeen) {
             this.props.setSeenPower(this.props.user._id, this.props.item._id)
-                .then(() => {
-                    notified.splice(notified.indexOf(this.props.item.symbol), 1);
-                })
                 .catch(err => {
                     const errors = clearSession(this, err);
                     if(errors) this.setState({ errors });
@@ -49,9 +42,6 @@ class PowerOne extends React.Component {
 
     deletePower = () => {
         return this.props.deletePower(this.props.item._id, this.props.user._id)
-            .then(() => {
-                if(notified.indexOf(this.props.item.symbol) !== -1) notified.splice(notified.indexOf(this.props.item.symbol), 1);
-            })
             .catch(err => {
                 const errors = clearSession(this, err);
                 if(errors) this.setState({ errors });
@@ -74,10 +64,9 @@ class PowerOne extends React.Component {
                     {item.percent < 0 && <span>Crash down for <strong>{item.percent} %</strong></span>}
                 </div>
                 {item.close && item.high &&
-                    <React.Fragment>
-                        <div className="high"><span>From: </span><strong>{item.high.toFixed(8)}</strong><span>To: </span><strong>{item.close.toFixed(8)}</strong></div>
-                    </React.Fragment>
-                }
+                <React.Fragment>
+                    <div className="high"><span>From: </span><strong>{item.high}</strong><span>To: </span><strong>{item.close}</strong></div>
+                </React.Fragment>                            }
                 <div className="date">{item.updatedAt.replace('Z', '').split('T').join(' ')}</div>
             </div>
         );
