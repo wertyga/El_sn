@@ -54,10 +54,10 @@ ipcMain.on('reached_sign_price', (e, msg) => {
 let symbols = []; // Symbols that are already have been shown
 ipcMain.on('get_new_powers', (e, data) => { // Emit if get a percent high Or low
     const title = 'Bounce price';
+    data = data.filter(item => symbols.indexOf(item.symbol) === -1);
     let text = data.map(item => {
-        if(symbols.indexOf(item.symbol) !== -1) return '';
-
         symbols.push(item.symbol);
+
         let text;
         if(item.percent > 0) {
             text = `Just jump up for +${item.percent}%`;
@@ -66,11 +66,16 @@ ipcMain.on('get_new_powers', (e, data) => { // Emit if get a percent high Or low
         };
         return `<div><strong>${compileSymbol(item.symbol)}</strong></div>` +
                `<div>${text}</div>`;
-    })
-        .filter(item => !!item);
+    });
 
     text = text.length > 3 ? text.splice(0, 3).join('\n') + 'more...' : text.join('\n');
-    const notifyHeight = data.length > 3 ? 50 * 3 + 10 + 20 : 50 * data.length + 20 + 20;
+    const titleHeight = 45;
+    const contentHeight = 30;
+    const footerHeight = 20;
+
+    const notifyHeight = data.length > 3 ?
+        contentHeight * 3 + 10 + titleHeight + footerHeight:
+        contentHeight * data.length + titleHeight + footerHeight;
 
     if(text.length < 1) return;
 

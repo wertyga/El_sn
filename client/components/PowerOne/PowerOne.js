@@ -64,9 +64,11 @@ class PowerOne extends React.Component {
                     {item.percent < 0 && <span>Crash down for <strong>{item.percent} %</strong></span>}
                 </div>
                 {item.close && item.high &&
-                <React.Fragment>
-                    <div className="high"><span>From: </span><strong>{item.high}</strong><span>To: </span><strong>{item.close}</strong></div>
-                </React.Fragment>                            }
+                    <div className="high">
+                        <span>From: </span><strong>{item.percent > 0 ? item.low.toFixed(8) : item.high.toFixed(8)}</strong>
+                        <span>To: </span><strong>{item.close.toFixed(8)}</strong>
+                    </div>
+                }
                 <div className="date">{item.updatedAt.replace('Z', '').split('T').join(' ')}</div>
             </div>
         );

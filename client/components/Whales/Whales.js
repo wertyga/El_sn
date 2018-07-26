@@ -99,7 +99,7 @@ class Whales extends React.Component {
             <div className="Whales">
                 {this.state.errors && <div className="error">{this.state.errors}</div>}
                 {this.state.loading && <Loading />}
-                <Link className="back" to={`/user/${this.props.user._id}`}>{back}</Link>
+                <Link className="upper_black" to={`/user/${this.props.user._id}`}>{back}<p>Whales orders</p></Link>
                 <div className="whales_wrapper">
                     <div className="input">
                         <div className="upper">

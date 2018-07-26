@@ -8,6 +8,9 @@ import { setPercent } from './socket';
 export const remindPass = username => dispatch => {
     return axios.post(host('/auth/remind-pass'), { username })
 };
+export const changePass = dataObj => dispatch => {
+    return axios.post(host('/auth/change-pass'), dataObj)
+};
 
 export const userAuth = (data) => dispatch => { // User authentication
     return axios.post(host(data.url), data)

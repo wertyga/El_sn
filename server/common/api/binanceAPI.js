@@ -16,6 +16,17 @@ export default class BinanceApi {
             })
             .catch(err => { throw Error(err.response ? err.response.data.msg : err.message) })
     };
+
+    getServerTime() {
+        return axios({
+            method: 'get',
+            url: this.baseUrl + '/api/v1/time'
+        })
+            .then(res => {
+                return res.data.serverTime;
+            })
+            .catch(err => { throw Error(err.response ? err.response.data.msg : err.message) })
+    };
     
     getTradePairs() { // Get all trade pairs
         const addedApiUrl = '/api/v1/exchangeInfo';

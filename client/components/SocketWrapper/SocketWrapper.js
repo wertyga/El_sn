@@ -177,7 +177,6 @@ import PowerPercents from '../PowerPercents/PowerPercents';
                     {/*<button className="btn primary" onClick={() => ipcRenderer.send('left', {})}>Left</button>*/}
                     {/*<button className="btn primary" onClick={() => ipcRenderer.send('right', {})}>Right</button>*/}
                     {this.state.loading && <Loading />}
-                    <div className="upper_bar">{this.state.contentOfUpperBar}</div>
                     <Route path="/user/:id" exact render={() => <UserScreen {...this.props} {...this.state}/>}/>
                     <Route path="/user/:id/whales-orders" component={Whales}/>
                     <Route path="/user/:id/power-orders" component={PowerPercents}/>

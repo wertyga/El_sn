@@ -2,6 +2,8 @@
 import { connect } from 'react-redux';
 import isEmpty from 'lodash/isEmpty';
 
+import { Link } from 'react-router-dom';
+
 import clearSession from "../../common/functions/clearSession";
 
 import { fetchPowerSymbols, deletePower } from '../../actions/api';
@@ -43,14 +45,12 @@ class PowerPercents extends React.Component {
     render() {
         return (
             <div className="PowerPercents">
-                <div className="upper_bar">
-                    <div className="back_to_login"
-                         onClick={() => this.props.history.replace(`/user/${this.props.user._id}`)}
-                    >
-                        <i className="fas fa-angle-left"></i>
-                    </div>
-                </div>
-                <h2>Power symbols:</h2>
+                <Link className="upper_black"
+                      to={`/user/${this.props.user._id}`}
+                >
+                    <i className="fas fa-angle-left"></i>
+                    <p>Power symbols</p>
+                </Link>
 
                 {this.state.errors && <div className="error">{this.state.errors}</div>}
 

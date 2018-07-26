@@ -50,27 +50,27 @@ TradePairSchema.static('findWithSymbolPopulate', function(symbols) {
         })
 });
 
-TradePairSchema.post('save', function(doc) {
-    const onePercent = doc.prevPrice / 100;
-    const different = Math.round((doc.price - doc.prevPrice) / onePercent);
-    if(different >= growPercent) {
-        return Percent.findOne({ symbol: doc.symbol})
-            .then(percent => {
-                if(percent && (percent.percent !== different)) {
-                    percent.percent = different;
-                    return percent.save();
-                } else if(!percent){
-                    return new Percent({
-                        symbol: doc.symbol,
-                        percent: Number(different.toFixed(2)),
-                        close: doc.price
-                    }).save();
-                } else {
-                    return false;
-                };
-            })
-    };
-});
+// TradePairSchema.post('save', function(doc) {
+//     const onePercent = doc.prevPrice / 100;
+//     const different = Math.round((doc.price - doc.prevPrice) / onePercent);
+//     if(different >= growPercent) {
+//         return Percent.findOne({ symbol: doc.symbol})
+//             .then(percent => {
+//                 if(percent && (percent.percent !== different)) {
+//                     percent.percent = different;
+//                     return percent.save();
+//                 } else if(!percent){
+//                     return new Percent({
+//                         symbol: doc.symbol,
+//                         percent: Number(different.toFixed(2)),
+//                         close: doc.price
+//                     }).save();
+//                 } else {
+//                     return false;
+//                 };
+//             })
+//     };
+// });
 
 export const tradePairFields = (instance) => {
     const tradePairNeedFields = ['price', 'prevPrice', 'symbol', 'baseAsset', 'quoteAsset'];

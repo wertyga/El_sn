@@ -156,8 +156,18 @@ class WeNotify extends EventEmitter {
         const [winWidth, winHeight] = win.getSize();
 
         // Set position
+        // if(_winIDs.length > 0) {
+        //     console.log(BrowserWindow.fromId(_winIDs[_winIDs.length - 1]).getBounds())
+        //     console.log(BrowserWindow.fromId(_winIDs[_winIDs.length - 1]).getContentBounds())
+        //     console.log(BrowserWindow.fromId(_winIDs[_winIDs.length - 1]).getContentSize())
+        // }
         const horizPos = width - winWidth - this.horizPos;
-        const vertPos = height - winHeight - this.vertPos - (winHeight + looseBetweenNotifications) * (_winIDs.indexOf(win.id));
+        console.log(_winIDs)
+        const vertPos = height -
+            winHeight -
+            (_winIDs.length - 1) * looseBetweenNotifications -
+            this.vertPos -
+            _winIDs.length > 1 ? _winIDs.reduce((sum, winID) => sum + BrowserWindow.fromId(winID).getSize()[1], 0) : 0
         return {
             horizPos,
             vertPos
@@ -182,6 +192,7 @@ class WeNotify extends EventEmitter {
         win.on('show', () => {
             this.emit('show');
             _winIDs.push(win.id);
+
             if(process.platform !== 'linux') {
                 this._initialPositionRightBottom();
                 this._appearFromRightToLeft();
@@ -243,32 +254,11 @@ class WeNotify extends EventEmitter {
         }, 2);
     };
 
-    // _moveWindowFromTop(windowID) {
-    //     const window = BrowserWindow.fromId(windowID);
-    //     if(!window) return;
-    //     const { horizPos, vertPos } = this._getWindowPositionTop(window);
-    //     let timer = setInterval(() => {
-    //         const [winX, winY] = window.getPosition();
-    //         if(winY <= vertPos) {
-    //             clearInterval(timer);
-    //             timer = null;
-    //         } else {
-    //             window.setPosition(winX, Math.max(winY - 30, vertPos));
-    //         }
-    //     }, 2);
-    // };
-
     _launchMoveDownInRightBottom() { // Slide down upper notification when downer is closed
         for(let i = 0; i < _winIDs.length; i++) {
             this._moveWindowFromRight(_winIDs[i])
         };
     };
-
-    // _launchMoveTopInRightTop() {
-    //     for(let i = _winIDs.length - 1; i >= 0; i--) {
-    //         this._moveWindowFromTop(_winIDs[i])
-    //     };
-    // };
 };
 
 const loadView = (opt) => {

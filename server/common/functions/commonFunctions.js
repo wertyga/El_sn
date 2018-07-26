@@ -17,11 +17,15 @@ export const getPowerPercentsFromUser = (userId) => { // Power percents with 2% 
         .then(user => {
             if(user) {
                 return user.percents.map(item => {
-                    return {
-                        ...percentFields(item.percentId),
-                        isSeen: item.isSeen
+                    if(item.percentId) {
+                        return {
+                            ...percentFields(item.percentId),
+                            isSeen: item.isSeen
+                        }
+                    } else {
+                        return false;
                     }
-                })
+                }).filter(item => !!item)
             } else {
                 return user;
             }

@@ -1,6 +1,8 @@
 import { connect } from 'react-redux';
 
-import { remindPass } from '../../actions/auth';
+import { Link } from 'react-router-dom';
+
+import { remindPass, changePass } from '../../actions/auth';
 
 import inputValidation from '../../../server/common/functions/inputsValidation';
 
@@ -24,10 +26,6 @@ class Remind extends React.Component {
             errors: {}
 
         };
-    };
-
-    backToLogin = () => {
-        this.props.history.replace('/');
     };
 
     onChange = e => {
@@ -76,9 +74,14 @@ class Remind extends React.Component {
         if(!isValid) {
             this.setState({ errors });
         } else {
+            this.setState({ loading: true });
             this.props.changePass(inputsObj)
+                .then(() => {
+                    this.props.history.replace('/')
+                })
                 .catch(err => {
                     this.setState({
+                        loading: false,
                         errors: err.response ? err.response.data.errors : { globalError: err.message }
                     });
                 })
@@ -160,8 +163,7 @@ class Remind extends React.Component {
             <div className="Remind">
                 {this.state.loading && <Loading />}
                 {this.state.modal && modal}
-                <div className="back_to_signup" onClick={this.backToLogin}><i className="fas fa-angle-left"></i><p>Reestablish password</p></div>
-                {/*<h2>Reestablish password:</h2>*/}
+                <Link className="upper_black" to='/'><i className="fas fa-angle-left"></i><p>Reestablish password</p></Link>
 
                 {this.state.errors.globalError && <div className="error">{this.state.errors.globalError}</div>}
 
@@ -182,4 +184,4 @@ class Remind extends React.Component {
     };
 };
 
-export default connect(null, { remindPass })(Remind);
+export default connect(null, { remindPass, changePass })(Remind);

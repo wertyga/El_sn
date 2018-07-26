@@ -14,6 +14,7 @@ const ReachedPercent = new mongoose.Schema({
     },
     high: Number,
     close: Number,
+    low: Number,
     percent: {
         type: Number
     },
@@ -58,7 +59,7 @@ ReachedPercent.post('save', doc => {
 });
 
 export const percentFields = (instance) => {
-    const percentNeedFields = ['symbol', 'interval', 'high', 'close', 'percent', 'updatedAt', '_id'];
+    const percentNeedFields = ['symbol', 'interval', 'high', 'close', 'low', 'percent', 'updatedAt', '_id'];
     return getNeedFields(percentNeedFields, instance)
 };
 

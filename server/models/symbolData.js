@@ -86,13 +86,21 @@ function savePercents(doc) {
 };
 function analyzeData(doc) { // Analyze kline data
     const onePercent = Number((doc.high / 100).toFixed(8));
-    const different = Math.round((doc.high - doc.close) / onePercent);
-    if(different >= lowPercent && doc.open > doc.close && different !== Infinity) {
+    const differentDown = Math.round((doc.high - doc.close) / onePercent);
+    const differentGrow = Math.round((doc.close - doc.low) / onePercent);
+    if(differentDown >= lowPercent && doc.open > doc.close && differentDown !== Infinity) {
         return {
             ...getSymbolDataFields(doc),
             interval: interval || '2h',
-            percent: -different
+            percent: -differentDown
         };
+    } else if(differentGrow >= growPercent && doc.open < doc.close && differentGrow !== Infinity) {
+        return {
+            ...getSymbolDataFields(doc),
+            low: doc.low,
+            interval: interval || '2h',
+            percent: differentGrow
+        }
     } else {
         return false;
     };

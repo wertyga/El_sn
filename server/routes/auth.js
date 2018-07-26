@@ -111,8 +111,25 @@ route.post('/remind-pass', (req, res) => {
     }
 });
 
-route.post('/verify-pass', (req, res) => {
+route.post('/change-pass', validateInputs, (req, res) => {
+    const { password, passwordConfirm } = req.body;
+    if(password !== passwordConfirm) {
+        return res.status(406).json({ errors: { passwordConfirm: 'Passwords not match' }})
+    };
 
+    return User.findOne({ verifyPassCode: req.body.verifyCode })
+        .then(user => {
+            if(!user || !user.verifyPassCode) {
+                return res.status(404).json({ errors: { globalError: 'Code expired or user not exist' }})
+            } else {
+                user.hashPassword = encryptPassword(password);
+                user.verifyPassCode = '';
+                return user.save().then(() => {
+                    return res.json('Password reset!');
+                });
+            };
+        })
+        .catch(err => res.status(500).json({ errors: { globalError: err.message }}))
 });
 
 export default route;

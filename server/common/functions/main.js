@@ -9,8 +9,8 @@ import Api, { BinanceSocketApi } from '../api/binanceAPI';
 
 export const api = new Api();
 
-export const lowPercent = 8;
-export const growPercent = 2;
+export const lowPercent = 10;
+export const growPercent = 1;
 export const interval = '1h';
 
 export function getTradePairs() { //Fetch available trade pairs
@@ -82,7 +82,7 @@ function getWhalesOrders() { // Get whales orders
                             return initObj;
                         }, {});
                     })
-                .filter(item => item.orders.length > 0)
+                .filter(item => item.length && item.orders.length > 0)
                 .map(item => {
                     return {
                         ...item,
@@ -98,7 +98,7 @@ function getWhalesOrders() { // Get whales orders
                     return initObj;
                 }, {});
             })
-                .filter(item => item.orders.length > 0)
+                .filter(item => item.length && item.orders.length > 0)
                 .map(item => {
                     return {
                         ...item,
@@ -195,18 +195,26 @@ function getKlineDataIO(interval) {
         .catch(err => console.log(`Error in "getKlineDataIO": ${err}`))
 };
 
+function getTime() { // Get server time
+    api.getServerTime()
+        .then(time => {
+            console.log(new Date(time))
+        })
+        .catch(err => console.log(`Error in "getTime": ${err}`))
+};
+
 // Intervals
-//  setInterval(() => {
-//      checkPairsForSignPrice();
-//  }, 10000);
-//  setInterval(() => {
-//      return getWhalesOrders();
-//  }, 60000);
-// setInterval(() => {
-//      return getExchangeInfo();
-//  }, 60000 * 60);
-//
-// getExchangeInfo().then(() => Promise.all([getKlineDataIO(interval), checkPairsForSignPrice()]));
+ setInterval(() => {
+     checkPairsForSignPrice();
+ }, 10000);
+ setInterval(() => {
+     return getWhalesOrders();
+ }, 60000);
+setInterval(() => {
+     return getExchangeInfo();
+ }, 60000 * 60);
+
+getExchangeInfo().then(() => Promise.all([getKlineDataIO(interval), checkPairsForSignPrice()]));
 
 
 

@@ -72,8 +72,7 @@ class SignupPage extends React.Component {
     render() {
         return (
             <div className="SignupPage">
-                <div className="back_to_login" onClick={this.backToLogin}><i className="fas fa-angle-left"></i></div>
-                <h2>Signup:</h2>
+                <div className="upper_black back_to_login" onClick={this.backToLogin}><i className="fas fa-angle-left"></i><p>Signup</p></div>
                 {this.state.loading && <Loading />}
                 {this.state.errors.globalError && <div className="error">{this.state.errors.globalError}</div>}
                 <div className="inputs">

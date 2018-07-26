@@ -16,7 +16,7 @@ export default function(data, blankField = 'Field can not be blank') {
         }
         if(data[item].require && !data[item].field) {
             errors[item] = blankField;
-        }
+        };
     });
 
     return {

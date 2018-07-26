@@ -12,7 +12,7 @@ const options = {
     out: './BUILD',
     overwrite: true,
     ignore: 'server',
-    platform: ['darwin'],
+    platform: ['darwin', 'linux', 'win32'],
     appBundleId: 'wc.cryptosigner.com'
 };
 
