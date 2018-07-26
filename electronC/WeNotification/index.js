@@ -163,11 +163,11 @@ class WeNotify extends EventEmitter {
         // }
         const horizPos = width - winWidth - this.horizPos;
         console.log(_winIDs)
-        const vertPos = height -
-            winHeight -
-            (_winIDs.length - 1) * looseBetweenNotifications -
-            this.vertPos -
-            _winIDs.length > 1 ? _winIDs.reduce((sum, winID) => sum + BrowserWindow.fromId(winID).getSize()[1], 0) : 0
+        const vertPos =
+            height -
+            (this.vertPos +
+            _winIDs.reduce((sum, winID) => sum + BrowserWindow.fromId(winID).getSize()[1], 0) +
+            (_winIDs.length - 1) * looseBetweenNotifications);
         return {
             horizPos,
             vertPos
