@@ -134,13 +134,12 @@ class WeNotify extends EventEmitter {
         if(this._notifyWindow && process.platform !== 'linux') {
             this._animateCloseToRightFromRightBottom()
                 .then(() => {
-                    _winIDs.splice(_winIDs.indexOf(this._notifyWindow.id), 1);
+
                     isMaxHeight -= this._notifyWindow.getSize()[1];
                     this._notifyWindow.close();
                 })
                 .catch(err => console.error(err))
         } else if(this._notifyWindow){
-            _winIDs.splice(_winIDs.indexOf(this._notifyWindow.id), 1);
             isMaxHeight -= this._notifyWindow.getSize()[1];
             this._notifyWindow.close();
         }
@@ -156,18 +155,22 @@ class WeNotify extends EventEmitter {
         const [winWidth, winHeight] = win.getSize();
 
         // Set position
-        // if(_winIDs.length > 0) {
-        //     console.log(BrowserWindow.fromId(_winIDs[_winIDs.length - 1]).getBounds())
-        //     console.log(BrowserWindow.fromId(_winIDs[_winIDs.length - 1]).getContentBounds())
-        //     console.log(BrowserWindow.fromId(_winIDs[_winIDs.length - 1]).getContentSize())
-        // }
         const horizPos = width - winWidth - this.horizPos;
-        console.log(_winIDs)
-        const vertPos =
-            height -
-            (this.vertPos +
-            _winIDs.reduce((sum, winID) => sum + BrowserWindow.fromId(winID).getSize()[1], 0) +
-            (_winIDs.length - 1) * looseBetweenNotifications);
+        let vertPos;
+        if(_winIDs.indexOf(win.id) === 0) {
+            vertPos = height - winHeight - this.vertPos;
+        } else {
+            vertPos = height -
+                this.vertPos -
+                _winIDs.reduce((sum, winID) => sum + BrowserWindow.fromId(winID).getSize()[1], 0) -
+                _winIDs.indexOf(win.id) * looseBetweenNotifications
+        };
+        // const vertPos =
+        //     height -
+        //     (this.vertPos +
+        //         (_winIDs.indexOf(win.id) === 0 ? winHeight :_winIDs.reduce((sum, winID) => sum + BrowserWindow.fromId(winID).getSize()[1], 0)) +
+        //         (_winIDs.indexOf(win.id) === 0 ? 0 : (_winIDs.length - 1) * looseBetweenNotifications));
+
         return {
             horizPos,
             vertPos
@@ -193,7 +196,7 @@ class WeNotify extends EventEmitter {
             this.emit('show');
             _winIDs.push(win.id);
 
-            if(process.platform !== 'linux') {
+            if(process.platform === 'win32') {
                 this._initialPositionRightBottom();
                 this._appearFromRightToLeft();
             } else {
@@ -218,12 +221,13 @@ class WeNotify extends EventEmitter {
 
         win.on('close', () => {
             this.emit('close');
-
+            _winIDs.splice(_winIDs.indexOf(win.id), 1);
             this._notifyWindow = null;
             ipcMain.removeListener(`windowID-${win.id}`, this.close);
             ipcMain.removeListener(`body_click-${win.id}`, this.bodyClick);
         });
         win.on('closed', () => {
+
             if(_winIDs.length > 0) {
                 this._launchMoveDownInRightBottom();
             };
