@@ -1,3 +1,5 @@
+import isEmpty from 'lodash/isEmpty';
+
 const log = require('../log')(module);
 
 import ActualPairs  from '../../models/tradePairs';
@@ -10,7 +12,7 @@ import Api, { BinanceSocketApi } from '../api/binanceAPI';
 export const api = new Api();
 
 export const lowPercent = 10;
-export const growPercent = 1;
+export const growPercent = 5;
 export const interval = '1h';
 
 export function getTradePairs() { //Fetch available trade pairs
@@ -82,13 +84,14 @@ function getWhalesOrders() { // Get whales orders
                             return initObj;
                         }, {});
                     })
-                .filter(item => item.length && item.orders.length > 0)
+                .filter(item => !isEmpty(item) && item.orders.length > 0)
                 .map(item => {
                     return {
                         ...item,
                         orders: item.orders.filter(order => order.totalBtc > 0)
                     }
                 });
+
             let asks = data.map(item => {
                 return item.asks.reduce((initObj, innerArr) => {
                     initObj.symbol = innerArr.symbol;
@@ -98,7 +101,7 @@ function getWhalesOrders() { // Get whales orders
                     return initObj;
                 }, {});
             })
-                .filter(item => item.length && item.orders.length > 0)
+                .filter(item => !isEmpty(item) && item.orders.length > 0)
                 .map(item => {
                     return {
                         ...item,
@@ -109,6 +112,7 @@ function getWhalesOrders() { // Get whales orders
 
         })
         .then(data => {
+
             return Whale.deleteMany({}).then(() => data);
         })
         .then(data => {
@@ -214,7 +218,7 @@ setInterval(() => {
      return getExchangeInfo();
  }, 60000 * 60);
 
-getExchangeInfo().then(() => Promise.all([getKlineDataIO(interval), checkPairsForSignPrice()]));
+getExchangeInfo().then(() => Promise.all([getKlineDataIO(interval), checkPairsForSignPrice(), getWhalesOrders()]));
 
 
 

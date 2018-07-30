@@ -1,9 +1,5 @@
 import mongoose from 'mongoose';
 
-import { growPercent } from "../common/functions/main";
-
-import Percent from './reachedPercent';
-
 import fetchFields from '../common/functions/compileNeedFields';
 
 const TradePairSchema = new mongoose.Schema({
